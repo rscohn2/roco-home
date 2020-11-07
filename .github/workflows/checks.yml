@@ -1,0 +1,21 @@
+on: [push, pull_request]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+    - name: Install prerequisites
+      run: |
+        pip install --upgrade --quiet pip wheel
+        pip install -e .[dev]
+    - name: Checks
+      run: |
+        pre-commit run --all
+    - name: Tests
+      run: |
+        pytest

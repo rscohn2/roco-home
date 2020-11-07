@@ -3,9 +3,6 @@ from setuptools import setup
 requirements = []
 extra_requirements = {
     'dev': [
-        'black',
-        'doc8',
-        'flake8',
         'pre-commit',
         'pytest',
     ]
