@@ -1,13 +1,14 @@
-from rocohome.cli import main
+from rocohome import cli
 
 
-def test_main():
-    main()
+class MockArgs:
+    dry_run = False
 
 
-def test_db():
-    main(['db'])
+mock_args = MockArgs()
 
 
-def test_db_create():
-    main(['db', 'create'])
+def test_db_start():
+    cli.args = mock_args
+    cli.db.up()
+    cli.db.down()
