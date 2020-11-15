@@ -11,8 +11,9 @@ jobs:
         pip install --upgrade --quiet pip wheel
         pip install -e .[dev]
         sudo apt-get install -qq wget
+        mkdir dynamodb
         wget -O - --quiet http://dynamodb-local.s3-website-us-west-2.amazonaws.com/dynamodb_local_latest.tar.gz \
-           | tar zx
+           | tar zx -C dynamodb
     - name: Checks
       run: |
         export AWS_ACCESS_KEY_ID=fake
