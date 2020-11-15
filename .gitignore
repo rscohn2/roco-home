@@ -5,3 +5,6 @@ __pycache__
 *.log
 
 dynamo.pid
+/rocohome/db/samples
+/dynamodb
+/shared-local-instance.db

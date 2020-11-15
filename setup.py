@@ -1,6 +1,6 @@
 from setuptools import setup
 
-requirements = []
+requirements = ['boto3']
 extra_requirements = {
     'dev': [
         'pre-commit',

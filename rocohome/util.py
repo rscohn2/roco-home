@@ -3,6 +3,7 @@ from subprocess import Popen, run
 
 from rocohome import cli
 
+print('util name:', __name__)
 logger = logging.getLogger(__name__)
 
 
@@ -14,7 +15,7 @@ def shell(cmd):
 
 
 def background(cmd):
-    logger.info('backgroundl: %s' % cmd)
+    logger.info('background: %s' % cmd)
     if cli.args.dry_run:
         return
     return Popen(cmd.split(' '))
