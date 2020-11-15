@@ -4,18 +4,15 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
     - name: Install prerequisites
       run: |
         pip install --upgrade --quiet pip wheel
         pip install -e .[dev]
+        sudo apt-get install -qq wget
+        wget -O - --quiet http://dynamodb-local.s3-website-us-west-2.amazonaws.com/dynamodb_local_latest.tar.gz \
+           | tar zx
     - name: Checks
       run: |
         pre-commit run --all
-    - name: Tests
-      run: |
-        pytest

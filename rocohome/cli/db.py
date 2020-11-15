@@ -2,6 +2,7 @@ import logging
 import os
 import signal
 
+from rocohome import cli
 from rocohome.util import background, shell
 
 logger = logging.getLogger(__name__)
@@ -15,6 +16,11 @@ def add_parser(subparsers):
     create_parser.set_defaults(func=create)
     up_parser = subparsers.add_parser('up', help='Start database')
     up_parser.set_defaults(func=up)
+    up_parser.add_argument(
+        '--jar-dir',
+        default='.',
+        help='Directory that contains DynamoDBLocal.jar',
+    )
     down_parser = subparsers.add_parser('down', help='Shutdown database')
     down_parser.set_defaults(func=down)
 
@@ -28,8 +34,9 @@ def up():
     instance = background(
         (
             'java -Djava.library.path=./DynamoDBLocal_lib'
-            ' -jar DynamoDBLocal.jar -sharedDb'
+            ' -jar %s/DynamoDBLocal.jar -sharedDb'
         )
+        % cli.args.jar_dir
     )
     logger.info('Started %s' % instance.pid)
     with open('dynamo.pid', 'w') as fout:

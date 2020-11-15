@@ -3,6 +3,7 @@ from rocohome import cli
 
 class MockArgs:
     dry_run = False
+    jar_dir = 'dynamodb'
 
 
 mock_args = MockArgs()

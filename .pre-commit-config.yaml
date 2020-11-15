@@ -38,3 +38,11 @@ repos:
     rev: master
     hooks:
     -   id: clang-format
+-   repo: local
+    hooks:
+    - id: pytest
+      name: pytest
+      entry: pytest
+      language: system
+      pass_filenames: false
+      always_run: true
