@@ -3,7 +3,6 @@ from subprocess import Popen, run
 
 from rocohome import cli
 
-print('util name:', __name__)
 logger = logging.getLogger(__name__)
 
 

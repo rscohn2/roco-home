@@ -2,7 +2,7 @@ import argparse
 import logging
 import sys
 
-from rocohome.cli import db
+from rocohome.cli import config, db
 
 args = None
 
@@ -20,12 +20,15 @@ def parse_args(cmd_args):
     subparsers = parser.add_subparsers(dest='cmd')
     subparsers.required = True
     db.add_parser(subparsers)
+    config.add_parser(subparsers)
     return parser.parse_args()
 
 
 def setup():
     if args.verbose:
         logging.basicConfig(level=logging.INFO)
+    else:
+        logging.basicConfig(level=logging.ERROR)
 
 
 def main(cmd_args=sys.argv[1:]):

@@ -1,6 +1,9 @@
 from setuptools import setup
 
-requirements = ['boto3']
+requirements = [
+    'boto3',
+    'pyyaml',
+]
 extra_requirements = {
     'dev': [
         'pre-commit',
