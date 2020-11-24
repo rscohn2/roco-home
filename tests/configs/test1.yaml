@@ -1,0 +1,5 @@
+devices:
+  boiler:
+    mac: 12x33
+  attic:
+    mac: '456'

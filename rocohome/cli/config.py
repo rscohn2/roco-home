@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 
 
 def add_parser(subparsers):
-    parser = subparsers.add_parser('cfg', help='Manage configration')
+    parser = subparsers.add_parser('config', help='Manage configration')
     subparsers = parser.add_subparsers(dest='cmd')
     subparsers.required = True
     load_parser = subparsers.add_parser(
@@ -14,11 +14,11 @@ def add_parser(subparsers):
     )
     load_parser.set_defaults(func=load)
     load_parser.add_argument(
-        'cfg_file',
+        'config_file',
         default='rocohome.yaml',
         help='Yaml file with configuration',
     )
 
 
 def load():
-    config.load(cli.args.cfg_file)
+    config.load(cli.args.config_file)

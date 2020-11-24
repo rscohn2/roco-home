@@ -1,6 +1,6 @@
 import logging
 
-from rocohome import db
+from rocohome import cli, db
 
 logger = logging.getLogger(__name__)
 
@@ -20,6 +20,11 @@ def add_parser(subparsers):
     )
     down_parser = subparsers.add_parser('down', help='Shutdown database')
     down_parser.set_defaults(func=down)
+    reset_parser = subparsers.add_parser('reset', help='Reset database')
+    reset_parser.add_argument(
+        'config_file', help='File with devices configuration'
+    )
+    reset_parser.set_defaults(func=reset)
 
 
 def up():
@@ -32,3 +37,7 @@ def down():
     with open('dynamo.pid', 'r') as fin:
         pid = int(fin.read())
     db.local.down(pid)
+
+
+def reset():
+    db.admin.reset(cli.args.config_file)

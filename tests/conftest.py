@@ -1,3 +1,6 @@
+import os.path
+from os.path import join
+
 import pytest
 
 import rocohome as rh
@@ -22,3 +25,8 @@ def db_instance(mock_args):
     yield db_pid
     print('Stoping instance')
     db.local.down(db_pid)
+
+
+@pytest.fixture
+def configs_dir():
+    return join(os.path.dirname(os.path.realpath(__file__)), 'configs')

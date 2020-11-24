@@ -2,6 +2,9 @@
  ROCOHOME
 ==========
 
+.. image:: https://github.com/rscohn2/roco-home/workflows/.github/workflows/checks.yml/badge.svg
+   :target: https://github.com/rscohn2/roco-home/actions
+
 Code for managing smart home.
 
 CLI
