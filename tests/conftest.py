@@ -1,3 +1,4 @@
+import json
 import os.path
 from os.path import join
 
@@ -28,5 +29,21 @@ def db_instance(mock_args):
 
 
 @pytest.fixture
-def configs_dir():
-    return join(os.path.dirname(os.path.realpath(__file__)), 'configs')
+def reset_db(db_instance):
+    db.admin.reset()
+
+
+@pytest.fixture(scope='session')
+def data_dir():
+    return join(os.path.dirname(os.path.realpath(__file__)), 'data')
+
+
+@pytest.fixture(scope='session')
+def short_observations(data_dir):
+    with open(join(data_dir, 'observations', 'short.json'), 'r') as stream:
+        return json.load(stream)
+
+
+@pytest.fixture(scope='session')
+def home_config(data_dir):
+    rh.config.config.set(join(data_dir, 'configs', 'test1.yaml'))

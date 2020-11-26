@@ -29,3 +29,5 @@ Testing
 To test::
 
   pytest
+
+  pytest --log-cli-level=INFO tests/test_observations.py

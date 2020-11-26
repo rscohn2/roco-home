@@ -1,41 +1,33 @@
 import logging
 
-from rocohome import config, db
+from rocohome import db
 
 logger = logging.getLogger(__name__)
 
 provisioned = {"ReadCapacityUnits": 1, "WriteCapacityUnits": 1}
 
 
-def create_device_table():
+def create_observation_table():
     db.client().create_table(
-        TableName='Devices',
+        TableName='Observations',
         KeySchema=[
-            {'AttributeName': 'mac', 'KeyType': 'HASH'},
-            {'AttributeName': 'name', 'KeyType': 'RANGE'},
+            {'AttributeName': 'sensor_name', 'KeyType': 'HASH'},
+            {'AttributeName': 'time', 'KeyType': 'RANGE'},
         ],
         AttributeDefinitions=[
-            {'AttributeName': 'mac', 'AttributeType': 'S'},
-            {'AttributeName': 'name', 'AttributeType': 'S'},
+            {'AttributeName': 'sensor_name', 'AttributeType': 'S'},
+            {'AttributeName': 'time', 'AttributeType': 'N'},
         ],
         ProvisionedThroughput=provisioned,
     )
-    db.devices = db.resource().Table('Devices')
-    with db.devices.batch_writer() as batch:
-        for name in config.config['devices']:
-            device_info = config.config['devices'][name]
-            logger.info('Adding device: %s: %s' % (name, device_info))
-            batch.put_item(Item={'name': name, 'mac': device_info['mac']})
+    db.observations = db.resource().Table('Observations')
 
 
 def create_tables():
-    create_device_table()
+    create_observation_table()
 
 
-def reset(config_file):
-    ''' Delete the tables '''
-
-    config.load(config_file)
+def reset():
     for table in db.client().list_tables()['TableNames']:
         db.client().delete_table(TableName=table)
     create_tables()

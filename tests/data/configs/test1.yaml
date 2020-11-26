@@ -1,0 +1,11 @@
+devices:
+  "ec:fa:bc:c5:b8:90":
+    name: boiler
+    sensors:
+      bit-1: unconnected-1
+      bit-2: unconnected-2
+      bit-3: unconnected-3
+      bit-4: oil-burner
+      bit-5: 2nd-floor-circulator
+      bit-6: 1st-floor-circulator
+      bit-7: water-heater
