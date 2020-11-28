@@ -1,6 +1,10 @@
+name: home
+id: "9 Hall Ave"
 devices:
-  "ec:fa:bc:c5:b8:90":
-    name: boiler
+  boiler:
+    id: "ec:fa:bc:c5:b8:90"
+    tokens:
+      "wcPSMZ-3c3M8ExXXf2dB1hBeMqJi0PB8TBKfk7GI_CU":
     sensors:
       bit-1: unconnected-1
       bit-2: unconnected-2

@@ -2,7 +2,7 @@ import argparse
 import logging
 import sys
 
-from rocohome.cli import config, db
+from rocohome.cli import config, db, identity
 
 args = None
 
@@ -21,6 +21,7 @@ def parse_args(cmd_args):
     subparsers.required = True
     db.add_parser(subparsers)
     config.add_parser(subparsers)
+    identity.add_parser(subparsers)
     return parser.parse_args()
 
 

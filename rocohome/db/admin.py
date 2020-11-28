@@ -7,24 +7,28 @@ logger = logging.getLogger(__name__)
 provisioned = {"ReadCapacityUnits": 1, "WriteCapacityUnits": 1}
 
 
-def create_observation_table():
-    db.client().create_table(
-        TableName='Observations',
+def create_observation_table(db_client):
+    table_name = 'Observations'
+    if table_name in db_client.list_tables()['TableNames']:
+        db_client.delete_table(TableName=table_name)
+    db_client.create_table(
+        TableName=table_name,
         KeySchema=[
-            {'AttributeName': 'sensor_name', 'KeyType': 'HASH'},
+            {'AttributeName': 'observed_id', 'KeyType': 'HASH'},
             {'AttributeName': 'time', 'KeyType': 'RANGE'},
         ],
         AttributeDefinitions=[
-            {'AttributeName': 'sensor_name', 'AttributeType': 'S'},
+            {'AttributeName': 'observed_id', 'AttributeType': 'S'},
             {'AttributeName': 'time', 'AttributeType': 'N'},
         ],
         ProvisionedThroughput=provisioned,
     )
-    db.observations = db.resource().Table('Observations')
+    db.observations = db.resource().Table(table_name)
+    return db.observations
 
 
 def create_tables():
-    create_observation_table()
+    create_observation_table(db.client())
 
 
 def reset():
