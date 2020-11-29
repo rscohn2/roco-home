@@ -17,6 +17,17 @@ class UnsupportedEvent(Exception):
         self.event = event
 
 
+def decode_event(e):
+    """Returns a decoded event."""
+
+    if e['version'] not in supported_versions:
+        raise UnsupportedEventVersion(e['version'])
+    if e['event'] == 'sensor':
+        return SensorEvent(e)
+    else:
+        raise UnsupportedEvent(e['event'])
+
+
 class Event:
     """Representation of an event.
 
@@ -31,35 +42,24 @@ class Event:
         self.time = int(e['time'])
         self.raw = e
 
-    def decode(e):
-        """Returns a decoded event."""
 
-        if e['version'] not in supported_versions:
-            raise UnsupportedEventVersion(e['version'])
-        if e['event'] == 'observation':
-            return Observation(e)
-        else:
-            raise UnsupportedEvent(e['event'])
-
-
-class Observation(Event):
-    """Representation of an sensor observation."""
+class SensorEvent(Event):
+    """Representation of an sensor event."""
 
     def __init__(self, e):
-        """Decodes an observation."""
-        self.sensor = rh.Device.lookup(e['token']).lookup_sensor(
+        """Decodes a sensor event."""
+        self.sensor = rh.Device.lookup_device(e['token']).lookup_sensor(
             e['sensor_id']
         )
         self.val = int(e['val'])
         super().__init__(e)
 
     def encode(self):
-        """Encode an observation for insertion into the db."""
+        """Encode an sensor event for insertion into the db."""
 
         return {
             'time': self.time,
-            'account_id': self.sensor.device.building.account.id,
-            'building_id': self.sensor.device.building.id,
-            'observed_id': self.sensor.observed_id,
+            'device_guid': self.sensor.device.guid,
+            'signal_guid': self.sensor.signal.guid,
             'val': self.val,
         }

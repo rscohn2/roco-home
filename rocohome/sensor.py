@@ -7,12 +7,9 @@ class Sensor:
     be: 0 (off), 1 (on). A state can also be a temperature in
     celsius.
 
-    Attributes:
-       id -- name suitable for lookup, does not change
-
     """
 
-    def __init__(self, sensor_id, device, sensor_observes):
-        self.id = sensor_id
+    def __init__(self, sensor_name, sensor_dict, device):
         self.device = device
-        self.observed_id = sensor_observes
+        self.name = sensor_name
+        self.signal = device.building.lookup_signal(sensor_dict['signal'])

@@ -41,14 +41,18 @@ def data_dir():
 
 
 @pytest.fixture(scope='session')
-def observations(building, data_dir):
-    with open(join(data_dir, 'observations', 'short.json'), 'r') as stream:
-        return [rh.Observation(obs) for obs in json.load(stream)]
+def events(building, data_dir):
+    with open(join(data_dir, 'events', 'short.json'), 'r') as stream:
+        return [
+            rh.decode_event(json_event) for json_event in json.load(stream)
+        ]
 
 
 @pytest.fixture(scope='session')
 def account():
-    return rh.Account('rscohn2')
+    return rh.Account(
+        'rscohn2', {'guid': 'acea2d90-325e-11eb-aef5-00155d093636'}
+    )
 
 
 @pytest.fixture(scope='session')
@@ -57,15 +61,5 @@ def building(account, data_dir):
 
 
 @pytest.fixture
-def observation_table(db_client):
-    return rocohome.db.admin.create_observation_table(db_client)
-
-
-@pytest.fixture
-def collector(observation_table):
-    return rh.Collector(observation_table)
-
-
-@pytest.fixture
-def log_server(observation_table):
-    return rh.LogServer(observation_table)
+def event_table(db_client):
+    return rocohome.db.admin.create_event_table(db_client)

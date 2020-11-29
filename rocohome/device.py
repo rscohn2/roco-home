@@ -4,41 +4,32 @@ import rocohome as rh
 
 logger = logging.getLogger(__name__)
 
-registry = {}
+device_token_registry = {}
 
 
 class Device:
-    """Representation of a device.
+    """Representation of a device."""
 
-    A device is a network connected object that contains sensors.
-
-    Attributes:
-      name -- Name to use in UI
-      sensors -- Dict where keys are sensor_id, value is a sensor
-      id -- Unique ID that does not change. Usually a MAC.
-      tokens -- Dict where keys are tokens used for authentication
-
-    """
-
-    def __init__(self, name, building, dict):
-        self.name = name
-        self.id = dict['id']
+    def __init__(self, device_name, device_dict, building):
         self.building = building
+        self.name = device_name
+        self.guid = device_dict['guid']
         self.tokens = {}
-        for token in dict['tokens']:
+        for token in device_dict['tokens']:
             self.tokens[token] = None
         self.sensors = {}
-        for name, sensor in dict['sensors'].items():
-            self.sensors[name] = rh.Sensor(name, self, sensor)
+        for sensor_name, sensor_dict in device_dict['sensors'].items():
+            self.sensors[sensor_name] = rh.Sensor(
+                sensor_name, sensor_dict, self
+            )
 
-    def register(self):
-        global registry
+    def register_tokens(self):
+        global device_token_registry
         for token in self.tokens:
-            registry[token] = self
-            logger.info('registered %s with token: %s' % (self.id, token))
+            device_token_registry[token] = self
 
-    def lookup(token):
-        return registry[token]
+    def lookup_device(token):
+        return device_token_registry[token]
 
-    def lookup_sensor(self, sensor_id):
-        return self.sensors[sensor_id]
+    def lookup_sensor(self, sensor_name):
+        return self.sensors[sensor_name]

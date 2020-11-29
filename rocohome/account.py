@@ -15,8 +15,9 @@ class Account:
 
     """
 
-    def __init__(self, name):
-        self.id = name
+    def __init__(self, account_name, account_dict):
+        self.name = account_name
+        self.guid = account_dict['guid']
         self.buildings = {}
 
     def load_building(self, file):
@@ -25,13 +26,18 @@ class Account:
             with open(file, 'r') as stream:
                 try:
                     building_dict = yaml.safe_load(stream)
-                    logger.info('Loaded building: %s' % building_dict)
-                    building = rh.Building(self, building_dict)
-                    self.buildings[building.name] = building
+                    building_name = building_dict['name']
+                    logger.info(
+                        'Loaded building %s: %s'
+                        % (building_name, building_dict)
+                    )
+                    self.buildings[building_name] = rh.Building(
+                        building_name, building_dict, self
+                    )
+                    return self.buildings[building_name]
                 except yaml.YAMLError as exc:
                     logger.error('parsing building file %s: %s' % (file, exc))
                     raise exc
         except OSError as exc:
             logger.error('opening building file: %s: %s' % (file, exc))
             raise exc
-        return building
