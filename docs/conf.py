@@ -22,6 +22,7 @@ sys.path.insert(0, os.path.abspath('..'))
 project = 'rocohome'
 copyright = '2020, Robert Cohn'
 author = 'Robert Cohn'
+version = '0.1'
 
 
 # -- General configuration ---------------------------------------------------
