@@ -17,8 +17,19 @@ class UnsupportedEvent(Exception):
         self.event = event
 
 
-def decode_event(e):
-    """Returns a decoded event."""
+def device_decode_event(e):
+    """Returns an Event from a device-generated dict"""
+
+    if e['version'] not in supported_versions:
+        raise UnsupportedEventVersion(e['version'])
+    if e['event'] == 'sensor':
+        return SensorEvent(e)
+    else:
+        raise UnsupportedEvent(e['event'])
+
+
+def db_decode_event(e):
+    """Returns an Event from a db generated dict"""
 
     if e['version'] not in supported_versions:
         raise UnsupportedEventVersion(e['version'])

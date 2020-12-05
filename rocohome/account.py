@@ -16,11 +16,13 @@ class Account:
     """
 
     def __init__(self, account_name, account_dict):
+        """Construct an account."""
         self.name = account_name
         self.guid = account_dict['guid']
         self.buildings = {}
 
     def load_building(self, file):
+        """Load configuration data for a building."""
         try:
             logger.info('load building: %s' % file)
             with open(file, 'r') as stream:

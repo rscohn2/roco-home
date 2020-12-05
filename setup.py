@@ -5,10 +5,7 @@ requirements = [
     'pyyaml',
 ]
 extra_requirements = {
-    'dev': [
-        'pre-commit',
-        'pytest',
-    ]
+    'dev': ['pre-commit', 'pytest', 'sphinx', 'sphinx-book-theme']
 }
 
 setup(

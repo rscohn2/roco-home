@@ -1,9 +1,6 @@
-*~
 __pycache__
 /*.egg-info/
-*.diff
-*.log
-
+/docs/_build
 dynamo.pid
 /rocohome/db/samples
 /dynamodb
