@@ -1,0 +1,8 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: rocohome
+Upstream-Contact: Robert Cohn <rscohn2@gmail.com>
+Source:
+
+Files: tests/data/events/short.json
+Copyright: 2020 Robert Cohn
+License: MIT

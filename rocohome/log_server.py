@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2020 Robert Cohn
+#
+# SPDX-License-Identifier: MIT
+
 from boto3.dynamodb.conditions import Key
 
 

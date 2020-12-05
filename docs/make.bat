@@ -1,3 +1,7 @@
+REM SPDX-FileCopyrightText: 2020 Robert Cohn
+REM
+REM SPDX-License-Identifier: MIT
+
 @ECHO OFF
 
 pushd %~dp0

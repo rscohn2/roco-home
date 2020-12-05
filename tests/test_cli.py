@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2020 Robert Cohn
+#
+# SPDX-License-Identifier: MIT
+
 # from rocohome import cli
 
 # def test_db_start():

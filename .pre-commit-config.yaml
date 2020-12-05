@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2020 Robert Cohn
+#
+# SPDX-License-Identifier: MIT
+
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
@@ -44,3 +48,7 @@ repos:
     rev: master
     hooks:
     -   id: clang-format
+-   repo: https://github.com/fsfe/reuse-tool
+    rev: master
+    hooks:
+    -   id: reuse
