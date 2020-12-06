@@ -45,12 +45,9 @@ def data_dir():
 
 
 @pytest.fixture(scope='session')
-def events(building, data_dir):
+def device_events(data_dir):
     with open(join(data_dir, 'events', 'short.json'), 'r') as stream:
-        return [
-            rh.device_decode_event(json_event)
-            for json_event in json.load(stream)
-        ]
+        return json.load(stream)
 
 
 @pytest.fixture(scope='session')
@@ -66,14 +63,16 @@ def building(account, data_dir):
 
 
 @pytest.fixture
-def empty_event_table(db_client):
-    return rocohome.db.admin.create_event_table(db_client)
+def empty_event_store(db_client):
+    store = rh.EventStore()
+    store.reset()
+    return store
 
 
 @pytest.fixture
-def populated_event_table(empty_event_table, events):
-    event_table = empty_event_table
-    collector = rh.Collector(event_table)
-    for event in events:
-        collector.record_event(event)
-    return event_table
+def populated_event_store(empty_event_store, device_events):
+    event_store = empty_event_store
+    collector = rh.EventCollector(event_store)
+    for device_event in device_events:
+        collector.record_event(device_event)
+    return event_store

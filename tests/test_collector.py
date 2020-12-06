@@ -3,5 +3,5 @@
 # SPDX-License-Identifier: MIT
 
 
-def test_record_events(populated_event_table):
+def test_record_events(populated_event_store):
     pass
