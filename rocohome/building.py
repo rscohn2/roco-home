@@ -22,17 +22,14 @@ class Building:
         self.account = account
         self.name = building_dict['name']
         self.guid = building_dict['guid']
-        self.signals = {}
+        self.signal_by_name = {}
         for signal_name, signal_dict in building_dict['signals'].items():
-            self.signals[signal_name] = rh.Signal(
-                signal_name, signal_dict, self
-            )
-        self.devices = {}
+            signal = rh.Signal(signal_name, signal_dict, self)
+            self.signal_by_name[signal_name] = signal
+            signal.register_guid()
+        self.device_by_name = {}
         for device_name, device_dict in building_dict['devices'].items():
-            self.devices[device_name] = rh.Device(
-                device_name, device_dict, self
-            )
-            self.devices[device_name].register_tokens()
-
-    def lookup_signal(self, signal_name):
-        return self.signals[signal_name]
+            device = rh.Device(device_name, device_dict, self)
+            self.device_by_name[device_name] = device
+            device.register_tokens()
+            device.register_guid()

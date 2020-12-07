@@ -61,9 +61,9 @@ class Event:
          Incoming representation
     """
 
-    def __init__(self, from_device=None):
-        self.time = int(from_device['time'])
-        self.raw = from_device
+    def __init__(self, dict):
+        self.time = int(dict['time'])
+        self.raw = dict
 
 
 class SignalEvent(Event):
@@ -82,20 +82,19 @@ class SignalEvent(Event):
 
     def __init__(self, from_device=None, from_store=None):
         if from_device:
-            self.device = rh.Device.lookup_device(from_device['token'])
-            self.signal = self.device.lookup_sensor(
+            self.device = rh.Device.by_token[from_device['token']]
+            self.signal = self.device.sensor_by_name[
                 from_device['sensor_id']
-            ).signal
+            ].signal
             self.val = int(from_device['val'])
             # Extract common arguments
-            super().__init__(from_device=from_device)
+            super().__init__(from_device)
         elif from_store:
-            # extract device and signal from guids
-            # they should be saved in dictionaries when processing the yaml
-            assert False
+            self.device = rh.Device.by_guid[from_store['device_guid']]
+            self.signal = rh.Signal.by_guid[from_store['signal_guid']]
             self.val = from_store['val']
             # Extract common arguments
-            super().__init__(from_store=from_store)
+            super().__init__(from_store)
         else:
             assert False, 'Supply from_store or to_store'
 
