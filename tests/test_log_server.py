@@ -5,7 +5,7 @@
 import rocohome as rh
 
 
-def test_log_server(populated_event_table, building):
-    log_server = rh.LogServer(populated_event_table, building)
-    o = log_server.query('1st-floor-circulator')
-    assert len(o) == 7
+def test_log_server(populated_event_store, building):
+    log_server = rh.EventLogServer(populated_event_store, building)
+    o = log_server.events()
+    assert len(o) == 21
