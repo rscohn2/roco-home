@@ -6,5 +6,5 @@
 Collector
 =========
 
-.. automodule:: rocohome.collector
+.. automodule:: rocohome.event_collector
    :members:

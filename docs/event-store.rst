@@ -6,5 +6,5 @@
 EventStore
 ==========
 
-.. automodule:: rocohome.event
+.. automodule:: rocohome.event_store
    :members:

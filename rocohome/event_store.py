@@ -17,11 +17,7 @@ logger = logging.getLogger(__name__)
 
 
 class EventStore(ObjectStore):
-    """Stores events from devices.
-
-    Inherits from :class:`~rocohome.object_store.ObjectStore`
-
-    """
+    """Stores events from devices."""
 
     def events(self):
         """Returns all events."""
