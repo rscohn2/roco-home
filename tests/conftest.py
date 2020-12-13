@@ -63,16 +63,16 @@ def building(account, data_dir):
 
 
 @pytest.fixture
-def empty_event_store(db_client):
-    store = rh.EventStore()
+def empty_signal_store(db_client):
+    store = rh.SignalStore()
     store.reset()
     return store
 
 
 @pytest.fixture
-def populated_event_store(empty_event_store, device_events):
-    event_store = empty_event_store
-    collector = rh.EventCollector(event_store)
+def populated_signal_store(empty_signal_store, device_events):
+    signal_store = empty_signal_store
+    collector = rh.EventCollector(signal_store)
     for device_event in device_events:
         collector.record_event(device_event)
-    return event_store
+    return signal_store

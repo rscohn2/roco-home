@@ -5,7 +5,7 @@
 import rocohome as rh
 
 
-def test_log_server(populated_event_store, building):
-    log_server = rh.EventLogServer(populated_event_store, building)
-    o = log_server.events()
+def test_log_server(populated_signal_store, building):
+    log_server = rh.EventLogServer(populated_signal_store, building)
+    o = log_server.signals()
     assert len(o) == 21

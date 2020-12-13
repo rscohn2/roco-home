@@ -13,7 +13,7 @@ from rocohome import db
 logger = logging.getLogger(__name__)
 
 
-class ObjectStore:
+class Store:
     """Base class for persistent storage of objects."""
 
     _provisioned = {"ReadCapacityUnits": 1, "WriteCapacityUnits": 1}
@@ -41,7 +41,7 @@ class ObjectStore:
             TableName=self.table_name,
             KeySchema=key_schema,
             AttributeDefinitions=attribute_definitions,
-            ProvisionedThroughput=ObjectStore._provisioned,
+            ProvisionedThroughput=Store._provisioned,
         )
         self.table = db.resource().Table(self.table_name)
         assert self.table is not None

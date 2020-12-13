@@ -11,29 +11,17 @@ import logging
 from boto3.dynamodb.conditions import Key
 
 import rocohome as rh
-from rocohome.object_store import ObjectStore
+from rocohome.store import Store
 
 logger = logging.getLogger(__name__)
 
 
-class EventStore(ObjectStore):
+class SignalStore(Store):
     """Stores events from devices."""
 
-    def events(self):
+    def signals(self):
         """Returns all events."""
         objects = super().scan()[0]
-        # convert dictionaries to Signals
-        return [rh.SignalEvent(from_store=object) for object in objects]
-
-    def signal_events(self, signals=None):
-        """Returns signal events associated with a list of signals."""
-        signal_guids = [signal.guid for signal in signals]
-        # retrieve the events associated with the guids from the event store
-        # FIXME: get all the guids, not just the first one
-        assert False
-        objects = super().scan(
-            FilterExpression=Key('signal_guid').eq(signal_guids[0])
-        )[0]
         # convert dictionaries to Signals
         return [rh.SignalEvent(from_store=object) for object in objects]
 

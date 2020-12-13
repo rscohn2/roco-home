@@ -17,7 +17,7 @@ Welcome to rocohome's documentation!
    collector
    device
    event
-   event-store
+   signal-store
    log_server
    sensor
    signal
