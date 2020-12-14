@@ -9,7 +9,7 @@ def exercise_store(store, events):
     for event in events:
         store.put(event)
     q = store.query()
-    assert len(q) == len(events)
+    assert len(list(q)) == len(events)
 
 
 def test_signalstore(empty_signal_events_store, building):

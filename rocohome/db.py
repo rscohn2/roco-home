@@ -111,15 +111,15 @@ class DynamoDB(DB):
 
         def query(self, **kwargs):
             start_key = None
-            objects = []
             while True:
                 if start_key:
                     kwargs['ExclusiveStartKey'] = start_key
                 response = self.table.scan(**kwargs)
-                objects.append(response.get('Items', []))
+                for object in response['Items']:
+                    yield object
                 start_key = response.get('LastEvaluatedKey', None)
                 if start_key is None:
-                    return objects[0]
+                    return
 
         def put(self, object):
             logger.info('table: %s put: %s' % (self.name, object))

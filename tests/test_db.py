@@ -26,7 +26,7 @@ def exercise_db(db):
     for event in events:
         table.put(event)
     q = table.query()
-    assert len(q) == len(events)
+    assert len(list(q)) == len(events)
 
 
 def test_dynamodb(local_dynamodb):

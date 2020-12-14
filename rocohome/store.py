@@ -84,6 +84,6 @@ class SignalEventsStore(Store):
         return SignalEventsStore(db)
 
     def query(self):
-        objects = super().query()
-        # convert dictionaries to Signals
-        return [rh.SignalEvent(from_store=object) for object in objects]
+        for object in super().query():
+            # convert dictionaries to Signals
+            yield rh.SignalEvent(from_store=object)
