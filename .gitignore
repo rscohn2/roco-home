@@ -6,6 +6,5 @@ __pycache__
 /*.egg-info/
 /docs/_build
 dynamo.pid
-/rocohome/db/samples
 /dynamodb
 /shared-local-instance.db

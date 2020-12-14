@@ -3,8 +3,11 @@
 .. SPDX-License-Identifier: MIT
 
 ==========
-EventStore
+ Services
 ==========
 
-.. automodule:: rocohome.event_store
-   :members:
+.. toctree::
+   :maxdepth: 1
+
+   collector
+   log_server

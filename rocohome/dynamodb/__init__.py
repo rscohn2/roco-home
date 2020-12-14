@@ -2,6 +2,4 @@
 #
 # SPDX-License-Identifier: MIT
 
-
-def test_record_events(populated_signal_events_store):
-    pass
+import rocohome.dynamodb.local as local  # noqa: F401
