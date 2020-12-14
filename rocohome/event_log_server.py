@@ -15,4 +15,4 @@ class EventLogServer:
         self.building = building
 
     def signals(self):
-        return self.signal_store.signals()
+        return self.signal_store.query()

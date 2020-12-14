@@ -12,15 +12,11 @@ Welcome to rocohome's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   account
-   building
-   collector
-   device
-   event
-   signal-store
-   log_server
-   sensor
-   signal
+   core
+   storage
+   services
+
+
 
 Indices and tables
 ==================
