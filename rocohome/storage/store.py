@@ -9,7 +9,7 @@
 import logging
 from abc import ABC
 
-import rocohome as rh
+import rocohome.core as rcore
 
 logger = logging.getLogger(__name__)
 
@@ -19,7 +19,7 @@ class Store(ABC):
 
     Parameters
     ----------
-    db : :class:`~rocohome.db.DB`
+    db : :class:`~rocohome.storage.db.DB`
       Handle to DB
     name : str
       Name of store
@@ -30,13 +30,13 @@ class Store(ABC):
         self.table = db.Table(db, name)
 
     def create(db, name, info):
-        """Returns a :class:`~rocohome.store.Store`
+        """Returns a :class:`~rocohome.storage.store.Store`
 
         Creates a new Store. Deletes a Store with the same name.
 
         Parameters
         ----------
-        db : :class:`~rocohome.db.DB`
+        db : :class:`~rocohome.storage.db.DB`
           Handle to DB
         name : str
           Name of store
@@ -86,4 +86,4 @@ class SignalEventsStore(Store):
     def query(self):
         for object in super().query():
             # convert dictionaries to Signals
-            yield rh.SignalEvent(from_store=object)
+            yield rcore.SignalEvent(from_store=object)

@@ -31,3 +31,7 @@ def exercise_db(db):
 
 def test_dynamodb(local_dynamodb):
     exercise_db(local_dynamodb)
+
+
+# def test_cvsdb(sqlite_db):
+#    exercise_db(sqlite_db)

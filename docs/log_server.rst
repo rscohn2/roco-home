@@ -6,5 +6,5 @@
 Log Server
 ==========
 
-.. automodule:: rocohome.event_log_server
+.. automodule:: rocohome.services.event_log_server
    :members:

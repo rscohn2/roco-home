@@ -4,7 +4,7 @@
 
 import logging
 
-import rocohome as rh
+import rocohome.core as rcore
 
 logger = logging.getLogger(__name__)
 
@@ -24,12 +24,12 @@ class Building:
         self.guid = building_dict['guid']
         self.signal_by_name = {}
         for signal_name, signal_dict in building_dict['signals'].items():
-            signal = rh.Signal(signal_name, signal_dict, self)
+            signal = rcore.Signal(signal_name, signal_dict, self)
             self.signal_by_name[signal_name] = signal
             signal.register_guid()
         self.device_by_name = {}
         for device_name, device_dict in building_dict['devices'].items():
-            device = rh.Device(device_name, device_dict, self)
+            device = rcore.Device(device_name, device_dict, self)
             self.device_by_name[device_name] = device
             device.register_tokens()
             device.register_guid()

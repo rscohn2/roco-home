@@ -8,10 +8,10 @@ from os.path import join
 
 import pytest
 
-import rocohome as rh
-import rocohome.cli as cli
-import rocohome.db
-import rocohome.dynamodb
+import rocohome.core as rcore
+import rocohome.services as rservices
+import rocohome.services.cli as cli
+import rocohome.storage as rstorage
 
 
 class MockArgs:
@@ -27,15 +27,22 @@ def mock_args():
 @pytest.fixture(scope='session')
 def local_dynamodb_instance(mock_args):
     print('Starting instance')
-    db_pid = rocohome.dynamodb.local.up()
+    db_pid = rstorage.dynamodb.local.up()
     yield db_pid
     print('Stopping instance')
-    rocohome.dynamodb.local.down(db_pid)
+    rstorage.dynamodb.local.down(db_pid)
+
+
+@pytest.fixture
+def sqlite_db():
+    db = rstorage.SQLite3()
+    yield db
+    db.delete()
 
 
 @pytest.fixture
 def local_dynamodb(local_dynamodb_instance):
-    db = rocohome.db.DynamoDB()
+    db = rstorage.DynamoDB()
     db.reset()
     return db
 
@@ -53,7 +60,7 @@ def device_events(data_dir):
 
 @pytest.fixture(scope='session')
 def account():
-    return rh.Account(
+    return rcore.Account(
         'rscohn2', {'guid': 'acea2d90-325e-11eb-aef5-00155d093636'}
     )
 
@@ -65,14 +72,14 @@ def building(account, data_dir):
 
 @pytest.fixture
 def empty_signal_events_store(local_dynamodb):
-    store = rh.SignalEventsStore.create(local_dynamodb)
+    store = rstorage.SignalEventsStore.create(local_dynamodb)
     return store
 
 
 @pytest.fixture
 def populated_signal_events_store(empty_signal_events_store, device_events):
     store = empty_signal_events_store
-    collector = rh.EventCollector(store)
+    collector = rservices.EventCollector(store)
     for device_event in device_events:
         collector.record_event(device_event)
     return store

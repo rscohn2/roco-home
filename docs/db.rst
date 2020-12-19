@@ -6,17 +6,17 @@
 DB
 ==
 
-.. autoclass:: rocohome.db::DB
+.. autoclass:: rocohome.storage.db::DB
    :members:
 
-.. autoclass:: rocohome.db::DB.Table
+.. autoclass:: rocohome.storage.db::DB.Table
    :members:
 
 Derived Classes
 ===============
 
-.. autoclass:: rocohome.db::DynamoDB
+.. autoclass:: rocohome.storage.db::DynamoDB
    :members:
 
-.. autoclass:: rocohome.db::DynamoDB.Table
+.. autoclass:: rocohome.storage.db::DynamoDB.Table
    :members:

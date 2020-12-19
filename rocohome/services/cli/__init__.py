@@ -6,7 +6,7 @@ import argparse
 import logging
 import sys
 
-from rocohome.cli import config, db, identity
+from rocohome.services.cli import config, db, identity
 
 args = None
 

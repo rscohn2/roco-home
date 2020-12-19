@@ -6,5 +6,5 @@
 Sensor
 ======
 
-.. automodule:: rocohome.sensor
+.. automodule:: rocohome.core.sensor
    :members:

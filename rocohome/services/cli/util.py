@@ -5,7 +5,7 @@
 import logging
 from subprocess import Popen, run
 
-from rocohome import cli
+from rocohome.services import cli
 
 logger = logging.getLogger(__name__)
 

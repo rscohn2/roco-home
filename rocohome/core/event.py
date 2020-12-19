@@ -8,7 +8,7 @@
 
 import logging
 
-import rocohome as rh
+import rocohome.core as rcore
 
 logger = logging.getLogger(__name__)
 
@@ -73,7 +73,7 @@ class SignalEvent(Event):
        time
          UTC timestamp
        signal
-         :class:`~rocohome.signal.Signal`
+         :class:`~rocohome.core.signal.Signal`
        val
          recorded value
        raw
@@ -82,7 +82,7 @@ class SignalEvent(Event):
 
     def __init__(self, from_device=None, from_store=None):
         if from_device:
-            self.device = rh.Device.by_token[from_device['token']]
+            self.device = rcore.Device.by_token[from_device['token']]
             self.signal = self.device.sensor_by_name[
                 from_device['sensor_id']
             ].signal
@@ -90,8 +90,8 @@ class SignalEvent(Event):
             # Extract common arguments
             super().__init__(from_device)
         elif from_store:
-            self.device = rh.Device.by_guid[from_store['device_guid']]
-            self.signal = rh.Signal.by_guid[from_store['signal_guid']]
+            self.device = rcore.Device.by_guid[from_store['device_guid']]
+            self.signal = rcore.Signal.by_guid[from_store['signal_guid']]
             self.val = from_store['val']
             # Extract common arguments
             super().__init__(from_store)

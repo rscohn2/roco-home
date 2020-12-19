@@ -6,5 +6,5 @@
 Building
 ========
 
-.. automodule:: rocohome.building
+.. automodule:: rocohome.core.building
    :members:

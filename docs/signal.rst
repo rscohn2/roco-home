@@ -6,5 +6,5 @@
 Signal
 ======
 
-.. automodule:: rocohome.signal
+.. automodule:: rocohome.core.signal
    :members:

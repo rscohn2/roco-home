@@ -6,5 +6,5 @@
  Account
 =========
 
-.. automodule:: rocohome.account
+.. automodule:: rocohome.core.account
    :members:

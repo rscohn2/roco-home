@@ -4,7 +4,8 @@
 
 import logging
 
-from rocohome import cli, db
+from rocohome.services import cli
+from rocohome.storage import db
 
 logger = logging.getLogger(__name__)
 

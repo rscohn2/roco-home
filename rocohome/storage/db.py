@@ -3,8 +3,9 @@
 # SPDX-License-Identifier: MIT
 
 import logging
-import tempfile
-from abc import ABC
+import sqlite3
+from abc import ABC, abstractmethod
+from shutil import rmtree
 
 import boto3
 
@@ -29,10 +30,12 @@ logger = logging.getLogger(__name__)
 class DB(ABC):
     """Abstract base class for DB."""
 
+    @abstractmethod
     def reset(self):
         """Delete all tables."""
         pass
 
+    @abstractmethod
     def create_table(self, name, info):
         """Create table.
 
@@ -48,8 +51,10 @@ class DB(ABC):
           DB-specific info
 
         """
+        pass
 
     class Table:
+        @abstractmethod
         def __init__(self, db, name):
             """Creates handle for a table.
 
@@ -64,10 +69,12 @@ class DB(ABC):
             """
             pass
 
+        @abstractmethod
         def put(self, object):
             """Save an object in the table."""
             pass
 
+        @abstractmethod
         def query(self):
             """Returns list of objects matching filter conditions."""
             pass
@@ -126,10 +133,33 @@ class DynamoDB(DB):
             self.table.put_item(Item=object)
 
 
-class CSVDB(DB):
-    def __init__(self, name=None):
-        if name:
+class SQLite3(DB):
+    def __init__(self, path=':memory:'):
+        self.path = path
+        self.connector = sqlite3.connect(path)
+        self.cursor = self.connector.cursor()
+
+    def delete(self):
+        if self.path != ':memory:':
+            rmtree(self.path)
+
+    def reset(self):
+        assert False
+
+    def create_table(self, name, info):
+        self.cursor(
+            'CREATE TABLE IF NOT EXISTS %s %s' % (name, info['sql_schema'])
+        )
+        self.cursor('DROP TABLE %s')
+        return SQLite3.Table(self, name, info)
+
+    class Table(DB.Table):
+        def __init__(self, db, name, info):
+            self.db = db
             self.name = name
-        else:
-            self.temp_dir = tempfile.TemporaryDirectory
-            self.name = self.temp_dir.name
+
+        def put(self, object):
+            self.db.cursor.execute('INSERT INTO %s VALUES')
+
+        def query(self):
+            assert False

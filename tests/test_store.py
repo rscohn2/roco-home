@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-import rocohome as rh
+import rocohome.core as rcore
 
 
 def exercise_store(store, events):
@@ -27,5 +27,5 @@ def test_signalstore(empty_signal_events_store, building):
             'time': 2,
         },
     ]
-    events = [rh.SignalEvent(from_store=e) for e in store_signal_events]
+    events = [rcore.SignalEvent(from_store=e) for e in store_signal_events]
     exercise_store(empty_signal_events_store, events)

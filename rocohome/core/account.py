@@ -6,7 +6,7 @@ import logging
 
 import yaml
 
-import rocohome as rh
+import rocohome.core as rcore
 
 logger = logging.getLogger(__name__)
 
@@ -37,7 +37,7 @@ class Account:
                         'Loaded building %s: %s'
                         % (building_name, building_dict)
                     )
-                    self.buildings[building_name] = rh.Building(
+                    self.buildings[building_name] = rcore.Building(
                         building_name, building_dict, self
                     )
                     return self.buildings[building_name]

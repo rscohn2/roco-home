@@ -4,7 +4,7 @@
 
 import logging
 
-import rocohome as rh
+import rocohome.core as rcore
 
 logger = logging.getLogger(__name__)
 
@@ -24,7 +24,7 @@ class Device:
             self.tokens[token] = None
         self.sensor_by_name = {}
         for sensor_name, sensor_dict in device_dict['sensors'].items():
-            sensor = rh.Sensor(sensor_name, sensor_dict, self)
+            sensor = rcore.Sensor(sensor_name, sensor_dict, self)
             self.sensor_by_name[sensor_name] = sensor
 
     def register_guid(self):

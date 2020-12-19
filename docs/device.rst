@@ -6,5 +6,5 @@
 Device
 =========
 
-.. automodule:: rocohome.device
+.. automodule:: rocohome.core.device
    :members:

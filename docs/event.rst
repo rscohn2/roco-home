@@ -6,5 +6,5 @@
 Event
 =====
 
-.. automodule:: rocohome.event
+.. automodule:: rocohome.core.event
    :members:

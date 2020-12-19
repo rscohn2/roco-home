@@ -8,7 +8,7 @@
 
 import logging
 
-import rocohome as rh
+import rocohome.core as rcore
 
 logger = logging.getLogger(__name__)
 
@@ -24,9 +24,9 @@ class EventCollector:
         """Insert an event into the Event Store.
 
         Convert from device-generate dict into
-        :class:`~rocohome.event.Event`.
+        :class:`~rocohome.core.event.Event`.
 
         """
         logger.info('recording event: %s' % device_event)
-        event = rh.event._device_decode_event(device_event)
+        event = rcore.event._device_decode_event(device_event)
         self.store.put(event)

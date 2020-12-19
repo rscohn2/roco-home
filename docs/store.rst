@@ -6,14 +6,14 @@
 Store
 =====
 
-.. automodule:: rocohome.store
+.. automodule:: rocohome.storage.store
 
-.. autoclass:: rocohome.store::Store
+.. autoclass:: rocohome.storage.store::Store
    :members:
 
 Derived Classes
 ===============
 
-.. autoclass:: rocohome.store::SignalEventsStore
+.. autoclass:: rocohome.storage.store::SignalEventsStore
    :members:
    :inherited-members:
