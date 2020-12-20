@@ -6,6 +6,7 @@ from setuptools import setup
 
 requirements = [
     'boto3',
+    'pandas',
     'pyyaml',
 ]
 extra_requirements = {
