@@ -77,7 +77,7 @@ def empty_signal_events_store(local_dynamodb):
 
 
 @pytest.fixture
-def populated_signal_events_store(empty_signal_events_store, device_events):
+def signal_events_store(building, empty_signal_events_store, device_events):
     store = empty_signal_events_store
     collector = rservices.EventCollector(store)
     for device_event in device_events:

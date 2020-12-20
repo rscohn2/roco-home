@@ -4,9 +4,17 @@
 
 
 class Signal:
-    """Representation of a signal."""
+    """Representation of a signal.
+
+    Attributes:
+      name (str):
+      building (:class:`~rocohome.core.building.Building`):
+      guid (str):
+
+    """
 
     by_guid = {}
+    """Dictionary for mapping guid to signals."""
 
     def __init__(self, signal_name, signal_dict, building):
         self.building = building
@@ -14,4 +22,6 @@ class Signal:
         self.guid = signal_dict['guid']
 
     def register_guid(self):
+        """Register signal for lookup by guid."""
+
         Signal.by_guid[self.guid] = self

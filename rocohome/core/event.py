@@ -72,8 +72,7 @@ class SignalEvent(Event):
     Attributes:
        time
          UTC timestamp
-       signal
-         :class:`~rocohome.core.signal.Signal`
+       signal (:class:`~rocohome.core.signal.Signal`)
        val
          recorded value
        raw

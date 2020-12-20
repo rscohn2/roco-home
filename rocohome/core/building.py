@@ -31,5 +31,4 @@ class Building:
         for device_name, device_dict in building_dict['devices'].items():
             device = rcore.Device(device_name, device_dict, self)
             self.device_by_name[device_name] = device
-            device.register_tokens()
-            device.register_guid()
+            device.register()
