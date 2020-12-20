@@ -6,12 +6,16 @@
 Core
 ====
 
+.. automodule:: rocohome.core
+   :members:
+
 .. toctree::
    :maxdepth: 1
 
+   object
    account
    building
    device
-   sensor
    event
+   sensor
    signal

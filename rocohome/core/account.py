@@ -6,12 +6,13 @@ import logging
 
 import yaml
 
+import rocohome
 import rocohome.core as rcore
 
 logger = logging.getLogger(__name__)
 
 
-class Account:
+class Account(rocohome.Object):
     """Representation of an account.
 
     Account is modeled after github account where buildings are

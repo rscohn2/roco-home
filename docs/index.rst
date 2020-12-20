@@ -5,9 +5,6 @@
 Welcome to rocohome's documentation!
 ====================================
 
-.. automodule:: rocohome
-   :members:
-
 .. toctree::
    :maxdepth: 2
    :caption: Contents:

@@ -2,8 +2,10 @@
 #
 # SPDX-License-Identifier: MIT
 
+import rocohome
 
-class Signal:
+
+class Signal(rocohome.Object):
     """Representation of a signal.
 
     Attributes:

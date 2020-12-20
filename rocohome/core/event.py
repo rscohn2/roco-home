@@ -8,6 +8,7 @@
 
 import logging
 
+import rocohome
 import rocohome.core as rcore
 
 logger = logging.getLogger(__name__)
@@ -51,7 +52,7 @@ def _store_decode_event(e):
         raise UnsupportedEventError(e['event'])
 
 
-class Event:
+class Event(rocohome.Object):
     """Representation of an event.
 
     Attributes:

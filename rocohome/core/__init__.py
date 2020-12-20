@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-"""Manage data for home automation.
+"""Core data structures.
 
 """
 

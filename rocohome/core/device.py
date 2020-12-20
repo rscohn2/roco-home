@@ -4,12 +4,13 @@
 
 import logging
 
+import rocohome
 import rocohome.core as rcore
 
 logger = logging.getLogger(__name__)
 
 
-class Device:
+class Device(rocohome.Object):
     """Representation of a device.
 
     Attributes:
@@ -36,9 +37,6 @@ class Device:
         for sensor_name, sensor_dict in device_dict['sensors'].items():
             sensor = rcore.Sensor(sensor_name, sensor_dict, self)
             self.sensor_by_name[sensor_name] = sensor
-
-    def __str__(self):
-        return str(self.__class__) + ": " + str(self.__dict__)
 
     def register(self):
         """Register device for lookup by token and guid."""

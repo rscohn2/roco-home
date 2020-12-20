@@ -4,12 +4,13 @@
 
 import logging
 
+import rocohome
 import rocohome.core as rcore
 
 logger = logging.getLogger(__name__)
 
 
-class Building:
+class Building(rocohome.Object):
     """Representation of a building.
 
     A building contains devices that measure signals.
