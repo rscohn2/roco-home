@@ -68,7 +68,7 @@ def account():
 @pytest.fixture(scope='session')
 def project(account, data_dir):
     return account.load_project(
-        join(data_dir, 'accounts', 'projects', 'home.yaml')
+        join(data_dir, 'accounts', account.name, 'projects', 'home.yaml')
     )
 
 
