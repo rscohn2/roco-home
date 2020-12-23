@@ -3,8 +3,8 @@
 # SPDX-License-Identifier: MIT
 
 
-def test_signal_lookup(building):
+def test_signal_lookup(project):
     assert (
-        building.device_by_name['boiler'].sensor_by_name['bit-4'].signal.name
+        project.device_by_name['boiler'].sensor_by_name['bit-4'].signal.name
         == 'oil-burner'
     )

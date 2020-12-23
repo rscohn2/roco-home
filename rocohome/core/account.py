@@ -15,8 +15,8 @@ logger = logging.getLogger(__name__)
 class Account(rocohome.Object):
     """Representation of an account.
 
-    Account is modeled after github account where buildings are
-    projects.
+    Account is modeled after github account where projects are
+    repos.
 
     """
 
@@ -24,27 +24,26 @@ class Account(rocohome.Object):
         """Construct an account."""
         self.name = account_name
         self.guid = account_dict['guid']
-        self.buildings = {}
+        self.projects = {}
 
-    def load_building(self, file):
-        """Load configuration data for a building."""
+    def load_project(self, file):
+        """Load configuration data for a project."""
         try:
-            logger.info('load building: %s' % file)
+            logger.info('load project: %s' % file)
             with open(file, 'r') as stream:
                 try:
-                    building_dict = yaml.safe_load(stream)
-                    building_name = building_dict['name']
+                    project_dict = yaml.safe_load(stream)
+                    project_name = project_dict['name']
                     logger.info(
-                        'Loaded building %s: %s'
-                        % (building_name, building_dict)
+                        'Loaded project %s: %s' % (project_name, project_dict)
                     )
-                    self.buildings[building_name] = rcore.Building(
-                        building_name, building_dict, self
+                    self.projects[project_name] = rcore.Project(
+                        project_name, project_dict, self
                     )
-                    return self.buildings[building_name]
+                    return self.projects[project_name]
                 except yaml.YAMLError as exc:
-                    logger.error('parsing building file %s: %s' % (file, exc))
+                    logger.error('parsing project file %s: %s' % (file, exc))
                     raise exc
         except OSError as exc:
-            logger.error('opening building file: %s: %s' % (file, exc))
+            logger.error('opening project file: %s: %s' % (file, exc))
             raise exc

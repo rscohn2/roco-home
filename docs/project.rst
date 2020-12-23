@@ -2,9 +2,9 @@
 ..
 .. SPDX-License-Identifier: MIT
 
-========
-Building
-========
+=======
+Project
+=======
 
-.. automodule:: rocohome.core.building
+.. automodule:: rocohome.core.project
    :members:

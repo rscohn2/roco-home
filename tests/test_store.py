@@ -12,7 +12,7 @@ def exercise_store(store, events):
     assert len(list(q)) == len(events)
 
 
-def test_signalstore(empty_signal_events_store, building):
+def test_signalstore(empty_signal_events_store, project):
     store_signal_events = [
         {
             'device_guid': 'ec:fa:bc:c5:b8:90',

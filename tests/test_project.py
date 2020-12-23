@@ -3,5 +3,5 @@
 # SPDX-License-Identifier: MIT
 
 
-def test_building(building):
+def test_project(project):
     pass

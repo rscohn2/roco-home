@@ -19,4 +19,4 @@ class Sensor(rocohome.Object):
     def __init__(self, sensor_name, sensor_dict, device):
         self.device = device
         self.name = sensor_name
-        self.signal = device.building.signal_by_name[sensor_dict['signal']]
+        self.signal = device.project.signal_by_name[sensor_dict['signal']]

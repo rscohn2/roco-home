@@ -16,7 +16,7 @@ class Device(rocohome.Object):
     Attributes:
       name (str):
       guid (str):
-      building (:class:`~rocohome.core.building.Building`):
+      project (:class:`~rocohome.core.project.Project`):
       tokens (list):
         Token strings that authorize recording events for this device
 
@@ -28,8 +28,8 @@ class Device(rocohome.Object):
     by_guid = {}
     """Lookup device by GUID."""
 
-    def __init__(self, device_name, device_dict, building):
-        self.building = building
+    def __init__(self, device_name, device_dict, project):
+        self.project = project
         self.name = device_name
         self.guid = device_dict['guid']
         self.tokens = device_dict['tokens']

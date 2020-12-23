@@ -10,7 +10,7 @@ class Signal(rocohome.Object):
 
     Attributes:
       name (str):
-      building (:class:`~rocohome.core.building.Building`):
+      project (:class:`~rocohome.core.project.Project`):
       guid (str):
 
     """
@@ -18,8 +18,8 @@ class Signal(rocohome.Object):
     by_guid = {}
     """Dictionary for mapping guid to signals."""
 
-    def __init__(self, signal_name, signal_dict, building):
-        self.building = building
+    def __init__(self, signal_name, signal_dict, project):
+        self.project = project
         self.name = signal_name
         self.guid = signal_dict['guid']
 

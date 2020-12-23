@@ -66,8 +66,10 @@ def account():
 
 
 @pytest.fixture(scope='session')
-def building(account, data_dir):
-    return account.load_building(join(data_dir, 'buildings', 'home.yaml'))
+def project(account, data_dir):
+    return account.load_project(
+        join(data_dir, 'accounts', 'projects', 'home.yaml')
+    )
 
 
 @pytest.fixture
@@ -77,7 +79,7 @@ def empty_signal_events_store(local_dynamodb):
 
 
 @pytest.fixture
-def signal_events_store(building, empty_signal_events_store, device_events):
+def signal_events_store(project, empty_signal_events_store, device_events):
     store = empty_signal_events_store
     collector = rservices.EventCollector(store)
     for device_event in device_events:

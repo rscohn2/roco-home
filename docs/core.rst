@@ -12,10 +12,10 @@ Core
 .. toctree::
    :maxdepth: 1
 
-   object
    account
-   building
+   project
    device
    event
+   object
    sensor
    signal
