@@ -6,6 +6,9 @@
 DB
 ==
 
+Base Class
+==========
+
 .. autoclass:: rocohome.storage.db::DB
    :members:
 
@@ -14,6 +17,18 @@ DB
 
 Derived Classes
 ===============
+
+SQLite3
+-------
+
+.. autoclass:: rocohome.storage.db::SQLite3
+   :members:
+
+.. autoclass:: rocohome.storage.db::SQLite3.Table
+   :members:
+
+DynamoDB
+--------
 
 .. autoclass:: rocohome.storage.db::DynamoDB
    :members:

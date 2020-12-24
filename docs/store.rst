@@ -6,6 +6,9 @@
 Store
 =====
 
+Base Class
+==========
+
 .. automodule:: rocohome.storage.store
 
 .. autoclass:: rocohome.storage.store::Store
@@ -13,6 +16,9 @@ Store
 
 Derived Classes
 ===============
+
+SignalEvents
+------------
 
 .. autoclass:: rocohome.storage.store::SignalEventsStore
    :members:
