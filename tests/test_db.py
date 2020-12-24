@@ -13,14 +13,24 @@ events = [
 def exercise_db(db):
     db.reset()
     table_info = {
-        'KeySchema': [
-            {'AttributeName': 'signal_guid', 'KeyType': 'HASH'},
-            {'AttributeName': 'time', 'KeyType': 'RANGE'},
-        ],
-        'AttributeDefinitions': [
-            {'AttributeName': 'signal_guid', 'AttributeType': 'S'},
-            {'AttributeName': 'time', 'AttributeType': 'N'},
-        ],
+        'sqlite': {
+            'schema': [
+                ('signal_guid', 'text'),
+                ('time', 'integer'),
+                ('val', 'real'),
+            ]
+        },
+        # DynamoDB
+        'dynamodb': {
+            'KeySchema': [
+                {'AttributeName': 'signal_guid', 'KeyType': 'HASH'},
+                {'AttributeName': 'time', 'KeyType': 'RANGE'},
+            ],
+            'AttributeDefinitions': [
+                {'AttributeName': 'signal_guid', 'AttributeType': 'S'},
+                {'AttributeName': 'time', 'AttributeType': 'N'},
+            ],
+        },
     }
     table = db.create_table('test', table_info)
     for event in events:
@@ -33,5 +43,5 @@ def test_dynamodb(local_dynamodb):
     exercise_db(local_dynamodb)
 
 
-# def test_cvsdb(sqlite_db):
-#    exercise_db(sqlite_db)
+def test_sqlite(sqlite_db):
+    exercise_db(sqlite_db)

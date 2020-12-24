@@ -26,13 +26,11 @@ class Store(ABC):
 
     """
 
-    def __init__(self, db, name):
-        self.table = db.Table(db, name)
+    def __init__(self, db, name, info):
+        self.table = db.Table(db, name, info)
 
     def create(db, name, info):
-        """Returns a :class:`~rocohome.storage.store.Store`
-
-        Creates a new Store. Deletes a Store with the same name.
+        """Create a table in the db.
 
         Parameters
         ----------
@@ -66,11 +64,16 @@ class SignalEventsStore(Store):
 
     table_name = 'SignalEvents'
 
-    def __init__(self, db):
-        super().__init__(db, SignalEventsStore.table_name)
-
-    def create(db):
-        table_info = {
+    table_info = {
+        'sqlite': {
+            'schema': [
+                ('signal_guid', 'text'),
+                ('time', 'integer'),
+                ('device_guid', 'text'),
+                ('val', 'real'),
+            ]
+        },
+        'dynamodb': {
             'KeySchema': [
                 {'AttributeName': 'signal_guid', 'KeyType': 'HASH'},
                 {'AttributeName': 'time', 'KeyType': 'RANGE'},
@@ -79,8 +82,18 @@ class SignalEventsStore(Store):
                 {'AttributeName': 'signal_guid', 'AttributeType': 'S'},
                 {'AttributeName': 'time', 'AttributeType': 'N'},
             ],
-        }
-        Store.create(db, SignalEventsStore.table_name, table_info)
+        },
+    }
+
+    def __init__(self, db):
+        super().__init__(
+            db, SignalEventsStore.table_name, SignalEventsStore.table_info
+        )
+
+    def create(db):
+        Store.create(
+            db, SignalEventsStore.table_name, SignalEventsStore.table_info
+        )
         return SignalEventsStore(db)
 
     def query(self):

@@ -5,7 +5,6 @@
 import logging
 import sqlite3
 from abc import ABC, abstractmethod
-from shutil import rmtree
 
 import boto3
 
@@ -97,21 +96,22 @@ class DynamoDB(DB):
             self.client.delete_table(TableName=name)
 
     def create_table(self, name, info):
+        dynamo_info = info['dynamodb']
         try:
-            logger.info('Deleting table: %s' % name)
+            logger.info(f'Deleting table: {name}')
             self.client.delete_table(TableName=name)
         except self.client.exceptions.ResourceNotFoundException:
             pass
         self.client.create_table(
             TableName=name,
-            KeySchema=info['KeySchema'],
-            AttributeDefinitions=info['AttributeDefinitions'],
+            KeySchema=dynamo_info['KeySchema'],
+            AttributeDefinitions=dynamo_info['AttributeDefinitions'],
             ProvisionedThroughput=DynamoDB._provisioned,
         )
-        return self.Table(self, name)
+        return self.Table(self, name, info)
 
     class Table(DB.Table):
-        def __init__(self, db, name):
+        def __init__(self, db, name, info):
             self.db = db
             self.name = name
             self.table = db.resource.Table(name)
@@ -129,7 +129,7 @@ class DynamoDB(DB):
                     return
 
         def put(self, object):
-            logger.info('table: %s put: %s' % (self.name, object))
+            logger.info(f'table: {self.name} put: {object}')
             self.table.put_item(Item=object)
 
 
@@ -140,26 +140,48 @@ class SQLite3(DB):
         self.cursor = self.connector.cursor()
 
     def delete(self):
-        if self.path != ':memory:':
-            rmtree(self.path)
+        self._execute(
+            """SELECT name FROM sqlite_master
+               WHERE type = 'table' AND name NOT LIKE 'sqlite_%';"""
+        )
+        for row in self.cursor.fetchall():
+            self._execute(f'DROP TABLE {row[0]}')
 
     def reset(self):
-        assert False
+        self.delete()
+        self.__init__(self.path)
 
     def create_table(self, name, info):
-        self.cursor(
-            'CREATE TABLE IF NOT EXISTS %s %s' % (name, info['sql_schema'])
-        )
-        self.cursor('DROP TABLE %s')
+        self._execute(f'DROP TABLE IF EXISTS {name}')
+        schema = info['sqlite']['schema']
+        sstring = ','.join(s[0] + ' ' + s[1] for s in schema)
+        self._execute(f'CREATE TABLE {name} ({sstring});')
         return SQLite3.Table(self, name, info)
+
+    def _execute(self, command, parameters=()):
+        logger.info(f'sqlite execute. "{command}" with {parameters}')
+        self.cursor.execute(command, parameters)
 
     class Table(DB.Table):
         def __init__(self, db, name, info):
             self.db = db
             self.name = name
+            self._schema = info['sqlite']['schema']
 
         def put(self, object):
-            self.db.cursor.execute('INSERT INTO %s VALUES')
+            fields = object.keys()
+            fstring = ','.join(fields)
+            qstring = ','.join(['?'] * len(fields))
+            values = [object[k] for k in fields]
+            self.db._execute(
+                f'INSERT INTO {self.name} ({fstring}) VALUES ({qstring});',
+                values,
+            )
 
         def query(self):
-            assert False
+            self.db._execute(f'SELECT * from {self.name}')
+            keys = [field[0] for field in self._schema]
+            for row in self.db.cursor.fetchall():
+                o = dict(zip(keys, row))
+                logger.info(f'query: {o}')
+                yield o

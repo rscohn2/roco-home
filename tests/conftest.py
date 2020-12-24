@@ -33,7 +33,7 @@ def local_dynamodb_instance(mock_args):
     rstorage.dynamodb.local.down(db_pid)
 
 
-@pytest.fixture
+@pytest.fixture(scope='session')
 def sqlite_db():
     db = rstorage.SQLite3()
     yield db
@@ -73,9 +73,8 @@ def project(account, data_dir):
 
 
 @pytest.fixture
-def empty_signal_events_store(local_dynamodb):
-    store = rstorage.SignalEventsStore.create(local_dynamodb)
-    return store
+def empty_signal_events_store(sqlite_db):
+    return rstorage.SignalEventsStore.create(sqlite_db)
 
 
 @pytest.fixture
