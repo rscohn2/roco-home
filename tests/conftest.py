@@ -3,8 +3,7 @@
 # SPDX-License-Identifier: MIT
 
 import json
-import os.path
-from os.path import join
+from os import path
 
 import pytest
 
@@ -49,26 +48,31 @@ def local_dynamodb(local_dynamodb_instance):
 
 @pytest.fixture(scope='session')
 def data_dir():
-    return join(os.path.dirname(os.path.realpath(__file__)), 'data')
+    return path.join(path.dirname(path.realpath(__file__)), 'data')
 
 
 @pytest.fixture(scope='session')
 def device_events(data_dir):
-    with open(join(data_dir, 'events', 'short.json'), 'r') as stream:
+    with open(path.join(data_dir, 'events', 'short.json'), 'r') as stream:
         return json.load(stream)
 
 
-@pytest.fixture(scope='session')
-def account():
-    return rcore.Account(
+@pytest.fixture
+def project(data_dir):
+    account = rcore.Account(
         'rscohn2', {'guid': 'acea2d90-325e-11eb-aef5-00155d093636'}
     )
-
-
-@pytest.fixture(scope='session')
-def project(account, data_dir):
     return account.load_project(
-        join(data_dir, 'accounts', account.name, 'projects', 'home.yaml')
+        path.join(
+            data_dir,
+            'configs',
+            'test1',
+            'accounts',
+            account.name,
+            'projects',
+            'home',
+            'rocohome.yml',
+        )
     )
 
 
