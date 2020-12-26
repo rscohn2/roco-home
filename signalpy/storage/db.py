@@ -59,7 +59,7 @@ class DB(ABC):
 
             Parameters
             ----------
-            db : :class:`~sensepy.db.DB`
+            db : :class:`~signalpy.db.DB`
               Handle to DB
             name : str
               Table name

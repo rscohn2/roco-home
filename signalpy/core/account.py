@@ -6,13 +6,13 @@ import logging
 
 import yaml
 
-import sensepy
-import sensepy.core as rcore
+import signalpy
+import signalpy.core as rcore
 
 logger = logging.getLogger(__name__)
 
 
-class Account(sensepy.Object):
+class Account(signalpy.Object):
     """Representation of an account.
 
     Account is modeled after github account where projects are

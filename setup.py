@@ -6,6 +6,7 @@ from setuptools import setup
 
 requirements = [
     'boto3',
+    'Flask',
     'pandas',
     'pyyaml',
 ]
@@ -15,16 +16,16 @@ extra_requirements = {
 }
 
 setup(
-    name='sensepy',
+    name='signalpy',
     version='0.1',
     description='CLI for home',
-    url='http://github.com/rscohn2/sensepy',
+    url='http://github.com/signalpy/signalpy',
     author='Robert Cohn',
     author_email='rscohn2@gmail.com',
     license='MIT',
-    packages=['sensepy'],
+    packages=['signalpy'],
     entry_points={
-        'console_scripts': ['sensecli=sensepy.cli:main'],
+        'console_scripts': ['sensecli=signalpy.cli:main'],
     },
     install_requires=requirements,
     extras_require=extra_requirements,

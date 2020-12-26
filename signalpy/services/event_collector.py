@@ -8,7 +8,7 @@
 
 import logging
 
-import sensepy.core as rcore
+import signalpy.core as rcore
 
 logger = logging.getLogger(__name__)
 
@@ -24,7 +24,7 @@ class EventCollector:
         """Insert an event into the Event Store.
 
         Convert from device-generate dict into
-        :class:`~sensepy.core.event.Event`.
+        :class:`~signalpy.core.event.Event`.
 
         """
         logger.info('recording event: %s' % device_event)

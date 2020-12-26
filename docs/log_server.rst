@@ -6,5 +6,5 @@
 Log Server
 ==========
 
-.. automodule:: sensepy.services.event_log_server
+.. automodule:: signalpy.services.event_log_server
    :members:

@@ -6,5 +6,5 @@
 Event
 =====
 
-.. automodule:: sensepy.core.event
+.. automodule:: signalpy.core.event
    :members:

@@ -6,5 +6,5 @@
  Account
 =========
 
-.. automodule:: sensepy.core.account
+.. automodule:: signalpy.core.account
    :members:

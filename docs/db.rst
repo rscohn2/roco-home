@@ -9,10 +9,10 @@ DB
 Base Class
 ==========
 
-.. autoclass:: sensepy.storage.db::DB
+.. autoclass:: signalpy.storage.db::DB
    :members:
 
-.. autoclass:: sensepy.storage.db::DB.Table
+.. autoclass:: signalpy.storage.db::DB.Table
    :members:
 
 Derived Classes
@@ -21,17 +21,17 @@ Derived Classes
 SQLite3
 -------
 
-.. autoclass:: sensepy.storage.db::SQLite3
+.. autoclass:: signalpy.storage.db::SQLite3
    :members:
 
-.. autoclass:: sensepy.storage.db::SQLite3.Table
+.. autoclass:: signalpy.storage.db::SQLite3.Table
    :members:
 
 DynamoDB
 --------
 
-.. autoclass:: sensepy.storage.db::DynamoDB
+.. autoclass:: signalpy.storage.db::DynamoDB
    :members:
 
-.. autoclass:: sensepy.storage.db::DynamoDB.Table
+.. autoclass:: signalpy.storage.db::DynamoDB.Table
    :members:

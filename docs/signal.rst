@@ -6,5 +6,5 @@
 Signal
 ======
 
-.. automodule:: sensepy.core.signal
+.. automodule:: signalpy.core.signal
    :members:

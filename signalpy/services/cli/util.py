@@ -5,7 +5,7 @@
 import logging
 from subprocess import Popen, run
 
-from sensepy.services import cli
+from signalpy.services import cli
 
 logger = logging.getLogger(__name__)
 

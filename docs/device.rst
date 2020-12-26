@@ -6,5 +6,5 @@
 Device
 =========
 
-.. automodule:: sensepy.core.device
+.. automodule:: signalpy.core.device
    :members:

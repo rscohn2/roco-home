@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-# from sensepy import cli
+# from signalpy import cli
 
 # def test_db_start():
 #    cli.args = mock_args

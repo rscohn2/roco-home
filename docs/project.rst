@@ -6,5 +6,5 @@
 Project
 =======
 
-.. automodule:: sensepy.core.project
+.. automodule:: signalpy.core.project
    :members:

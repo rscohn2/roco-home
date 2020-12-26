@@ -6,8 +6,8 @@ import logging
 import os
 import signal
 
-from sensepy.services import cli
-from sensepy.services.cli.util import background
+from signalpy.services import cli
+from signalpy.services.cli.util import background
 
 logger = logging.getLogger(__name__)
 

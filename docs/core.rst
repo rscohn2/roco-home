@@ -6,7 +6,7 @@
 Core
 ====
 
-.. automodule:: sensepy.core
+.. automodule:: signalpy.core
    :members:
 
 .. toctree::

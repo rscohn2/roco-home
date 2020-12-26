@@ -2,4 +2,4 @@
 #
 # SPDX-License-Identifier: MIT
 
-import sensepy.storage.dynamodb.local as local  # noqa: F401
+import signalpy.storage.dynamodb.local as local  # noqa: F401

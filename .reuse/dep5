@@ -1,16 +1,16 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: rocohome
+Upstream-Name: signalpy
 Upstream-Contact: Robert Cohn <rscohn2@gmail.com>
 Source:
 
-Files: tests/data/events/short.json app/frontend/package-lock.json app/frontend/package.json
+Files: tests/data/events/short.json app/web/*.json
 Copyright: 2020 Robert Cohn
 License: MIT
 
-Files: app/frontend/public/*.ico app/frontend/public/*.png app/frontend/public/*.json
+Files: app/web/public/*.ico app/web/public/*.png app/web/public/*.json
 Copyright: 2020 Robert Cohn
 License: MIT
 
-Files: app/frontend/src/*.svg
+Files: app/web/src/*.svg
 Copyright: 2020 Robert Cohn
 License: MIT

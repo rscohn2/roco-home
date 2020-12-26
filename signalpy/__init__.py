@@ -11,7 +11,7 @@ from abc import ABC
 
 logger = logging.getLogger(__name__)
 
-fh = logging.FileHandler('sensepy.log')
+fh = logging.FileHandler('signalpy.log')
 fh.setLevel(logging.INFO)
 logger.addHandler(fh)
 

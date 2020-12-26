@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-import sensepy.services as rservices
+import signalpy.services as rservices
 
 
 def test_log_server(signal_events_store, project):

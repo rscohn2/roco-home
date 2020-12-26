@@ -4,19 +4,19 @@
 
 import logging
 
-import sensepy
-import sensepy.core as rcore
+import signalpy
+import signalpy.core as rcore
 
 logger = logging.getLogger(__name__)
 
 
-class Device(sensepy.Object):
+class Device(signalpy.Object):
     """Representation of a device.
 
     Attributes:
       name (str):
       guid (str):
-      project (:class:`~sensepy.core.project.Project`):
+      project (:class:`~signalpy.core.project.Project`):
       tokens (list):
         Token strings that authorize recording events for this device
 

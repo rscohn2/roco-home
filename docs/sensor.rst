@@ -6,5 +6,5 @@
 Sensor
 ======
 
-.. automodule:: sensepy.core.sensor
+.. automodule:: signalpy.core.sensor
    :members:

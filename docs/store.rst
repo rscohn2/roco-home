@@ -9,9 +9,9 @@ Store
 Base Class
 ==========
 
-.. automodule:: sensepy.storage.store
+.. automodule:: signalpy.storage.store
 
-.. autoclass:: sensepy.storage.store::Store
+.. autoclass:: signalpy.storage.store::Store
    :members:
 
 Derived Classes
@@ -20,6 +20,6 @@ Derived Classes
 SignalEvents
 ------------
 
-.. autoclass:: sensepy.storage.store::SignalEventsStore
+.. autoclass:: signalpy.storage.store::SignalEventsStore
    :members:
    :inherited-members:

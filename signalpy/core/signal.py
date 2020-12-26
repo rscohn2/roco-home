@@ -2,15 +2,15 @@
 #
 # SPDX-License-Identifier: MIT
 
-import sensepy
+import signalpy
 
 
-class Signal(sensepy.Object):
+class Signal(signalpy.Object):
     """Representation of a signal.
 
     Attributes:
       name (str):
-      project (:class:`~sensepy.core.project.Project`):
+      project (:class:`~signalpy.core.project.Project`):
       guid (str):
 
     """

@@ -20,7 +20,7 @@ jobs:
         mkdir dynamodb
         wget -O - --quiet http://dynamodb-local.s3-website-us-west-2.amazonaws.com/dynamodb_local_latest.tar.gz \
            | tar zx -C dynamodb
-        cd app/frontend && npm install
+        cd app/web && npm install
     - name: Checks
       run: |
         export AWS_ACCESS_KEY_ID=fake
@@ -28,22 +28,29 @@ jobs:
         export AWS_DEFAULT_REGION=fake
         pre-commit run --all
     - name: Checkout gh-pages
-      if: ${{ github.ref == 'refs/heads/main' }}
+      if: ${{ github.ref == 'refs/heads/publish-web' }}
       uses: actions/checkout@v2
       with:
         ref: gh-pages
         path: gh-pages
-    - name: Publish to github pages
-      if: ${{ github.ref == 'refs/heads/main' }}
+    - name: Publish web app
+      if: ${{ github.ref == 'refs/heads/publish-web' }}
       run: |
           cd gh-pages
           rm -rf *
           touch .nojekyll
           mkdir app
           cd app
-          cp -r ../../app/frontend/build/* .
+          cp -r ../../app/web/build/* .
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add .
           git commit -m "Update from github actions"
           git push
+    - name: Publish Collector
+      if: ${{ github.ref == 'refs/heads/publish-collector' }}
+      uses: azure/webapps-deploy@v2
+      with:
+          app-name: signalpy-collector
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_COLLECTOR }},
+          package: app/backend/collector

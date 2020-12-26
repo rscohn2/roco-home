@@ -4,8 +4,8 @@
 
 import logging
 
-from sensepy.services import cli
-from sensepy.storage import db
+from signalpy.services import cli
+from signalpy.storage import db
 
 logger = logging.getLogger(__name__)
 

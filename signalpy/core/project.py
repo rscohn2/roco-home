@@ -4,13 +4,13 @@
 
 import logging
 
-import sensepy
-import sensepy.core as rcore
+import signalpy
+import signalpy.core as rcore
 
 logger = logging.getLogger(__name__)
 
 
-class Project(sensepy.Object):
+class Project(signalpy.Object):
     """Representation of a project.
 
     A project contains devices that measure signals.

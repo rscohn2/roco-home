@@ -6,5 +6,5 @@
  Object
 ========
 
-.. autoclass:: sensepy.Object
+.. autoclass:: signalpy.Object
    :members:

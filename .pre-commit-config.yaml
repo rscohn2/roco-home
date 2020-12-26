@@ -21,7 +21,7 @@ repos:
         always_run: true
       - id: react-build
         name: react-build
-        entry: bash -c "cd app/frontend && npm run build"
+        entry: bash -c "cd app/web && npm run build"
         language: system
         pass_filenames: false
         always_run: true

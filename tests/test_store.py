@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-import sensepy.core as rcore
+import signalpy.core as rcore
 
 
 def exercise_store(store, events):

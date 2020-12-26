@@ -7,10 +7,10 @@ from os import path
 
 import pytest
 
-import sensepy.core as rcore
-import sensepy.services as rservices
-import sensepy.services.cli as cli
-import sensepy.storage as rstorage
+import signalpy.core as rcore
+import signalpy.services as rservices
+import signalpy.services.cli as cli
+import signalpy.storage as rstorage
 
 
 class MockArgs:
@@ -71,7 +71,7 @@ def project(data_dir):
             account.name,
             'projects',
             'home',
-            'sensepy-project.yml',
+            'signalpy-project.yml',
         )
     )
 

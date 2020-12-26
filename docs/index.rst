@@ -2,7 +2,7 @@
 ..
 .. SPDX-License-Identifier: MIT
 
-Welcome to sensepy's documentation!
+Welcome to signalpy's documentation!
 ====================================
 
 .. toctree::

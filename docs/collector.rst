@@ -6,5 +6,5 @@
 Collector
 =========
 
-.. automodule:: sensepy.services.event_collector
+.. automodule:: signalpy.services.event_collector
    :members:
