@@ -27,3 +27,23 @@ jobs:
         export AWS_SECRET_ACCESS_KEY=fake
         export AWS_DEFAULT_REGION=fake
         pre-commit run --all
+    - name: Checkout gh-pages
+      if: ${{ github.ref == 'refs/heads/main' }}
+      uses: actions/checkout@v2
+      with:
+        ref: gh-pages
+        path: gh-pages
+    - name: Publish to github pages
+      if: ${{ github.ref == 'refs/heads/main' }}
+      run: |
+          cd gh-pages
+          rm -rf *
+          touch .nojekyll
+          mkdir app
+          cd app
+          cp -r ../../app/frontend/build/* .
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "Update from github actions"
+          git push
