@@ -6,5 +6,5 @@
 Device
 =========
 
-.. automodule:: rocohome.core.device
+.. automodule:: sensepy.core.device
    :members:

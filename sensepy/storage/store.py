@@ -9,7 +9,7 @@
 import logging
 from abc import ABC
 
-import rocohome.core as rcore
+import sensepy.core as rcore
 
 logger = logging.getLogger(__name__)
 
@@ -19,7 +19,7 @@ class Store(ABC):
 
     Parameters
     ----------
-    db : :class:`~rocohome.storage.db.DB`
+    db : :class:`~sensepy.storage.db.DB`
       Handle to DB
     name : str
       Name of store
@@ -34,7 +34,7 @@ class Store(ABC):
 
         Parameters
         ----------
-        db : :class:`~rocohome.storage.db.DB`
+        db : :class:`~sensepy.storage.db.DB`
           Handle to DB
         name : str
           Name of store

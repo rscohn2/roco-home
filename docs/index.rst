@@ -2,7 +2,7 @@
 ..
 .. SPDX-License-Identifier: MIT
 
-Welcome to rocohome's documentation!
+Welcome to sensepy's documentation!
 ====================================
 
 .. toctree::

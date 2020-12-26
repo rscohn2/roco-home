@@ -2,9 +2,9 @@
 ..
 .. SPDX-License-Identifier: MIT
 
-==========
- ROCOHOME
-==========
+=======
+Sensepy
+=======
 
 .. image:: https://github.com/rscohn2/roco-home/workflows/.github/workflows/checks.yml/badge.svg
            :target: https://github.com/rscohn2/roco-home/actions
@@ -17,12 +17,12 @@
           :target: https://api.reuse.software/info/github.com/rscohn2/roco-home
           :alt: REUSE status
 
-Code for managing smart home.
+Code for managing sensors
 
 CLI
 ===
 
-roco-home is a CLI for managing the backend.
+sensecli is a CLI for managing the backend.
 
 Prerequisites
 =============

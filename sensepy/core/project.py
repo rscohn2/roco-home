@@ -4,13 +4,13 @@
 
 import logging
 
-import rocohome
-import rocohome.core as rcore
+import sensepy
+import sensepy.core as rcore
 
 logger = logging.getLogger(__name__)
 
 
-class Project(rocohome.Object):
+class Project(sensepy.Object):
     """Representation of a project.
 
     A project contains devices that measure signals.

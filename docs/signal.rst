@@ -6,5 +6,5 @@
 Signal
 ======
 
-.. automodule:: rocohome.core.signal
+.. automodule:: sensepy.core.signal
    :members:

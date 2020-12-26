@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-import rocohome.services as rservices
+import sensepy.services as rservices
 
 
 def test_log_server(signal_events_store, project):

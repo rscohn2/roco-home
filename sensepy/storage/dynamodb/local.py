@@ -6,8 +6,8 @@ import logging
 import os
 import signal
 
-from rocohome.services import cli
-from rocohome.services.cli.util import background
+from sensepy.services import cli
+from sensepy.services.cli.util import background
 
 logger = logging.getLogger(__name__)
 

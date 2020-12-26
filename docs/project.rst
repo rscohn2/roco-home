@@ -6,5 +6,5 @@
 Project
 =======
 
-.. automodule:: rocohome.core.project
+.. automodule:: sensepy.core.project
    :members:

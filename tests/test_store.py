@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-import rocohome.core as rcore
+import sensepy.core as rcore
 
 
 def exercise_store(store, events):

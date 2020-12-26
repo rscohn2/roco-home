@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-from rocohome.analysis import activations
+from sensepy.analysis import activations
 
 
 def test_activations(signal_events_store):

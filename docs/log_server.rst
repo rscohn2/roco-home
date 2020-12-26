@@ -6,5 +6,5 @@
 Log Server
 ==========
 
-.. automodule:: rocohome.services.event_log_server
+.. automodule:: sensepy.services.event_log_server
    :members:

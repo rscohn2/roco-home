@@ -6,7 +6,7 @@
 Core
 ====
 
-.. automodule:: rocohome.core
+.. automodule:: sensepy.core
    :members:
 
 .. toctree::

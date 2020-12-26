@@ -6,5 +6,5 @@
 Event
 =====
 
-.. automodule:: rocohome.core.event
+.. automodule:: sensepy.core.event
    :members:

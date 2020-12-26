@@ -2,10 +2,10 @@
 #
 # SPDX-License-Identifier: MIT
 
-import rocohome
+import sensepy
 
 
-class Sensor(rocohome.Object):
+class Sensor(sensepy.Object):
     """Representation of a sensor.
 
     A sensor is connected to a device and contains the state of a

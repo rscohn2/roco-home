@@ -6,13 +6,13 @@ import argparse
 import logging
 import sys
 
-from rocohome.services.cli import config, db, identity
+from sensepy.services.cli import config, db, identity
 
 args = None
 
 
 def parse_args(cmd_args):
-    parser = argparse.ArgumentParser(description='CLI for rocohome')
+    parser = argparse.ArgumentParser(description='CLI for sensepy')
     parser.add_argument(
         '--verbose', action='store_true', help='display log information'
     )

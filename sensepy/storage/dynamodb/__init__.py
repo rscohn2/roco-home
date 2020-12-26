@@ -2,4 +2,4 @@
 #
 # SPDX-License-Identifier: MIT
 
-import rocohome.storage.dynamodb.local as local  # noqa: F401
+import sensepy.storage.dynamodb.local as local  # noqa: F401

@@ -8,7 +8,7 @@
 
 import logging
 
-import rocohome.core as rcore
+import sensepy.core as rcore
 
 logger = logging.getLogger(__name__)
 
@@ -24,7 +24,7 @@ class EventCollector:
         """Insert an event into the Event Store.
 
         Convert from device-generate dict into
-        :class:`~rocohome.core.event.Event`.
+        :class:`~sensepy.core.event.Event`.
 
         """
         logger.info('recording event: %s' % device_event)

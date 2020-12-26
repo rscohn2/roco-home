@@ -7,7 +7,7 @@ import sys
 
 import yaml
 
-from rocohome.services import cli
+from sensepy.services import cli
 
 logger = logging.getLogger(__name__)
 
@@ -46,7 +46,7 @@ def add_parser(subparsers):
     load_parser.set_defaults(func=load)
     load_parser.add_argument(
         'config_file',
-        default='rocohome.yaml',
+        default='sensepy.yaml',
         help='Yaml file with configuration',
     )
 

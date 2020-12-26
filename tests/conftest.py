@@ -7,10 +7,10 @@ from os import path
 
 import pytest
 
-import rocohome.core as rcore
-import rocohome.services as rservices
-import rocohome.services.cli as cli
-import rocohome.storage as rstorage
+import sensepy.core as rcore
+import sensepy.services as rservices
+import sensepy.services.cli as cli
+import sensepy.storage as rstorage
 
 
 class MockArgs:
@@ -71,7 +71,7 @@ def project(data_dir):
             account.name,
             'projects',
             'home',
-            'rocohome.yml',
+            'sensepy-project.yml',
         )
     )
 

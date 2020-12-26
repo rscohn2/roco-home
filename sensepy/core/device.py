@@ -4,19 +4,19 @@
 
 import logging
 
-import rocohome
-import rocohome.core as rcore
+import sensepy
+import sensepy.core as rcore
 
 logger = logging.getLogger(__name__)
 
 
-class Device(rocohome.Object):
+class Device(sensepy.Object):
     """Representation of a device.
 
     Attributes:
       name (str):
       guid (str):
-      project (:class:`~rocohome.core.project.Project`):
+      project (:class:`~sensepy.core.project.Project`):
       tokens (list):
         Token strings that authorize recording events for this device
 

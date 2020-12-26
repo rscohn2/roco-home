@@ -9,9 +9,9 @@ Store
 Base Class
 ==========
 
-.. automodule:: rocohome.storage.store
+.. automodule:: sensepy.storage.store
 
-.. autoclass:: rocohome.storage.store::Store
+.. autoclass:: sensepy.storage.store::Store
    :members:
 
 Derived Classes
@@ -20,6 +20,6 @@ Derived Classes
 SignalEvents
 ------------
 
-.. autoclass:: rocohome.storage.store::SignalEventsStore
+.. autoclass:: sensepy.storage.store::SignalEventsStore
    :members:
    :inherited-members:

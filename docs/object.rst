@@ -6,5 +6,5 @@
  Object
 ========
 
-.. autoclass:: rocohome.Object
+.. autoclass:: sensepy.Object
    :members:

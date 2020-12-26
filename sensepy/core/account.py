@@ -6,13 +6,13 @@ import logging
 
 import yaml
 
-import rocohome
-import rocohome.core as rcore
+import sensepy
+import sensepy.core as rcore
 
 logger = logging.getLogger(__name__)
 
 
-class Account(rocohome.Object):
+class Account(sensepy.Object):
     """Representation of an account.
 
     Account is modeled after github account where projects are

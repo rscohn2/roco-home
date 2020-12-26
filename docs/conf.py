@@ -23,7 +23,7 @@ sys.path.insert(0, os.path.abspath('..'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'rocohome'
+project = 'sensepy'
 copyright = '2020, Robert Cohn'
 author = 'Robert Cohn'
 version = '0.1'

@@ -59,7 +59,7 @@ class DB(ABC):
 
             Parameters
             ----------
-            db : :class:`~rocohome.db.DB`
+            db : :class:`~sensepy.db.DB`
               Handle to DB
             name : str
               Table name

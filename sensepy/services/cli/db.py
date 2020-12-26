@@ -4,8 +4,8 @@
 
 import logging
 
-from rocohome.services import cli
-from rocohome.storage import db
+from sensepy.services import cli
+from sensepy.storage import db
 
 logger = logging.getLogger(__name__)
 

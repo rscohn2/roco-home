@@ -6,5 +6,5 @@
  Account
 =========
 
-.. automodule:: rocohome.core.account
+.. automodule:: sensepy.core.account
    :members:

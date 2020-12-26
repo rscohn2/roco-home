@@ -6,5 +6,5 @@
 Collector
 =========
 
-.. automodule:: rocohome.services.event_collector
+.. automodule:: sensepy.services.event_collector
    :members:

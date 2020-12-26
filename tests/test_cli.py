@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-# from rocohome import cli
+# from sensepy import cli
 
 # def test_db_start():
 #    cli.args = mock_args

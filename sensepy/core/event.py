@@ -8,8 +8,8 @@
 
 import logging
 
-import rocohome
-import rocohome.core as rcore
+import sensepy
+import sensepy.core as rcore
 
 logger = logging.getLogger(__name__)
 
@@ -52,7 +52,7 @@ def _store_decode_event(e):
         raise UnsupportedEventError(e['event'])
 
 
-class Event(rocohome.Object):
+class Event(sensepy.Object):
     """Representation of an event.
 
     Attributes:
@@ -73,7 +73,7 @@ class SignalEvent(Event):
     Attributes:
        time
          UTC timestamp
-       signal (:class:`~rocohome.core.signal.Signal`)
+       signal (:class:`~sensepy.core.signal.Signal`)
        val
          recorded value
        raw

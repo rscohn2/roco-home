@@ -2,15 +2,15 @@
 #
 # SPDX-License-Identifier: MIT
 
-import rocohome
+import sensepy
 
 
-class Signal(rocohome.Object):
+class Signal(sensepy.Object):
     """Representation of a signal.
 
     Attributes:
       name (str):
-      project (:class:`~rocohome.core.project.Project`):
+      project (:class:`~sensepy.core.project.Project`):
       guid (str):
 
     """
