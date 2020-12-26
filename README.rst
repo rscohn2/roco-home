@@ -6,15 +6,15 @@
 Sensepy
 =======
 
-.. image:: https://github.com/rscohn2/roco-home/workflows/.github/workflows/checks.yml/badge.svg
-           :target: https://github.com/rscohn2/roco-home/actions
+.. image:: https://github.com/rscohn2/sensepy/workflows/.github/workflows/checks.yml/badge.svg
+           :target: https://github.com/rscohn2/sensepy/actions
 
-.. image:: https://readthedocs.org/projects/roco-home/badge/?version=latest
-           :target: https://roco-home.readthedocs.io/en/latest/?badge=latest
+.. image:: https://readthedocs.org/projects/sensepy/badge/?version=latest
+           :target: https://sensepy.readthedocs.io/en/latest/?badge=latest
            :alt: Documentation Status
 
-.. image:: https://api.reuse.software/badge/github.com/rscohn2/roco-home
-          :target: https://api.reuse.software/info/github.com/rscohn2/roco-home
+.. image:: https://api.reuse.software/badge/github.com/rscohn2/sensepy
+          :target: https://api.reuse.software/info/github.com/rscohn2/sensepy
           :alt: REUSE status
 
 Code for managing sensors
