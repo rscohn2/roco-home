@@ -3,6 +3,14 @@ Upstream-Name: rocohome
 Upstream-Contact: Robert Cohn <rscohn2@gmail.com>
 Source:
 
-Files: tests/data/events/short.json
+Files: tests/data/events/short.json app/frontend/package-lock.json app/frontend/package.json
+Copyright: 2020 Robert Cohn
+License: MIT
+
+Files: app/frontend/public/*.ico app/frontend/public/*.png app/frontend/public/*.json
+Copyright: 2020 Robert Cohn
+License: MIT
+
+Files: app/frontend/src/*.svg
 Copyright: 2020 Robert Cohn
 License: MIT
