@@ -12,6 +12,7 @@ Welcome to signalpy's documentation!
    core
    storage
    services
+   deployment
 
 
 

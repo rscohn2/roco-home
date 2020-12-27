@@ -47,10 +47,17 @@ jobs:
           git add .
           git commit -m "Update from github actions"
           git push
-    - name: Publish Collector
+    - name: Publish Collector Service
       if: ${{ github.ref == 'refs/heads/publish-collector' }}
       uses: azure/webapps-deploy@v2
       with:
           app-name: signalpy-collector
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_COLLECTOR }},
           package: app/backend/collector
+    - name: Publish Analytics Service
+      if: ${{ github.ref == 'refs/heads/publish-analytics' }}
+      uses: azure/webapps-deploy@v2
+      with:
+          app-name: signalpy-analytics
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_ANALYTICS }},
+          package: app/backend/analytics
