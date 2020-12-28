@@ -8,10 +8,14 @@ from abc import ABC, abstractmethod
 
 import boto3
 
-"""Persistent storage for *store.
+"""Persistent storage.
 
-DB contains 1 or more Table. Store maps objects to dictionaries, and
-DB manages the dictionaries as rows in a table.
+The DB is used to abstract the database implementation.  A DB contains
+1 or more Tables. A Table stores objects as dictionaries. The
+:class:`~signalpy.storage.store.Store` is a higher-level abstraction
+for a Table that stores objects as python objects.
+
+
 
 Attributes
 ----------
@@ -70,12 +74,25 @@ class DB(ABC):
 
         @abstractmethod
         def put(self, object):
-            """Save an object in the table."""
+            """Save an object in the table.
+
+            Parameters
+            ----------
+
+            object : dict
+
+            """
             pass
 
         @abstractmethod
         def query(self):
-            """Returns list of objects matching filter conditions."""
+            """Returns iterator for objects matching filter conditions.
+
+            Returns
+            -------
+            dict
+
+            """
             pass
 
 
@@ -137,6 +154,7 @@ class SQLite3(DB):
     def __init__(self, path=':memory:'):
         self.path = path
         self.connector = sqlite3.connect(path)
+        self.connector.row_factory = sqlite3.Row
         self.cursor = self.connector.cursor()
 
     def delete(self):
@@ -166,7 +184,6 @@ class SQLite3(DB):
         def __init__(self, db, name, info):
             self.db = db
             self.name = name
-            self._schema = info['sqlite']['schema']
 
         def put(self, object):
             fields = object.keys()
@@ -180,8 +197,4 @@ class SQLite3(DB):
 
         def query(self):
             self.db._execute(f'SELECT * from {self.name}')
-            keys = [field[0] for field in self._schema]
-            for row in self.db.cursor.fetchall():
-                o = dict(zip(keys, row))
-                logger.info(f'query: {o}')
-                yield o
+            return self.db.cursor
