@@ -8,8 +8,7 @@
 
 import logging
 
-import signalpy
-import signalpy.core as rcore
+import signalpy as sp
 
 logger = logging.getLogger(__name__)
 
@@ -52,7 +51,7 @@ def _store_decode_event(e):
         raise UnsupportedEventError(e['event'])
 
 
-class Event(signalpy.Object):
+class Event(sp.Object):
     """Representation of an event.
 
     Attributes:
@@ -82,7 +81,7 @@ class SignalEvent(Event):
 
     def __init__(self, from_device=None, from_store=None):
         if from_device:
-            self.device = rcore.Device.by_token[from_device['token']]
+            self.device = sp.Device.by_token[from_device['token']]
             self.signal = self.device.sensor_by_name[
                 from_device['sensor_id']
             ].signal
@@ -90,8 +89,8 @@ class SignalEvent(Event):
             # Extract common arguments
             super().__init__(from_device)
         elif from_store:
-            self.device = rcore.Device.by_guid[from_store['device_guid']]
-            self.signal = rcore.Signal.by_guid[from_store['signal_guid']]
+            self.device = sp.Device.by_guid[from_store['device_guid']]
+            self.signal = sp.Signal.by_guid[from_store['signal_guid']]
             self.val = from_store['val']
             # Extract common arguments
             super().__init__(from_store)

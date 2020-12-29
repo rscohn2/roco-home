@@ -6,13 +6,12 @@ import logging
 
 import yaml
 
-import signalpy
-import signalpy.core as rcore
+import signalpy as sp
 
 logger = logging.getLogger(__name__)
 
 
-class Account(signalpy.Object):
+class Account(sp.Object):
     """Representation of an account.
 
     Account is modeled after github account where projects are
@@ -37,7 +36,7 @@ class Account(signalpy.Object):
                     logger.info(
                         'Loaded project %s: %s' % (project_name, project_dict)
                     )
-                    self.projects[project_name] = rcore.Project(
+                    self.projects[project_name] = sp.Project(
                         project_name, project_dict, self
                     )
                     return self.projects[project_name]

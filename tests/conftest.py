@@ -7,10 +7,7 @@ from os import path
 
 import pytest
 
-import signalpy.core as rcore
-import signalpy.services as rservices
-import signalpy.services.cli as cli
-import signalpy.storage as rstorage
+import signalpy as sp
 
 
 class MockArgs:
@@ -20,28 +17,28 @@ class MockArgs:
 
 @pytest.fixture(scope='session')
 def mock_args():
-    cli.args = MockArgs()
+    sp.services.cli.args = MockArgs()
 
 
 @pytest.fixture(scope='session')
 def local_dynamodb_instance(mock_args):
     print('Starting instance')
-    db_pid = rstorage.dynamodb.local.up()
+    db_pid = sp.dynamodb.local.up()
     yield db_pid
     print('Stopping instance')
-    rstorage.dynamodb.local.down(db_pid)
+    sp.dynamodb.local.down(db_pid)
 
 
 @pytest.fixture(scope='session')
 def sqlite_db():
-    db = rstorage.SQLite3()
+    db = sp.SQLite3()
     yield db
     db.delete()
 
 
 @pytest.fixture
 def local_dynamodb(local_dynamodb_instance):
-    db = rstorage.DynamoDB()
+    db = sp.DynamoDB()
     db.reset()
     return db
 
@@ -59,7 +56,7 @@ def device_events(data_dir):
 
 @pytest.fixture
 def project(data_dir):
-    account = rcore.Account(
+    account = sp.Account(
         'rscohn2', {'guid': 'acea2d90-325e-11eb-aef5-00155d093636'}
     )
     return account.load_project(
@@ -78,13 +75,13 @@ def project(data_dir):
 
 @pytest.fixture
 def empty_signal_events_store(sqlite_db):
-    return rstorage.SignalEventsStore.create(sqlite_db)
+    return sp.SignalEventsStore.create(sqlite_db)
 
 
 @pytest.fixture
 def signal_events_store(project, empty_signal_events_store, device_events):
     store = empty_signal_events_store
-    collector = rservices.EventCollector(store)
+    collector = sp.EventCollector(store)
     for device_event in device_events:
         collector.record_event(device_event)
     return store

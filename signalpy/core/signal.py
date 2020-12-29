@@ -2,10 +2,10 @@
 #
 # SPDX-License-Identifier: MIT
 
-import signalpy
+import signalpy as sp
 
 
-class Signal(signalpy.Object):
+class Signal(sp.Object):
     """Representation of a signal.
 
     Attributes:

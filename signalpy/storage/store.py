@@ -9,7 +9,7 @@
 import logging
 from abc import ABC
 
-import signalpy.core as rcore
+import signalpy as sp
 
 logger = logging.getLogger(__name__)
 
@@ -99,4 +99,4 @@ class SignalEventsStore(Store):
     def query(self):
         for object in super().query():
             # convert dictionaries to Signals
-            yield rcore.SignalEvent(from_store=object)
+            yield sp.SignalEvent(from_store=object)

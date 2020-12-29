@@ -2,10 +2,10 @@
 #
 # SPDX-License-Identifier: MIT
 
-import signalpy
+import signalpy as sp
 
 
-class Sensor(signalpy.Object):
+class Sensor(sp.Object):
     """Representation of a sensor.
 
     A sensor is connected to a device and contains the state of a

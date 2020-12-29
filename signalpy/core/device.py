@@ -4,13 +4,12 @@
 
 import logging
 
-import signalpy
-import signalpy.core as rcore
+import signalpy as sp
 
 logger = logging.getLogger(__name__)
 
 
-class Device(signalpy.Object):
+class Device(sp.Object):
     """Representation of a device.
 
     Attributes:
@@ -35,7 +34,7 @@ class Device(signalpy.Object):
         self.tokens = device_dict['tokens']
         self.sensor_by_name = {}
         for sensor_name, sensor_dict in device_dict['sensors'].items():
-            sensor = rcore.Sensor(sensor_name, sensor_dict, self)
+            sensor = sp.Sensor(sensor_name, sensor_dict, self)
             self.sensor_by_name[sensor_name] = sensor
 
     def register(self):

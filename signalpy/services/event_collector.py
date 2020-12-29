@@ -8,7 +8,7 @@
 
 import logging
 
-import signalpy.core as rcore
+import signalpy.core.event as spevent
 
 logger = logging.getLogger(__name__)
 
@@ -28,5 +28,5 @@ class EventCollector:
 
         """
         logger.info('recording event: %s' % device_event)
-        event = rcore.event._device_decode_event(device_event)
+        event = spevent._device_decode_event(device_event)
         self.store.put(event)
