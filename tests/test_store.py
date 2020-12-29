@@ -27,5 +27,7 @@ def test_signalstore(empty_signal_events_store, project):
             'time': 2,
         },
     ]
-    events = [sp.SignalEvent(from_store=e) for e in store_signal_events]
+    events = [
+        sp.SignalEventsStore._make_signal_event(e) for e in store_signal_events
+    ]
     exercise_store(empty_signal_events_store, events)

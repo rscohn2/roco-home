@@ -44,6 +44,13 @@ templates_path = ['_templates']
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
 
+# don't understand why sphinx does not handle it
+nitpick_ignore = [
+    ('py:class', 'marshmallow.schema.SchemaOpts'),
+    ('py:exc', 'marshmallow.exceptions.ValidationError'),
+    ('py:class', 'marshmallow.exceptions.ValidationError'),
+    ('py:class', 'marshmallow.fields.Field'),
+]
 
 # -- Options for domains -----------------------------------------------------
 

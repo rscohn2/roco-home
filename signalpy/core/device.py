@@ -21,9 +21,6 @@ class Device(sp.Object):
 
     """
 
-    by_token = {}
-    """Lookup device by token."""
-
     by_guid = {}
     """Lookup device by GUID."""
 
@@ -38,9 +35,7 @@ class Device(sp.Object):
             self.sensor_by_name[sensor_name] = sensor
 
     def register(self):
-        """Register device for lookup by token and guid."""
+        """Register device for lookup by guid."""
 
         logger.info('Register device: %s' % self)
         Device.by_guid[self.guid] = self
-        for token in self.tokens:
-            Device.by_token[token] = self

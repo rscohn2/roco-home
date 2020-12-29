@@ -7,7 +7,9 @@
 """
 
 import logging
-from abc import ABC
+from abc import ABC, abstractmethod
+
+import marshmallow as mm
 
 import signalpy as sp
 
@@ -29,20 +31,11 @@ class Store(ABC):
     def __init__(self, db, name, info):
         self.table = db.Table(db, name, info)
 
-    def create(db, name, info):
-        """Create a table in the db.
+    @abstractmethod
+    def create(self, db):
+        pass
 
-        Parameters
-        ----------
-        db : :class:`~signalpy.storage.db.DB`
-          Handle to DB
-        name : str
-          Name of store
-        info : dict
-          database-specific info
-        """
-        db.create_table(name, info)
-
+    @abstractmethod
     def put(self, object):
         """Save an object.
 
@@ -52,11 +45,12 @@ class Store(ABC):
           object with to_store method that returns a dict
 
         """
-        self.table.put(object.to_store())
+        pass
 
+    @abstractmethod
     def query(self):
         """Returns list of objects matching filter."""
-        return self.table.query()
+        pass
 
 
 class SignalEventsStore(Store):
@@ -85,18 +79,43 @@ class SignalEventsStore(Store):
         },
     }
 
+    class Schema(mm.Schema):
+        time = mm.fields.Int()
+        signal_guid = mm.fields.Str()
+        device_guid = mm.fields.Str()
+        val = mm.fields.Float()
+
     def __init__(self, db):
         super().__init__(
             db, SignalEventsStore.table_name, SignalEventsStore.table_info
         )
+        self.schema = SignalEventsStore.Schema()
 
     def create(db):
-        Store.create(
-            db, SignalEventsStore.table_name, SignalEventsStore.table_info
+        db.create_table(
+            SignalEventsStore.table_name, SignalEventsStore.table_info
         )
         return SignalEventsStore(db)
 
+    def put(self, se):
+        so = self.schema.dump(
+            {
+                'time': se.time,
+                'signal_guid': se.signal.guid,
+                'device_guid': se.device.guid,
+                'val': se.val,
+            }
+        )
+        self.table.put(so)
+
+    def _make_signal_event(d):
+        device = sp.Device.by_guid[d['device_guid']]
+        signal = sp.Signal.by_guid[d['signal_guid']]
+        return sp.SignalEvent(d['time'], device, signal, d['val'])
+
     def query(self):
-        for object in super().query():
-            # convert dictionaries to Signals
-            yield sp.SignalEvent(from_store=object)
+        for o in self.table.query():
+            do = dict(o)
+            logger.info(f'SignalEventStore query result: {do}')
+            so = self.schema.load(do)
+            yield sp.SignalEventsStore._make_signal_event(so)
