@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-import signalpy.core as rcore
+import signalpy as sp
 
 
 def exercise_store(store, events):
@@ -27,5 +27,6 @@ def test_signalstore(empty_signal_events_store, project):
             'time': 2,
         },
     ]
-    events = [rcore.SignalEvent(from_store=e) for e in store_signal_events]
+    schema = sp.SignalEvent.StoreSchema()
+    events = [schema.load(e) for e in store_signal_events]
     exercise_store(empty_signal_events_store, events)

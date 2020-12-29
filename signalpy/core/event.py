@@ -8,101 +8,56 @@
 
 import logging
 
-import signalpy
-import signalpy.core as rcore
+import marshmallow as mm
+
+import signalpy as sp
+
 
 logger = logging.getLogger(__name__)
 
-supported_versions = set([1])
 
-
-class UnsupportedEventVersionError(Exception):
-    """Event uses unsupported version number."""
-
-    def __init__(self, version):
-        self.version = version
-
-
-class UnsupportedEventError(Exception):
-    """Event uses unsupported type."""
-
-    def __init__(self, event):
-        self.event = event
-
-
-def _device_decode_event(e):
-    """Returns an Event from a device-generated dict."""
-
-    if e['version'] not in supported_versions:
-        raise UnsupportedEventVersionError(e['version'])
-    if e['event'] == 'sensor':
-        return SignalEvent(from_device=e)
-    else:
-        raise UnsupportedEventError(e['event'])
-
-
-def _store_decode_event(e):
-    """Returns an Event from a db generated dict"""
-
-    if e['version'] not in supported_versions:
-        raise UnsupportedEventVersionError(e['version'])
-    if e['event'] == 'sensor':
-        return SignalEvent(from_store=e)
-    else:
-        raise UnsupportedEventError(e['event'])
-
-
-class Event(signalpy.Object):
+class Event(sp.Object):
     """Representation of an event.
 
-    Attributes:
-       time
-         UTC timestamp
-       raw
-         Incoming representation
     """
 
-    def __init__(self, dict):
-        self.time = int(dict['time'])
-        self.raw = dict
+    pass
 
+
+class Schema(mm.Schema):
+    time = mm.fields.Int()
+    val = mm.fields.Float()
+    device = sp.Device.Field(data_key='device_guid')
+
+    @mm.post_load
+    def make_signal_event(self, data, **kwargs):
+        logger.info(f'data: {data}')
+        return sp.SignalEvent(**data)
 
 class SignalEvent(Event):
-    """Representation of an signal event.
 
-    Attributes:
-       time
-         UTC timestamp
-       signal (:class:`~signalpy.core.signal.Signal`)
-       val
-         recorded value
-       raw
-         Incoming representation
-    """
+    def __init__(self, time, signal, val, device):
+        """Representation of a signal event.
 
-    def __init__(self, from_device=None, from_store=None):
-        if from_device:
-            self.device = rcore.Device.by_token[from_device['token']]
-            self.signal = self.device.sensor_by_name[
-                from_device['sensor_id']
-            ].signal
-            self.val = int(from_device['val'])
-            # Extract common arguments
-            super().__init__(from_device)
-        elif from_store:
-            self.device = rcore.Device.by_guid[from_store['device_guid']]
-            self.signal = rcore.Signal.by_guid[from_store['signal_guid']]
-            self.val = from_store['val']
-            # Extract common arguments
-            super().__init__(from_store)
-        else:
-            assert False, 'Supply from_store or to_store'
+        Parameters
+        ----------
+        time : int
+          UTC timestamp
+        signal : :class:`~signalpy.core.signal.Signal`
+        val : float
+          recorded value
+        device : :class:`~signalpy.core.device.Device`
+          Device that recorded the event
 
-    def to_store(self):
-        """Encode an sensor event for insertion into the event store."""
-        return {
-            'time': self.time,
-            'device_guid': self.device.guid,
-            'signal_guid': self.signal.guid,
-            'val': self.val,
-        }
+        """
+
+        self.time = time
+        self.signal = signal
+        self.val = val
+        self.device = device
+        
+    class DeviceSchema(Schema):
+        signal = sp.Signal.DeviceField(data_key='sensor_id')
+        
+    class StoreSchema(Schema):
+        signal = sp.Signal.StoreField(data_key='signal_guid')

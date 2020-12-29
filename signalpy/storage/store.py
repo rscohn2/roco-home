@@ -9,7 +9,9 @@
 import logging
 from abc import ABC
 
-import signalpy.core as rcore
+import marshmallow as mm
+
+import signalpy as sp
 
 logger = logging.getLogger(__name__)
 
@@ -52,7 +54,9 @@ class Store(ABC):
           object with to_store method that returns a dict
 
         """
-        self.table.put(object.to_store())
+        logger.info(f'type(object) {type(object)}')
+        schema = type(object).StoreSchema()
+        self.table.put(schema.dump(object))
 
     def query(self):
         """Returns list of objects matching filter."""
@@ -97,6 +101,8 @@ class SignalEventsStore(Store):
         return SignalEventsStore(db)
 
     def query(self):
-        for object in super().query():
+        schema = sp.SignalEvent.StoreSchema(unknown=mm.EXCLUDE)
+        for o in super().query():
+            logger.info(f'query result: {o.keys()}')
             # convert dictionaries to Signals
-            yield rcore.SignalEvent(from_store=object)
+            yield schema.load(o)

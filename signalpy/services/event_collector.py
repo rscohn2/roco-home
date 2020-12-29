@@ -8,7 +8,9 @@
 
 import logging
 
-import signalpy.core as rcore
+import marshmallow as mm
+
+import signalpy as sp
 
 logger = logging.getLogger(__name__)
 
@@ -19,6 +21,7 @@ class EventCollector:
     def __init__(self, event_store):
         self.accounts = {}
         self.store = event_store
+        self.schemas = {'sensor': sp.SignalEvent.DeviceSchema(unknown=mm.EXCLUDE)}
 
     def record_event(self, device_event):
         """Insert an event into the Event Store.
@@ -27,6 +30,10 @@ class EventCollector:
         :class:`~signalpy.core.event.Event`.
 
         """
-        logger.info('recording event: %s' % device_event)
-        event = rcore.event._device_decode_event(device_event)
-        self.store.put(event)
+        logger.info(f'recording event: {device_event}')
+        try:
+            schema =self.schemas[device_event['event']] 
+            event = schema.load(device_event)
+            self.store.put(event)
+        except KeyError:
+            logger.error(f'unknown event: {device_event["event"]}')
