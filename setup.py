@@ -7,6 +7,7 @@ from setuptools import setup
 requirements = [
     'boto3',
     'Flask',
+    'marshmallow',
     'pandas',
     'pyyaml',
 ]
