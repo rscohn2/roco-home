@@ -2,11 +2,9 @@
 #
 # SPDX-License-Identifier: MIT
 
-from flask import Flask
+import signalpy as sp
 
-app = Flask(__name__)
-
-
-@app.route("/")
-def hello():
-    return "Hello, collector2!"
+def create_app(test_config=None):
+    db = sp.SQLite3()
+    collector_app = sp.CollectorApp(db, test_config)
+    return collector_app.app
