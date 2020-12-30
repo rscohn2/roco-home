@@ -11,6 +11,10 @@ Files: app/web/public/*.ico app/web/public/*.png app/web/public/*.json
 Copyright: 2020 Robert Cohn
 License: MIT
 
+Files: docs/images/*.png docs/images/*.drawio
+Copyright: 2020 Robert Cohn
+License: MIT
+
 Files: app/web/src/*.svg
 Copyright: 2020 Robert Cohn
 License: MIT

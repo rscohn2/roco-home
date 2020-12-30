@@ -3,8 +3,9 @@
 # SPDX-License-Identifier: MIT
 
 __pycache__
-/*.egg-info/
+*.egg-info/
 /docs/_build
 dynamo.pid
 /dynamodb
 /shared-local-instance.db
+app/backend/*/packages

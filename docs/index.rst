@@ -9,10 +9,12 @@ Welcome to signalpy's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   introduction
    architecture
    api-reference
    software-organization
    deployment
+   development-workflows
 
 
 

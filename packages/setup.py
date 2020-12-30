@@ -24,7 +24,17 @@ setup(
     author='Robert Cohn',
     author_email='rscohn2@gmail.com',
     license='MIT',
-    packages=['signalpy'],
+    packages=[
+        'signalpy',
+        'signalpy.analytics',
+        'signalpy.core',
+        'signalpy.services',
+        'signalpy.services.analyzer',
+        'signalpy.services.cli',
+        'signalpy.services.collector',
+        'signalpy.storage',
+        'signalpy.storage.dynamodb',
+    ],
     entry_points={
         'console_scripts': ['sensecli=signalpy.cli:main'],
     },

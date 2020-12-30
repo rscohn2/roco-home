@@ -14,8 +14,7 @@ jobs:
     - name: Install prerequisites
       run: |
         pip install --upgrade --quiet pip wheel
-        pip install -e .[dev]
-        pip install -e .[docs]
+        pip install packages/.[dev,docs]
         sudo apt-get install -qq wget
         mkdir dynamodb
         wget -O - --quiet http://dynamodb-local.s3-website-us-west-2.amazonaws.com/dynamodb_local_latest.tar.gz \
@@ -27,6 +26,8 @@ jobs:
         export AWS_SECRET_ACCESS_KEY=fake
         export AWS_DEFAULT_REGION=fake
         pre-commit run --all
+        cp -r packages app/backend/collector
+        cp -r packages app/backend/analyzer
     - name: Checkout gh-pages
       if: ${{ github.ref == 'refs/heads/publish-web' }}
       uses: actions/checkout@v2
@@ -54,10 +55,10 @@ jobs:
           app-name: signalpy-collector
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_COLLECTOR }},
           package: app/backend/collector
-    - name: Publish Analytics Service
+    - name: Publish Analyzer
       if: ${{ github.ref == 'refs/heads/publish-analytics' }}
       uses: azure/webapps-deploy@v2
       with:
           app-name: signalpy-analytics
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_ANALYTICS }},
-          package: app/backend/analytics
+          package: app/backend/analyzer
