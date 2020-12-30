@@ -8,8 +8,8 @@ from flask import Flask
 
 import signalpy as sp
 
-class CollectorApp:
 
+class CollectorApp:
     def __init__(self, db, test_config):
         store = sp.SignalEventsStore.create(db)
         self.collector = sp.Collector(store)
