@@ -6,5 +6,8 @@
 Collector
 =========
 
-.. automodule:: signalpy.services.event_collector
+Entry Points
+============
+
+.. automodule:: signalpy.services.collector.entry_points
    :members:

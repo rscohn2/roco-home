@@ -80,6 +80,8 @@ class SignalEventsStore(Store):
     }
 
     class Schema(mm.Schema):
+        """Schema for signal events."""
+
         time = mm.fields.Int()
         signal_guid = mm.fields.Str()
         device_guid = mm.fields.Str()

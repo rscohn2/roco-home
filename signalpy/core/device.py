@@ -35,7 +35,7 @@ class Device(sp.Object):
             self.sensor_by_name[sensor_name] = sensor
 
     def register(self):
-        """Register device for lookup by guid."""
+        """Register device for lookup by GUID."""
 
         logger.info('Register device: %s' % self)
         Device.by_guid[self.guid] = self

@@ -13,7 +13,7 @@ requirements = [
 ]
 extra_requirements = {
     'dev': ['pre-commit', 'pytest', 'reuse'],
-    'docs': ['sphinx', 'sphinx-book-theme'],
+    'docs': ['sphinx', 'sphinx-book-theme', 'sphinxcontrib-spelling'],
 }
 
 setup(

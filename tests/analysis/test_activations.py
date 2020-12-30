@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-from signalpy.analysis import activations
+from signalpy.analytics import activations
 
 
 def test_activations(signal_events_store):

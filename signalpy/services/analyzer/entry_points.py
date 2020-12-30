@@ -2,12 +2,12 @@
 #
 # SPDX-License-Identifier: MIT
 
-"""Interface between log server front-end and persistent storage.
+"""Entry points for analyzer service.
 
 """
 
 
-class EventLogServer:
+class Analyzer:
     """Interface between log server front-end and persistent storage."""
 
     def __init__(self, signal_store, building):

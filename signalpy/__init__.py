@@ -16,8 +16,8 @@ from signalpy.core.event import SignalEvent  # noqa: F401
 from signalpy.core.project import Project  # noqa: F401
 from signalpy.core.sensor import Sensor  # noqa: F401
 from signalpy.core.signal import Signal  # noqa: F401
-from signalpy.services.event_collector import EventCollector  # noqa: F401
-from signalpy.services.event_log_server import EventLogServer  # noqa: F401
+from signalpy.services.analyzer.entry_points import Analyzer  # noqa: F401
+from signalpy.services.collector.entry_points import Collector  # noqa: F401
 from signalpy.storage.db import DynamoDB  # noqa: F401
 from signalpy.storage.db import SQLite3  # noqa: F401
 from signalpy.storage.store import SignalEventsStore  # noqa: F401

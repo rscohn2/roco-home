@@ -81,7 +81,7 @@ def empty_signal_events_store(sqlite_db):
 @pytest.fixture
 def signal_events_store(project, empty_signal_events_store, device_events):
     store = empty_signal_events_store
-    collector = sp.EventCollector(store)
+    collector = sp.Collector(store)
     for device_event in device_events:
         collector.record_event(device_event)
     return store

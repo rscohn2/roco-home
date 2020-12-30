@@ -19,6 +19,12 @@ repos:
         language: system
         pass_filenames: false
         always_run: true
+      - id: spelling
+        name: spelling
+        entry: make -C docs spelling
+        language: system
+        pass_filenames: false
+        always_run: true
       - id: react-build
         name: react-build
         entry: bash -c "cd app/web && npm run build"

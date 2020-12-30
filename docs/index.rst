@@ -9,9 +9,9 @@ Welcome to signalpy's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   core
-   storage
-   services
+   architecture
+   api-reference
+   software-organization
    deployment
 
 

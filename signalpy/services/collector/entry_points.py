@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-"""Interface between collector front-end and persistent storage.
+"""Entry points for Collector service.
 
 """
 
@@ -15,13 +15,13 @@ import signalpy as sp
 logger = logging.getLogger(__name__)
 
 
-class EventCollector:
+class Collector:
     """Interface between collector front-end and persistent storage."""
 
     def __init__(self, event_store):
         self.accounts = {}
         self.store = event_store
-        self.schema = EventCollector.Schema()
+        self.schema = Collector.Schema()
 
     def record_event(self, device_event):
         """Insert an event into the Event Store.

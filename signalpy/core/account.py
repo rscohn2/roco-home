@@ -14,8 +14,8 @@ logger = logging.getLogger(__name__)
 class Account(sp.Object):
     """Representation of an account.
 
-    Account is modeled after github account where projects are
-    repos.
+    Account is modeled after GitHub account where projects are
+    repositories.
 
     """
 
