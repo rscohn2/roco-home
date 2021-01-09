@@ -15,10 +15,9 @@ logger = logging.getLogger(__name__)
 def up():
     instance = background(
         (
-            'java -Djava.library.path=./DynamoDBLocal_lib'
-            ' -jar %s/DynamoDBLocal.jar -sharedDb'
+            f'java -Djava.library.path=./DynamoDBLocal_lib'
+            f' -jar {cli.args.jar_dir}/DynamoDBLocal.jar -sharedDb'
         )
-        % cli.args.jar_dir
     )
     logger.info('Started local instance with pid: %d' % instance.pid)
     return instance.pid

@@ -19,31 +19,6 @@ Signalpy
 
 Code for managing sensors
 
-CLI
-===
+See the documentation_
 
-sensecli is a CLI for managing the backend.
-
-Prerequisites
-=============
-
-To use the CLI::
-
-  pip install -e .
-
-For development::
-
-  pip install -e .[dev]
-
-For docs::
-
-  pip install -e .[docs]
-
-Testing
-=======
-
-To test::
-
-  pytest
-
-  pytest --log-cli-level=INFO tests/test_observations.py
+.. _documentation: https://signalpy.readthedocs.io/en/latest/?badge=latest

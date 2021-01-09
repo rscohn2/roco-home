@@ -28,21 +28,21 @@ class Account(sp.Object):
     def load_project(self, file):
         """Load configuration data for a project."""
         try:
-            logger.info('load project: %s' % file)
+            logger.info(f'load project: {file}')
             with open(file, 'r') as stream:
                 try:
                     project_dict = yaml.safe_load(stream)
                     project_name = project_dict['name']
                     logger.info(
-                        'Loaded project %s: %s' % (project_name, project_dict)
+                        f'Loaded project {project_name}: {project_dict}'
                     )
                     self.projects[project_name] = sp.Project(
                         project_name, project_dict, self
                     )
                     return self.projects[project_name]
                 except yaml.YAMLError as exc:
-                    logger.error('parsing project file %s: %s' % (file, exc))
+                    logger.error(f'parsing project file {file}: {exc}')
                     raise exc
         except OSError as exc:
-            logger.error('opening project file: %s: %s' % (file, exc))
+            logger.error(f'opening project file: {file}: {exc}')
             raise exc

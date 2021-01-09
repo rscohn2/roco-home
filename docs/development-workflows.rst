@@ -44,7 +44,7 @@ Create a virtual environment::
 Install editable signalpy into the environment with all tools needed
 for development::
 
-  pip install ./packages/.[dev,docs]
+  pip install -e ./packages/.[dev,docs]
 
 Testing
 =======
@@ -89,6 +89,14 @@ on fixes::
 When you think you are done, run everything one more time::
 
   pre-commit run --all
+
+Running services locally
+========================
+
+To run a service locally::
+
+  cd app/backend/collector
+  FLASK_ENV=development flask run
 
 Documentation
 =============

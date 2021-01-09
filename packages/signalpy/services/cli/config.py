@@ -21,15 +21,15 @@ class Config:
 
     def set(self, file):
         try:
-            logger.info('set config: %s' % file)
+            logger.info(f'set config: {file}')
             with open(file, 'r') as stream:
                 try:
                     self.data = yaml.safe_load(stream)
-                    logger.info('Loaded config: %s' % self.data)
+                    logger.info(f'Loaded config: {self.data}')
                 except yaml.YAMLError as exc:
                     logger.error(exc)
         except OSError:
-            logger.error('Cannot open config file: %s' % file)
+            logger.error(f'Cannot open config file: {file}')
             sys.exit(1)
 
 

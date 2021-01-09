@@ -35,7 +35,7 @@ def add_parser(subparsers):
 def up():
     pid = db.local.up()
     with open('dynamo.pid', 'w') as fout:
-        fout.write('%s\n' % pid)
+        fout.write(f'{pid}\n')
 
 
 def down():

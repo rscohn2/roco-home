@@ -37,5 +37,5 @@ class Device(sp.Object):
     def register(self):
         """Register device for lookup by GUID."""
 
-        logger.info('Register device: %s' % self)
+        logger.info(f'Register device: {self}')
         Device.by_guid[self.guid] = self

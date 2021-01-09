@@ -11,14 +11,14 @@ logger = logging.getLogger(__name__)
 
 
 def shell(cmd):
-    logger.info('shell: %s' % cmd)
+    logger.info(f'shell: {cmd}')
     if cli.args.dry_run:
         return
     run(cmd, shell=True)
 
 
 def background(cmd):
-    logger.info('background: %s' % cmd)
+    logger.info(f'backgroound: {cmd}')
     if cli.args.dry_run:
         return
     return Popen(cmd.split(' '))

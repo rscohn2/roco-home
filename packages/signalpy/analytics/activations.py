@@ -27,5 +27,5 @@ def extract_activations(signal_events):
     df = pd.DataFrame(
         data={'time': times, 'signal': signals, 'duration': durations}
     )
-    logger.info('activations:\n%s' % df)
+    logger.info(f'activations:\n{df}')
     return df
