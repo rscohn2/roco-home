@@ -9,6 +9,7 @@ requirements = [
     'Flask',
     'marshmallow',
     'pandas',
+    'pymongo',
     'pyyaml',
 ]
 extra_requirements = {
@@ -33,7 +34,6 @@ setup(
         'signalpy.services.cli',
         'signalpy.services.collector',
         'signalpy.storage',
-        'signalpy.storage.dynamodb',
     ],
     entry_points={
         'console_scripts': ['sensecli=signalpy.cli:main'],

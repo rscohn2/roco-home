@@ -19,3 +19,4 @@ Core
    object
    sensor
    signal
+   util

@@ -69,6 +69,12 @@ repos:
         language: system
         pass_filenames: false
         always_run: true
+      - id: sphinx-linkcheck
+        name: sphinx-linkcheck
+        entry: make -C docs linkcheck
+        language: system
+        pass_filenames: false
+        always_run: true
       - id: react-build
         name: react-build
         entry: bash -c "cd app/web && npm run build"

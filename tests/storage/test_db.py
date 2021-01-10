@@ -45,3 +45,7 @@ def test_dynamodb(local_dynamodb):
 
 def test_sqlite(sqlite_db):
     exercise_db(sqlite_db)
+
+
+def test_mongodb(local_mongodb):
+    pass

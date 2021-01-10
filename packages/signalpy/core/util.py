@@ -5,20 +5,18 @@
 import logging
 from subprocess import Popen, run
 
-from signalpy.services import cli
-
 logger = logging.getLogger(__name__)
 
 
-def shell(cmd):
+def shell(cmd, dry_run=False, check=True):
     logger.info(f'shell: {cmd}')
-    if cli.args.dry_run:
+    if dry_run:
         return
-    run(cmd, shell=True)
+    run(cmd, shell=True, check=check)
 
 
-def background(cmd):
-    logger.info(f'backgroound: {cmd}')
-    if cli.args.dry_run:
+def background(cmd, dry_run=False):
+    logger.info(f'background: {cmd}')
+    if dry_run:
         return
     return Popen(cmd.split(' '))

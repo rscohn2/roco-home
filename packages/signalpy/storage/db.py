@@ -198,3 +198,30 @@ class SQLite3(DB):
         def query(self):
             self.db._execute(f'SELECT * from {self.name}')
             return self.db.cursor
+
+
+class MongoDB(DB):
+    def __init__(self):
+        pass
+
+    def delete(self):
+        pass
+
+    def reset(self):
+        pass
+
+    def create_table(self, name, info):
+        pass
+
+    def _execute(self, command, parameters=()):
+        pass
+
+    class Table(DB.Table):
+        def __init__(self, db, name, info):
+            pass
+
+        def put(self, object):
+            pass
+
+        def query(self):
+            pass

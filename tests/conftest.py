@@ -10,25 +10,6 @@ import pytest
 import signalpy as sp
 
 
-class MockArgs:
-    dry_run = False
-    jar_dir = 'dynamodb'
-
-
-@pytest.fixture(scope='session')
-def mock_args():
-    sp.services.cli.args = MockArgs()
-
-
-@pytest.fixture(scope='session')
-def local_dynamodb_instance(mock_args):
-    print('Starting instance')
-    db_pid = sp.dynamodb.local.up()
-    yield db_pid
-    print('Stopping instance')
-    sp.dynamodb.local.down(db_pid)
-
-
 @pytest.fixture(scope='session')
 def sqlite_db():
     db = sp.SQLite3()
