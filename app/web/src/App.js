@@ -164,7 +164,7 @@ class ControlPanel extends React.Component {
     render() {
         return (
                 <>
-                  <h1> Sensepy Control Panel </h1>
+                  <h1> Signalpy Control Panel </h1>
                   <LedMatrix
                     names={this.led_names}
                   />
