@@ -48,4 +48,4 @@ def test_sqlite(sqlite_db):
 
 
 def test_mongodb(local_mongodb):
-    pass
+    exercise_db(local_mongodb)

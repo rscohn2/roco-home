@@ -7,6 +7,7 @@ import sqlite3
 from abc import ABC, abstractmethod
 
 import boto3
+import pymongo
 
 """Persistent storage.
 
@@ -202,26 +203,24 @@ class SQLite3(DB):
 
 class MongoDB(DB):
     def __init__(self):
-        pass
-
-    def delete(self):
-        pass
+        self.client = pymongo.MongoClient()
+        self.db = self.client['signalpy']
 
     def reset(self):
-        pass
+        for col in self.db.list_collections():
+            col.drop()
 
     def create_table(self, name, info):
-        pass
-
-    def _execute(self, command, parameters=()):
-        pass
+        self.signal_events = self.db['signal_events']
+        return self.Table(self, 'signal_events', info)
 
     class Table(DB.Table):
         def __init__(self, db, name, info):
-            pass
+            self.db = db
+            self.collection = db.db[name]
 
         def put(self, object):
-            pass
+            self.collection.insert_one(object)
 
         def query(self):
-            pass
+            return self.collection.find()

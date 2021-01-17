@@ -27,6 +27,15 @@ SQLite3
 .. autoclass:: signalpy.storage.db::SQLite3.Table
    :members:
 
+MongoDB
+-------
+
+.. autoclass:: signalpy.storage.db::MongoDB
+   :members:
+
+.. autoclass:: signalpy.storage.db::MongoDB.Table
+   :members:
+
 DynamoDB
 --------
 
