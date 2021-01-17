@@ -10,15 +10,14 @@ import signalpy as sp
 
 
 def create_app(test_config=None):
-    # print('A message')
-    # print('executable: %s' % sys.executable)
-    # subprocess.call('ls -l %s' % os.path.dirname(sys.executable), shell=True)
-    # subprocess.call('ls -Rl', shell=True)
-    # subprocess.call('pip list', shell=True)
-    # subprocess.call('pip install -r requirements.txt', shell=True)
-    # subprocess.call('pip list', shell=True)
-
-    db = sp.SQLite3()
+    uri = ('mongodb://signalpy-db:orTeDdQGZmu1k3O0TJVpJjwMb8qll'
+           'TylJlFwyx2QGQCCw6CWjlsjq17gn2e9FrrvYELHxFXpS1cFqK1V'
+           'kw6OSQ==@signalpy-db.mongo.cosmos.azure.com:10255/'
+           '?ssl=true'
+           '&replicaSet=globaldb'
+           '&maxIdleTimeMS=120000'
+           '&appName=@signalpy-db@')
+    db = sp.MongoDB(uri)
     collector_app = sp.CollectorApp(db, test_config)
     return collector_app.app
 

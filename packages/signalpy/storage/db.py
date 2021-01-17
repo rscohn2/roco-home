@@ -202,8 +202,8 @@ class SQLite3(DB):
 
 
 class MongoDB(DB):
-    def __init__(self):
-        self.client = pymongo.MongoClient()
+    def __init__(self, uri=None):
+        self.client = pymongo.MongoClient(uri)
         self.db = self.client['signalpy']
 
     def reset(self):
