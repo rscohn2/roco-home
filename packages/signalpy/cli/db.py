@@ -4,7 +4,7 @@
 
 import logging
 
-from signalpy.services import cli
+from signalpy import cli
 from signalpy.storage import db
 
 logger = logging.getLogger(__name__)

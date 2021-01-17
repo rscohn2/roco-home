@@ -7,7 +7,7 @@ import sys
 
 import yaml
 
-from signalpy.services import cli
+from signalpy import cli
 
 logger = logging.getLogger(__name__)
 

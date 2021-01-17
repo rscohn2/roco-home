@@ -36,7 +36,7 @@ setup(
         'signalpy.storage',
     ],
     entry_points={
-        'console_scripts': ['sensecli=signalpy.cli:main'],
+        'console_scripts': ['signalcli=signalpy.cli:main'],
     },
     install_requires=requirements,
     extras_require=extra_requirements,
