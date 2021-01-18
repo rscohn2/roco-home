@@ -1,0 +1,6 @@
+# SPDX-FileCopyrightText: 2020 Robert Cohn
+#
+# SPDX-License-Identifier: MIT
+
+# signalpy packages and dependencies are installed by the
+# setup.py. This file can be used to freeze specific version.
