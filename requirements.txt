@@ -4,3 +4,6 @@
 
 # signalpy packages and dependencies are installed by the
 # setup.py. This file can be used to freeze specific version.
+
+# This is needed by Azure deployment. Keep it last.
+.
