@@ -6,7 +6,7 @@ import argparse
 import logging
 import sys
 
-from signalpy.services.cli import config, db, identity
+from signalpy.cli import config, db, identity
 
 args = None
 

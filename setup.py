@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-from setuptools import setup
+from setuptools import find_packages, setup
 
 requirements = [
     'boto3',
@@ -25,18 +25,10 @@ setup(
     author='Robert Cohn',
     author_email='rscohn2@gmail.com',
     license='MIT',
-    packages=[
-        'signalpy',
-        'signalpy.analytics',
-        'signalpy.core',
-        'signalpy.services',
-        'signalpy.services.analyzer',
-        'signalpy.services.cli',
-        'signalpy.services.collector',
-        'signalpy.storage',
-    ],
+    package_dir={'': 'src'},
+    packages=find_packages(where='src'),
     entry_points={
-        'console_scripts': ['sensecli=signalpy.cli:main'],
+        'console_scripts': ['signalcli=signalpy.cli:main'],
     },
     install_requires=requirements,
     extras_require=extra_requirements,

@@ -14,7 +14,7 @@ jobs:
     - name: Install prerequisites
       run: |
         pip install --upgrade --quiet pip wheel
-        pip install packages/.[dev,docs]
+        pip install .[dev,docs]
         sudo apt-get install -qq wget
         mkdir dynamodb
         wget -O - --quiet http://dynamodb-local.s3-website-us-west-2.amazonaws.com/dynamodb_local_latest.tar.gz \
@@ -26,8 +26,8 @@ jobs:
         export AWS_SECRET_ACCESS_KEY=fake
         export AWS_DEFAULT_REGION=fake
         pre-commit run --all
-        cp -r packages app/backend/collector
-        cp -r packages app/backend/analyzer
+        cp -r requirements.txt setup.py src app/backend/collector
+        cp -r requirements.txt setup.py src app/backend/analyzer
     - name: Checkout gh-pages
       if: ${{ github.ref == 'refs/heads/publish-web' }}
       uses: actions/checkout@v2
