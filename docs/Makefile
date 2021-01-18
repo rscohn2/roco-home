@@ -8,7 +8,8 @@
 # You can set these variables from the command line, and also
 # from the environment for the first two.
 # SPHINXOPTS    ?= -W -N -n -q -j auto
-SPHINXOPTS    ?= -N -n -q -j auto
+EXTRAOPTS     ?=
+SPHINXOPTS    ?= -N -n -q -j auto $(EXTRAOPTS)
 SPHINXBUILD   ?= sphinx-build
 SOURCEDIR     = .
 BUILDDIR      = _build

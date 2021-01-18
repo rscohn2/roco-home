@@ -14,11 +14,16 @@ jobs:
     - name: Install prerequisites
       run: |
         pip install --upgrade --quiet pip wheel
+        # preferred package versions
+        pip install requirements.txt
+        # everything else, latest version
         pip install .[dev,docs]
+        # dynamodb
         sudo apt-get install -qq wget
         mkdir dynamodb
         wget -O - --quiet http://dynamodb-local.s3-website-us-west-2.amazonaws.com/dynamodb_local_latest.tar.gz \
            | tar zx -C dynamodb
+        # webapp
         cd app/web && npm install
     - name: Checks
       run: |

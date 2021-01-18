@@ -2,8 +2,8 @@
 ..
 .. SPDX-License-Identifier: MIT
 
-Welcome to signalpy's documentation!
-====================================
+Welcome to ``signalpy``'s documentation!
+========================================
 
 .. toctree::
    :maxdepth: 2
@@ -15,7 +15,7 @@ Welcome to signalpy's documentation!
    software-organization
    deployment
    development-workflows
-
+   glossary
 
 
 Indices and tables

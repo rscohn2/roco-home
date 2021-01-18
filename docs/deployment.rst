@@ -46,7 +46,7 @@ GitHub Setup
 ============
 
 We created a ``signalpy`` organization that hosts a ``signalpy``
-repo. You currently only need a single repo
+repository. You currently only need a single repository.
 
 Initial Creation of the App Services on Azure
 =============================================

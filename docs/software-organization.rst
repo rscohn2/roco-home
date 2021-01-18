@@ -25,24 +25,24 @@ app
 
 Support:
 
-tests
+``tests``
   Scripts for pytest
-docs
+``docs``
   Documentation
-.reuse
-  dep5 support with license info
-LICENSES
+``.reuse``
+  ``dep5`` support with license info
+``LICENSES``
   SPDX licenses
 
 Configuration:
 
-pyproject.toml
+``pyproject.toml``
   Common configuration for applications. Today only used for black.
-.github
+``.github``
   GitHub actions configurations
-.gitignore
+``.gitignore``
   project-specific git ignores
-readthedocs.ytml
+``readthedocs.ytml``
   Configuration for readthedocs_
 
 .. _readthedocs: https://readthedocs.org/

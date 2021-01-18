@@ -2,9 +2,9 @@
 ..
 .. SPDX-License-Identifier: MIT
 
-======
-Util
-======
+========
+``Util``
+========
 
 .. automodule:: signalpy.core.util
    :members:

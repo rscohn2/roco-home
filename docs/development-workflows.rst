@@ -65,6 +65,8 @@ For selective testing specify a test, file, or directory::
 Pre-commit testing
 ==================
 
+.. spelling:: Pre
+
 Before commit, add all your files and run the same tests as CI::
 
   git status
@@ -106,13 +108,13 @@ To build the documentation::
   cd docs
   make html
 
-Webapp Deployment
-=================
+Web Application Deployment
+==========================
 
 Deploy form CI
 --------------
 
-CI deploys the collector and analyzer webapp on commits to the
+CI deploys the collector and analyzer web application on commits to the
 publish-collector and publish-analyzer branches, respectively. A
 typical deployment starts with a commit to the main branch::
 
@@ -156,7 +158,7 @@ them, every time you update::
   cd app/backend/collector
   cp ../.././packages .
 
-To see all the webbapps::
+To see all the web applications::
 
   az webapp list
 

@@ -59,19 +59,19 @@ repos:
         always_run: true
       - id: docs
         name: docs
-        entry: make -C docs html
+        entry: make -C docs EXTRAOPTS=-W html
         language: system
         pass_filenames: false
         always_run: true
       - id: spelling
         name: spelling
-        entry: make -C docs spelling
+        entry: make -C docs EXTRAOPTS=-W spelling
         language: system
         pass_filenames: false
         always_run: true
       - id: sphinx-linkcheck
         name: sphinx-linkcheck
-        entry: make -C docs linkcheck
+        entry: make -C docs EXTRAOPTS=-W linkcheck
         language: system
         pass_filenames: false
         always_run: true
