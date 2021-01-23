@@ -28,11 +28,11 @@ class Store(ABC):
 
     """
 
-    def __init__(self, db, name, info):
-        self.table = db.Table(db, name, info)
+    def table(self, db, name):
+        self.table = db.Table(db, name)
 
     @abstractmethod
-    def create(self, db):
+    def create(db):
         pass
 
     @abstractmethod
@@ -88,9 +88,7 @@ class SignalEventsStore(Store):
         val = mm.fields.Float()
 
     def __init__(self, db):
-        super().__init__(
-            db, SignalEventsStore.table_name, SignalEventsStore.table_info
-        )
+        self.table(db, SignalEventsStore.table_name)
         self.schema = SignalEventsStore.Schema()
 
     def create(db):

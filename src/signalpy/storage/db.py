@@ -126,10 +126,10 @@ class DynamoDB(DB):
             AttributeDefinitions=dynamo_info['AttributeDefinitions'],
             ProvisionedThroughput=DynamoDB._provisioned,
         )
-        return self.Table(self, name, info)
+        return self.Table(self, name)
 
     class Table(DB.Table):
-        def __init__(self, db, name, info):
+        def __init__(self, db, name):
             self.db = db
             self.name = name
             self.table = db.resource.Table(name)
@@ -175,14 +175,14 @@ class SQLite3(DB):
         schema = info['sqlite']['schema']
         sstring = ','.join(s[0] + ' ' + s[1] for s in schema)
         self._execute(f'CREATE TABLE {name} ({sstring});')
-        return SQLite3.Table(self, name, info)
+        return SQLite3.Table(self, name)
 
     def _execute(self, command, parameters=()):
         logger.info(f'sqlite execute. "{command}" with {parameters}')
         self.cursor.execute(command, parameters)
 
     class Table(DB.Table):
-        def __init__(self, db, name, info):
+        def __init__(self, db, name):
             self.db = db
             self.name = name
 
@@ -212,10 +212,10 @@ class MongoDB(DB):
 
     def create_table(self, name, info):
         self.signal_events = self.db['signal_events']
-        return self.Table(self, 'signal_events', info)
+        return self.Table(self, 'signal_events')
 
     class Table(DB.Table):
-        def __init__(self, db, name, info):
+        def __init__(self, db, name):
             self.db = db
             self.collection = db.db[name]
 
