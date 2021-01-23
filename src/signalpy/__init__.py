@@ -25,6 +25,7 @@ from signalpy.storage.db import MongoDB  # noqa: F401
 from signalpy.storage.db import SQLite3  # noqa: F401
 from signalpy.storage.local_db import LocalDynamoDB  # noqa: F401
 from signalpy.storage.local_db import LocalMongoDB  # noqa: F401
+from signalpy.storage.store import AccountStore  # noqa: F401
 from signalpy.storage.store import SignalEventsStore  # noqa: F401
 
 logger = logging.getLogger(__name__)

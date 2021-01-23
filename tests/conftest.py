@@ -38,7 +38,9 @@ def device_events(data_dir):
 @pytest.fixture
 def project(data_dir):
     account = sp.Account(
-        'rscohn2', {'guid': 'acea2d90-325e-11eb-aef5-00155d093636'}
+        guid='acea2d90-325e-11eb-aef5-00155d093636',
+        name='rscohn2',
+        token='rscohn2_token',
     )
     return account.load_project(
         path.join(

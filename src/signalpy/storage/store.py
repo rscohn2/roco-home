@@ -33,6 +33,7 @@ class Store(ABC):
 
     @abstractmethod
     def create(db):
+        """Create the persistent object in the db."""
         pass
 
     @abstractmethod
@@ -119,3 +120,66 @@ class SignalEventsStore(Store):
             logger.info(f'SignalEventStore query result: {do}')
             so = self.schema.load(do)
             yield sp.SignalEventsStore._make_signal_event(so)
+
+
+class AccountStore(Store):
+    """Stores accounts."""
+
+    table_name = 'Accounts'
+
+    table_info = {
+        'sqlite': {
+            'schema': [
+                ('guid', 'text'),
+                ('name', 'text'),
+                ('token', 'text'),
+            ]
+        },
+        'dynamodb': {
+            'KeySchema': [
+                {'AttributeName': 'guid', 'KeyType': 'HASH'},
+            ],
+            'AttributeDefinitions': [
+                {'AttributeName': 'guid', 'AttributeType': 'S'},
+            ],
+        },
+    }
+
+    class Schema(mm.Schema):
+        """Schema for account store."""
+
+        guid = mm.fields.Str()
+        name = mm.fields.Str()
+        token = mm.fields.Str()
+
+    def __init__(self, db):
+        self.table(db, AccountStore.table_name)
+        self.schema = AccountStore.Schema()
+
+    def create(db):
+        db.create_table(AccountStore.table_name, AccountStore.table_info)
+        return AccountStore(db)
+
+    def put(self, o):
+        d = self.schema.dump(
+            {
+                'guid': o.guid,
+                'name': o.name,
+                'token': o.token,
+            }
+        )
+        self.table.put(d)
+
+    def _make_signal_event(d):
+        device = sp.Device.by_guid[d['device_guid']]
+        signal = sp.Signal.by_guid[d['signal_guid']]
+        return sp.SignalEvent(d['time'], device, signal, d['val'])
+
+    def query(self):
+        for q in self.table.query():
+            d = dict(q)
+            logger.info(f'AccountStore query result: {d}')
+            s_d = self.schema.load(d)
+            yield sp.Account(
+                guid=s_d['guid'], name=s_d['name'], token=s_d['token']
+            )

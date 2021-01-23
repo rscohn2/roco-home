@@ -15,7 +15,7 @@ jobs:
       run: |
         pip install --upgrade --quiet pip wheel
         # preferred package versions
-        pip install requirements.txt
+        pip install --quiet -r requirements.txt
         # everything else, latest version
         pip install .[dev,docs]
         # dynamodb

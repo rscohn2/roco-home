@@ -19,10 +19,11 @@ class Account(sp.Object):
 
     """
 
-    def __init__(self, account_name, account_dict):
+    def __init__(self, guid, name, token):
         """Construct an account."""
-        self.name = account_name
-        self.guid = account_dict['guid']
+        self.guid = guid
+        self.name = name
+        self.token = token
         self.projects = {}
 
     def load_project(self, file):
