@@ -17,13 +17,21 @@ def add_parser(subparsers):
         'gen-token', help='Generate a secret token'
     )
     gen_token_parser.set_defaults(func=gen_token)
-    gen_uuid_parser = subparsers.add_parser('gen-uuid', help='Generate a uuid')
-    gen_uuid_parser.set_defaults(func=gen_uuid)
+    gen_guid_parser = subparsers.add_parser('gen-guid', help='Generate a guid')
+    gen_guid_parser.set_defaults(func=gen_guid)
+
+
+def make_token():
+    return secrets.token_urlsafe()
+
+
+def make_guid():
+    return uuid.uuid1()
 
 
 def gen_token():
-    print('token:', secrets.token_urlsafe())
+    print('token:', make_token())
 
 
-def gen_uuid():
-    print('uuid:', uuid.uuid1())
+def gen_guid():
+    print('guid:', make_guid())

@@ -6,7 +6,7 @@ import argparse
 import logging
 import sys
 
-from signalpy.cli import config, db, identity
+from signalpy.cli import admin, config, db, identity
 
 args = None
 
@@ -23,6 +23,7 @@ def parse_args(cmd_args):
     )
     subparsers = parser.add_subparsers(dest='cmd')
     subparsers.required = True
+    admin.add_parser(subparsers)
     db.add_parser(subparsers)
     config.add_parser(subparsers)
     identity.add_parser(subparsers)

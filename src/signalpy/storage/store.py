@@ -152,6 +152,9 @@ class AccountStore(Store):
         name = mm.fields.Str()
         token = mm.fields.Str()
 
+        class Meta:
+            unknown = mm.EXCLUDE
+
     def __init__(self, db):
         self.table(db, AccountStore.table_name)
         self.schema = AccountStore.Schema()
