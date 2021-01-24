@@ -3,5 +3,5 @@
 # SPDX-License-Identifier: MIT
 
 
-def test_record_events(signal_events_store):
+def test_record_events(stores_with_home_signal_events):
     pass

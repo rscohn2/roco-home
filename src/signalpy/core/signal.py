@@ -9,7 +9,7 @@ class Signal(sp.Object):
 
     _by_guid = {}
 
-    def __init__(self, guid, name, project):
+    def __init__(self, name, project, guid=None):
         """Representation of a signal.
 
         Parameters
@@ -22,7 +22,7 @@ class Signal(sp.Object):
 
         self.project = project
         self.name = name
-        self.guid = guid
+        self.guid = guid if guid else sp.make_guid()
         Signal._by_guid[guid] = self
 
     def by_guid(guid):

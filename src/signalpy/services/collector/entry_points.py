@@ -22,9 +22,8 @@ class Collector:
         def __init__(self, message):
             self.message = message
 
-    def __init__(self, event_store):
-        self.accounts = {}
-        self.store = event_store
+    def __init__(self, stores):
+        self.stores = stores
         self.schema = Collector.Schema()
 
     def _error(self, message):
@@ -49,7 +48,11 @@ class Collector:
                 f' errors: {err.messages} event:  {device_event}'
             )
 
-        device = sp.Device.by_guid[d['device_guid']]
+        device_guid = d['device_guid']
+        try:
+            device = sp.Device.by_guid(device_guid)
+        except KeyError:
+            self._error(f'Unknown device guid: {device_guid}')
         logger.info(f'device: {device}')
         if d['token'] not in device.tokens:
             self._error(f'Invalid token: {device_event}')
@@ -65,7 +68,7 @@ class Collector:
         else:
             self._error(f'Unhandled event type: {device_event}')
 
-        self.store.put(se)
+        self.stores.signal_events.put(se)
 
     class Schema(mm.Schema):
         version = mm.fields.Int(validate=mm.validate.Range(min=1, max=1))

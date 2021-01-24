@@ -16,6 +16,15 @@ import signalpy as sp
 logger = logging.getLogger(__name__)
 
 
+class Stores:
+    def __init__(self, db):
+        self.signal_events = SignalEventsStore.create(db)
+        self.account = AccountStore.create(db)
+        self.project = ProjectStore.create(db)
+        self.signal = SignalStore.create(db)
+        self.device = DeviceStore.create(db)
+
+
 class Store(ABC):
     """Base class for persistent storage of objects.
 
@@ -182,6 +191,7 @@ class AccountStore(Store):
                 guid=s_d['guid'], name=s_d['name'], token=s_d['token']
             )
 
+
 class ProjectStore(Store):
     """Stores projects."""
 
@@ -242,7 +252,7 @@ class ProjectStore(Store):
             yield sp.Project(
                 guid=s_d['guid'], name=s_d['name'], account=account
             )
-            
+
 
 class SignalStore(Store):
     """Stores signals."""
@@ -304,7 +314,7 @@ class SignalStore(Store):
             yield sp.Signal(
                 guid=s_d['guid'], name=s_d['name'], project=project
             )
-        
+
 
 class DeviceStore(Store):
     """Stores devices."""
@@ -366,5 +376,3 @@ class DeviceStore(Store):
             yield sp.Signal(
                 guid=s_d['guid'], name=s_d['name'], project=project
             )
-        
-            

@@ -10,10 +10,12 @@ import logging
 
 from signalpy.base import Object  # noqa: F401
 from signalpy.core.account import Account  # noqa: F401
+from signalpy.core.auth import make_guid, make_token  # noqa: F401
 from signalpy.core.device import Device  # noqa: F401
 from signalpy.core.event import SignalEvent  # noqa: F401
 from signalpy.core.project import Project  # noqa: F401
 from signalpy.core.sensor import Sensor  # noqa: F401
+from signalpy.core.sensor import sensor_factory  # noqa: F401
 from signalpy.core.signal import Signal  # noqa: F401
 from signalpy.core.util import background  # noqa: F401
 from signalpy.core.util import shell  # noqa: F401
@@ -25,11 +27,7 @@ from signalpy.storage.db import MongoDB  # noqa: F401
 from signalpy.storage.db import SQLite3  # noqa: F401
 from signalpy.storage.local_db import LocalDynamoDB  # noqa: F401
 from signalpy.storage.local_db import LocalMongoDB  # noqa: F401
-from signalpy.storage.store import AccountStore  # noqa: F401
-from signalpy.storage.store import DeviceStore  # noqa: F401
-from signalpy.storage.store import ProjectStore  # noqa: F401
-from signalpy.storage.store import SignalStore  # noqa: F401
-from signalpy.storage.store import SignalEventsStore  # noqa: F401
+from signalpy.storage.store import Stores  # noqa: F401
 
 logger = logging.getLogger(__name__)
 

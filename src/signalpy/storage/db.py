@@ -158,17 +158,13 @@ class SQLite3(DB):
         self.connector.row_factory = sqlite3.Row
         self.cursor = self.connector.cursor()
 
-    def delete(self):
+    def reset(self):
         self._execute(
             """SELECT name FROM sqlite_master
                WHERE type = 'table' AND name NOT LIKE 'sqlite_%';"""
         )
         for row in self.cursor.fetchall():
             self._execute(f'DROP TABLE {row[0]}')
-
-    def reset(self):
-        self.delete()
-        self.__init__(self.path)
 
     def create_table(self, name, info):
         self._execute(f'DROP TABLE IF EXISTS {name}')

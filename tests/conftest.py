@@ -6,15 +6,27 @@ import json
 from os import path
 
 import pytest
+import yaml
 
 import signalpy as sp
 
 
 @pytest.fixture(scope='session')
-def sqlite_db():
-    db = sp.SQLite3()
-    yield db
-    db.delete()
+def session_tmp_dir(tmp_path_factory):
+    return tmp_path_factory.mktemp('data')
+
+
+@pytest.fixture(scope='session')
+def sqlite_db(session_tmp_dir):
+    db = sp.SQLite3(path.join(session_tmp_dir, 'sqllite.db'))
+    db.reset()
+    return db
+
+
+@pytest.fixture
+def init_stores(sqlite_db):
+    sqlite_db.reset()
+    return sp.Stores(sqlite_db)
 
 
 @pytest.fixture
@@ -36,35 +48,38 @@ def device_events(data_dir):
 
 
 @pytest.fixture
-def project(data_dir):
-    account = sp.Account(
-        guid='acea2d90-325e-11eb-aef5-00155d093636',
-        name='rscohn2',
-        token='rscohn2_token',
-    )
-    return account.load_project(
+def stores_with_home_project(init_stores, data_dir):
+    with open(
         path.join(
-            data_dir,
-            'configs',
-            'test1',
-            'accounts',
-            account.name,
-            'projects',
-            'home',
-            'signalpy-project.yml',
+            data_dir, 'configs', 'test2', 'projects', 'rscohn2', 'home.yml'
         )
-    )
+    ) as fin:
+        project_info = yaml.safe_load(fin)
+    print('project_info:', project_info)
+    account = sp.Account('rscohn2')
+    project = sp.Project(name='home', account=account)
+    project.configure(init_stores, project_info)
+    return init_stores
 
 
 @pytest.fixture
-def empty_signal_events_store(sqlite_db):
-    return sp.SignalEventsStore.create(sqlite_db)
+def home_project(init_stores, data_dir):
+    with open(
+        path.join(
+            data_dir, 'configs', 'test2', 'projects', 'rscohn2', 'home.yml'
+        )
+    ) as fin:
+        project_info = yaml.safe_load(fin)
+    print('project_info:', project_info)
+    account = sp.Account('rscohn2')
+    project = sp.Project(name='home', account=account)
+    project.configure(init_stores, project_info)
+    return project
 
 
 @pytest.fixture
-def signal_events_store(project, empty_signal_events_store, device_events):
-    store = empty_signal_events_store
-    collector = sp.Collector(store)
+def stores_with_home_signal_events(stores_with_home_project, device_events):
+    collector = sp.Collector(stores_with_home_project)
     for device_event in device_events:
         collector.record_event(device_event)
-    return store
+    return stores_with_home_project
