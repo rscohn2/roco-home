@@ -10,19 +10,24 @@ logger = logging.getLogger(__name__)
 
 
 class Project(sp.Object):
-    """Representation of a project.
 
-    A project contains devices that measure signals.
+    _by_guid = {}
 
-    """
+    def __init__(self, guid, name, account):
+        """Container for project info."""
 
-    def __init__(self, project_name, project_dict, account):
-        '''Construct a project from a dict'''
-
+        self.guid = guid
+        self.name = name
         self.account = account
-        self.name = project_dict['name']
-        self.guid = project_dict['guid']
         self.signal_by_name = {}
+        sp.Project._by_guid[guid] = self
+        
+    def by_guid(guid):
+        return Project._by_guid[guid]
+    
+    def configure(self, config):
+        """Configure a project with devices and signals."""
+
         for signal_name, signal_dict in project_dict['signals'].items():
             signal = sp.Signal(signal_name, signal_dict, self)
             self.signal_by_name[signal_name] = signal

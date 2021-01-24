@@ -19,12 +19,23 @@ class Account(sp.Object):
 
     """
 
+    _by_guid = {}
+    _by_name = {}
+    
     def __init__(self, guid, name, token):
         """Construct an account."""
         self.guid = guid
         self.name = name
         self.token = token
         self.projects = {}
+        Account._by_guid[guid] = self
+        Account._by_name[name] = self
+
+    def by_guid(guid):
+        return Account._by_guid[guid]
+
+    def by_name(name):
+        return Account._by_name[name]
 
     def load_project(self, file):
         """Load configuration data for a project."""

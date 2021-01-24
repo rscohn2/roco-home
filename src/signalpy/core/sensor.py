@@ -16,7 +16,7 @@ class Sensor(sp.Object):
 
     """
 
-    def __init__(self, sensor_name, sensor_dict, device):
+    def __init__(self, name, device):
+        self.name = name
         self.device = device
-        self.name = sensor_name
-        self.signal = device.project.signal_by_name[sensor_dict['signal']]
+
