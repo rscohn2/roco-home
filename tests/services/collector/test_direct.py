@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MIT
 
+import pytest
 
-def test_record_events(signal_events_store):
+
+@pytest.mark.skip
+def test_record_events(stores_with_home_events):
     pass

@@ -22,9 +22,8 @@ class Collector:
         def __init__(self, message):
             self.message = message
 
-    def __init__(self, event_store):
-        self.accounts = {}
-        self.store = event_store
+    def __init__(self, stores):
+        self.stores = stores
         self.schema = Collector.Schema()
 
     def _error(self, message):
@@ -49,23 +48,21 @@ class Collector:
                 f' errors: {err.messages} event:  {device_event}'
             )
 
-        device = sp.Device.by_guid[d['device_guid']]
-        logger.info(f'device: {device}')
-        if d['token'] not in device.tokens:
-            self._error(f'Invalid token: {device_event}')
-
+        token = d['token']
         try:
-            sensor = device.sensor_by_name[d['sensor_id']]
-            signal = sensor.signal
+            device = sp.Device.by_token(token)
+        except KeyError:
+            self._error(f'Unknown device token')
+        logger.info(f'device: {device}')
+        try:
+            sensor = device.sensor_by_name(d['sensor_id'])
         except KeyError:
             self._error(f'Invalid sensor_id\n  {device_event}')
 
-        if d['event'] == 'sensor':
-            se = sp.SignalEvent(d['time'], device, signal, d['val'])
-        else:
-            self._error(f'Unhandled event type: {device_event}')
-
-        self.store.put(se)
+        # a single sensor reading may generate multiple signal events
+        for (signal, val) in sensor.signals(d):
+            se = sp.SignalEvent(d['time'], device, signal, val)
+            self.stores.signal_events.put(se)
 
     class Schema(mm.Schema):
         version = mm.fields.Int(validate=mm.validate.Range(min=1, max=1))
@@ -73,9 +70,6 @@ class Collector:
         time = mm.fields.Int()
         device_guid = mm.fields.Str()
         event = mm.fields.Str(validate=mm.validate.OneOf(['sensor']))
-        sensor_id = mm.fields.Str(
-            validate=mm.validate.OneOf(
-                ['bit-1', 'bit-2', 'bit-3', 'bit-4', 'bit-5', 'bit-6', 'bit-7']
-            )
-        )
-        val = mm.fields.Float()
+        sensor_id = mm.fields.Str()
+        val = mm.fields.Str()
+        prev_val = mm.fields.Str()

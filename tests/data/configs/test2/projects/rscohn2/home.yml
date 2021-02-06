@@ -1,0 +1,36 @@
+# SPDX-FileCopyrightText: 2020 Robert Cohn
+#
+# SPDX-License-Identifier: MIT
+
+# User description
+
+name: home
+devices:
+  furnace:
+    sensors:
+      temperature-0:
+        type: ds18b20
+        signal: basement temperature
+      bits-0:
+        type: bits
+        bits:
+          0:
+            signal: oil burner
+          2:
+            signal: attic circulator
+          3:
+            signal: 1st floor circulator
+          4:
+            signal: 2nd floor circulator
+  attic:
+    sensors:
+      temperature-0:
+        type: ds18b20
+        signal: attic temperature
+      bits-0:
+        type: bits
+        bits:
+          0:
+            signal: master bedroom CFH
+          1:
+            signal: 2nd floor CFH

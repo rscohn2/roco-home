@@ -23,9 +23,8 @@ class FlaskClient:
 
 
 @pytest.fixture()
-def flask_client():
-    db = sp.SQLite3()
-    collector = sp.CollectorApp(db, test_config=None)
+def flask_client(stores_with_home_project):
+    collector = sp.CollectorApp(stores_with_home_project, test_config=None)
     collector.app.config['TESTING'] = True
 
     with collector.app.test_client() as client:

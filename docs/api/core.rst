@@ -13,6 +13,7 @@ Core
    :maxdepth: 1
 
    account
+   auth
    project
    device
    event

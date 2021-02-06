@@ -10,25 +10,59 @@ logger = logging.getLogger(__name__)
 
 
 class Project(sp.Object):
-    """Representation of a project.
 
-    A project contains devices that measure signals.
+    _by_guid = {}
 
-    """
+    def __init__(self, name, account, guid=None):
+        """Container for project info."""
 
-    def __init__(self, project_name, project_dict, account):
-        '''Construct a project from a dict'''
-
+        self.guid = guid if guid else sp.make_guid()
+        self.name = name
         self.account = account
-        self.name = project_dict['name']
-        self.guid = project_dict['guid']
-        self.signal_by_name = {}
-        for signal_name, signal_dict in project_dict['signals'].items():
-            signal = sp.Signal(signal_name, signal_dict, self)
-            self.signal_by_name[signal_name] = signal
-            signal.register_guid()
-        self.device_by_name = {}
-        for device_name, device_dict in project_dict['devices'].items():
-            device = sp.Device(device_name, device_dict, self)
-            self.device_by_name[device_name] = device
-            device.register()
+        self._signal_by_name = {}
+        self._device_by_name = {}
+        sp.Project._by_guid[guid] = self
+
+    def by_guid(guid):
+        return Project._by_guid[guid]
+
+    def _get_overrides(self, name, overrides):
+        """Allow overrides for debugging."""
+
+        guid = None
+        token = None
+        try:
+            logger.info(f'override check {name}')
+            guid = overrides[name]['guid']
+            logger.info(f'override {name} guid: {guid}')
+        except KeyError:
+            pass
+        try:
+            token = overrides[name]['token']
+            logger.info(f'override {name} token: {token}')
+        except KeyError:
+            pass
+        return (guid, token)
+
+    def device_by_name(self, name, overrides):
+        if name not in self._device_by_name:
+            (guid, token) = self._get_overrides(name, overrides)
+            device = sp.Device(name=name, project=self, guid=guid, token=token)
+            self._device_by_name[name] = device
+            self.account.stores.device.put(device)
+        return self._device_by_name[name]
+
+    def signal_by_name(self, name):
+        if name not in self._signal_by_name:
+            signal = sp.Signal(name=name, project=self)
+            self._signal_by_name[name] = signal
+            self.account.stores.signal.put(signal)
+        return self._signal_by_name[name]
+
+    def configure(self, info, overrides=None):
+        """Configure a project with devices and signals."""
+
+        self.name = info['name']
+        for device_name, device_info in info['devices'].items():
+            device = self.device_by_name(device_name, overrides)
+            device.configure(device_info)

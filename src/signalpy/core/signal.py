@@ -7,25 +7,24 @@ import signalpy as sp
 
 class Signal(sp.Object):
 
-    by_guid = {}
-    """Dictionary for mapping GUID to signals."""
+    _by_guid = {}
 
-    def __init__(self, signal_name, signal_dict, project):
+    def __init__(self, name, project, guid=None):
         """Representation of a signal.
 
         Parameters
         ----------
+        signal_guid : str
         signal_name : str
-        signal_dict : dict
         project : :class:`~signalpy.core.project.Project`
 
         """
 
         self.project = project
-        self.name = signal_name
-        self.guid = signal_dict['guid']
+        self.name = name
+        self.guid = guid if guid else sp.make_guid()
+        Signal._by_guid[self.guid] = self
 
-    def register_guid(self):
-        """Register signal for lookup by GUID."""
-
-        Signal.by_guid[self.guid] = self
+    def by_guid(guid):
+        """Returns signal associated with GUID."""
+        return Signal._by_guid[guid]

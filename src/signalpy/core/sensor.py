@@ -16,7 +16,47 @@ class Sensor(sp.Object):
 
     """
 
-    def __init__(self, sensor_name, sensor_dict, device):
+    def __init__(self, name, device):
+        self.name = name
         self.device = device
-        self.name = sensor_name
-        self.signal = device.project.signal_by_name[sensor_dict['signal']]
+
+    def configure(self, info):
+        self.signal = self.device.project.signal_by_name(info['signal'])
+
+    def signals(self, data):
+        """Generator for signals and values from sensor event."""
+
+        yield (self.signal, data['val'])
+
+
+class DS18B20Sensor(Sensor):
+    """DS18B20 temperature sensor."""
+
+    pass
+
+
+class BitsSensor(Sensor):
+    """Serial bit chain."""
+
+    def __init__(self, name, device):
+        super().__init__(name, device)
+        self.bits = {}
+
+    def configure(self, info):
+        for bit_name, bit_info in info['bits'].items():
+            self.bits[bit_name] = self.device.project.signal_by_name(
+                bit_info['signal']
+            )
+
+    def signals(self, data):
+        assert False
+
+
+def sensor_factory(type, name, device):
+    """Return a sensor based on type."""
+
+    assert type
+    if type == 'ds18b20':
+        return DS18B20Sensor(name, device)
+    elif type == 'bits':
+        return BitsSensor(name, device)
