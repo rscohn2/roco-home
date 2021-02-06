@@ -1,0 +1,11 @@
+[
+    {"device_guid": "furnace_guid", "token": "furnace_token", "sensor_id": "temperature-0", "val": "71", "time": "1"},
+    {"device_guid": "furnace_guid", "token": "furnace_token", "sensor_id": "temperature-0", "val": "72", "time": "2"},
+    {"device_guid": "attic_guid", "token": "attic_token", "sensor_id": "temperature-0", "val": "71", "time": "3"},
+    {"device_guid": "furnace_guid", "token": "furnace_token", "sensor_id": "temperature-0", "val": "73", "time": "3"},
+    {"device_guid": "attic_guid", "token": "attic_token", "sensor_id": "temperature-0", "val": "72", "time": "4"},
+    {"device_guid": "attic_guid", "token": "attic_token", "sensor_id": "temperature-0", "val": "73", "time": "5"},
+    {"device_guid": "attic_guid", "token": "attic_token", "sensor_id": "bits-0", "val": "0", "time": "5"},
+    {"device_guid": "attic_guid", "token": "attic_token", "sensor_id": "bits-0", "val": "1", "prev_val": "0", "time": "7"},
+    {"device_guid": "attic_guid", "token": "attic_token", "sensor_id": "bits-0", "val": "0", "prev_val": "1", "time": "10"}
+]

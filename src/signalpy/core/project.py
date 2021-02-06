@@ -26,25 +26,43 @@ class Project(sp.Object):
     def by_guid(guid):
         return Project._by_guid[guid]
 
-    def device_by_name(self, name):
+    def _get_overrides(self, name, overrides):
+        """Allow overrides for debugging."""
+
+        guid = None
+        token = None
+        try:
+            logger.info(f'override check {name}')
+            guid = overrides[name]['guid']
+            logger.info(f'override {name} guid: {guid}')
+        except KeyError:
+            pass
+        try:
+            token = overrides[name]['token']
+            logger.info(f'override {name} token: {token}')
+        except KeyError:
+            pass
+        return (guid, token)
+
+    def device_by_name(self, name, overrides):
         if name not in self._device_by_name:
-            device = sp.Device(name=name, project=self)
+            (guid, token) = self._get_overrides(name, overrides)
+            device = sp.Device(name=name, project=self, guid=guid, token=token)
             self._device_by_name[name] = device
-            self.stores.device.put(device)
+            self.account.stores.device.put(device)
         return self._device_by_name[name]
 
     def signal_by_name(self, name):
         if name not in self._signal_by_name:
             signal = sp.Signal(name=name, project=self)
             self._signal_by_name[name] = signal
-            self.stores.signal.put(signal)
+            self.account.stores.signal.put(signal)
         return self._signal_by_name[name]
 
-    def configure(self, stores, info):
+    def configure(self, info, overrides=None):
         """Configure a project with devices and signals."""
 
         self.name = info['name']
-        self.stores = stores
         for device_name, device_info in info['devices'].items():
-            device = self.device_by_name(device_name)
+            device = self.device_by_name(device_name, overrides)
             device.configure(device_info)

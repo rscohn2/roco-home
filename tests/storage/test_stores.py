@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-from signalpy import Account, Device, Project, Signal
+from signalpy import Account, Device, Project, Signal, SignalEvent
 
 
 def test_init_store(init_stores):
@@ -136,3 +136,41 @@ def test_device_store(init_stores):
     assert len(devices) == len(q)
     for device in devices:
         assert device_found(device, q)
+
+
+signal_events = [
+    SignalEvent(0, devices[0], signals[0], 0),
+    SignalEvent(1, devices[0], signals[0], 1),
+    SignalEvent(2, devices[0], signals[0], 0),
+    SignalEvent(3, devices[1], signals[1], 1),
+]
+
+
+def signal_event_match(ref, test):
+    print('  checking', test)
+    print('    with', test.signal)
+    return (
+        test.time == ref.time
+        and device_match(test.device, ref.device)
+        and signal_match(test.signal, ref.signal)
+        and test.val == ref.val
+    )
+
+
+def signal_event_found(ref, signal_events):
+    for signal_event in signal_events:
+        if signal_event_match(ref, signal_event):
+            return True
+    return False
+
+
+def test_signal_event_store(init_stores):
+    store = init_stores.signal_events
+    for signal_event in signal_events:
+        store.put(signal_event)
+    q = list(store.query())
+    assert len(signal_events) == len(q)
+    for signal_event in signal_events:
+        print('look for', signal_event)
+        print(' with', signal_event.signal)
+        assert signal_event_found(signal_event, q)

@@ -23,8 +23,8 @@ class Signal(sp.Object):
         self.project = project
         self.name = name
         self.guid = guid if guid else sp.make_guid()
-        Signal._by_guid[guid] = self
+        Signal._by_guid[self.guid] = self
 
     def by_guid(guid):
         """Returns signal associated with GUID."""
-        return Signal._by_guid(guid)
+        return Signal._by_guid[guid]

@@ -47,6 +47,18 @@ def device_events(data_dir):
         return json.load(stream)
 
 
+@pytest.fixture(scope='session')
+def home_events(data_dir):
+    with open(path.join(data_dir, 'events', 'home.json'), 'r') as stream:
+        return json.load(stream)
+
+
+home_overrides = {
+    'furnace': {'guid': 'furnace_guid', 'token': 'furnace_token'},
+    'attic': {'guid': 'attic_guid', 'token': 'attic_token'},
+}
+
+
 @pytest.fixture
 def stores_with_home_project(init_stores, data_dir):
     with open(
@@ -55,10 +67,10 @@ def stores_with_home_project(init_stores, data_dir):
         )
     ) as fin:
         project_info = yaml.safe_load(fin)
-    print('project_info:', project_info)
     account = sp.Account('rscohn2')
+    account.configure(init_stores)
     project = sp.Project(name='home', account=account)
-    project.configure(init_stores, project_info)
+    project.configure(project_info, home_overrides)
     return init_stores
 
 
@@ -72,14 +84,15 @@ def home_project(init_stores, data_dir):
         project_info = yaml.safe_load(fin)
     print('project_info:', project_info)
     account = sp.Account('rscohn2')
+    account.configure(init_stores)
     project = sp.Project(name='home', account=account)
-    project.configure(init_stores, project_info)
+    project.configure(project_info, home_overrides)
     return project
 
 
 @pytest.fixture
-def stores_with_home_signal_events(stores_with_home_project, device_events):
+def stores_with_home_events(stores_with_home_project, home_events):
     collector = sp.Collector(stores_with_home_project)
-    for device_event in device_events:
-        collector.record_event(device_event)
+    for event in home_events:
+        collector.record_event(event)
     return stores_with_home_project

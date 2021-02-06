@@ -12,10 +12,9 @@ collector = None
 
 
 class CollectorApp:
-    def __init__(self, db, test_config):
+    def __init__(self, stores, test_config):
         global collector
-        store = sp.SignalEventsStore.create(db)
-        collector = sp.Collector(store)
+        collector = sp.Collector(stores)
 
         # create and configure the app
         self.app = Flask(__name__, instance_relative_config=True)

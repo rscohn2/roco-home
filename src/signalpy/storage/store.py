@@ -118,17 +118,17 @@ class SignalEventsStore(Store):
         )
         self.table.put(so)
 
-    def _make_signal_event(d):
-        device = sp.Device.by_guid[d['device_guid']]
-        signal = sp.Signal.by_guid[d['signal_guid']]
-        return sp.SignalEvent(d['time'], device, signal, d['val'])
-
     def query(self):
-        for o in self.table.query():
-            do = dict(o)
-            logger.info(f'SignalEventStore query result: {do}')
-            so = self.schema.load(do)
-            yield sp.SignalEventsStore._make_signal_event(so)
+        for q in self.table.query():
+            d = dict(q)
+            logger.info(f'SignalEventStore query result: {d}')
+            s_d = self.schema.load(d)
+            yield sp.SignalEvent(
+                time=s_d['time'],
+                device=sp.Device.by_guid(s_d['device_guid']),
+                signal=sp.Signal.by_guid(s_d['signal_guid']),
+                val=s_d['val'],
+            )
 
 
 class AccountStore(Store):

@@ -10,9 +10,8 @@
 class Analyzer:
     """Interface between log server front-end and persistent storage."""
 
-    def __init__(self, signal_store, building):
-        self.signal_store = signal_store
-        self.building = building
+    def __init__(self, stores):
+        self.stores = stores
 
     def signals(self):
-        return self.signal_store.query()
+        return self.stores.signal_events.query()

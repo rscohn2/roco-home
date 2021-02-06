@@ -3,7 +3,7 @@ Upstream-Name: signalpy
 Upstream-Contact: Robert Cohn <rscohn2@gmail.com>
 Source:
 
-Files: tests/data/events/short.json app/web/*.json
+Files: tests/data/events/*.json app/web/*.json
 Copyright: 2020 Robert Cohn
 License: MIT
 

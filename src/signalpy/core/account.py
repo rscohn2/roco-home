@@ -33,3 +33,6 @@ class Account(sp.Object):
 
     def by_name(name):
         return Account._by_name[name]
+
+    def configure(self, stores):
+        self.stores = stores
