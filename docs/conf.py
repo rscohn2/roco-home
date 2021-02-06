@@ -23,7 +23,7 @@ sys.path.insert(0, os.path.abspath('..'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'signalpy'
+project = 'zignalz'
 copyright = '2020, Robert Cohn'
 author = 'Robert Cohn'
 version = '0.1'
@@ -65,7 +65,7 @@ add_module_names = False
 html_theme = 'sphinx_book_theme'
 
 html_theme_options = {
-    'repository_url': 'https://github.com/signalpy/signalpy',
+    'repository_url': 'https://github.com/zignalz/zignalz',
     'path_to_docs': 'docs',
     'use_repository_button': True,
     'use_issues_button': True,

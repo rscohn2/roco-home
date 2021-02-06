@@ -9,5 +9,5 @@ Analyzer
 Entry Points
 ============
 
-.. automodule:: signalpy.services.analyzer.entry_points
+.. automodule:: zignalz.services.analyzer.entry_points
    :members:

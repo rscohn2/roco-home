@@ -6,5 +6,5 @@
  Account
 =========
 
-.. automodule:: signalpy.core.account
+.. automodule:: zignalz.core.account
    :members:

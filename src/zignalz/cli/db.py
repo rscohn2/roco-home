@@ -4,8 +4,8 @@
 
 import logging
 
-from signalpy import cli
-from signalpy.storage import db
+from zignalz import cli
+from zignalz.storage import db
 
 logger = logging.getLogger(__name__)
 

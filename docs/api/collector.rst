@@ -9,5 +9,5 @@ Collector
 Entry Points
 ============
 
-.. automodule:: signalpy.services.collector.entry_points
+.. automodule:: zignalz.services.collector.entry_points
    :members:

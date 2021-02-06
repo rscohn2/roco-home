@@ -11,7 +11,7 @@ from abc import ABC, abstractmethod
 
 import marshmallow as mm
 
-import signalpy as sp
+import zignalz as zz
 
 logger = logging.getLogger(__name__)
 
@@ -30,7 +30,7 @@ class Store(ABC):
 
     Parameters
     ----------
-    db : :class:`~signalpy.storage.db.DB`
+    db : :class:`~zignalz.storage.db.DB`
       Handle to DB
     name : str
       Name of store
@@ -123,10 +123,10 @@ class SignalEventsStore(Store):
             d = dict(q)
             logger.info(f'SignalEventStore query result: {d}')
             s_d = self.schema.load(d)
-            yield sp.SignalEvent(
+            yield zz.SignalEvent(
                 time=s_d['time'],
-                device=sp.Device.by_guid(s_d['device_guid']),
-                signal=sp.Signal.by_guid(s_d['signal_guid']),
+                device=zz.Device.by_guid(s_d['device_guid']),
+                signal=zz.Signal.by_guid(s_d['signal_guid']),
                 val=s_d['val'],
             )
 
@@ -187,7 +187,7 @@ class AccountStore(Store):
             d = dict(q)
             logger.info(f'AccountStore query result: {d}')
             s_d = self.schema.load(d)
-            yield sp.Account(
+            yield zz.Account(
                 guid=s_d['guid'], name=s_d['name'], token=s_d['token']
             )
 
@@ -248,8 +248,8 @@ class ProjectStore(Store):
             d = dict(q)
             logger.info(f'ProjectStore query result: {d}')
             s_d = self.schema.load(d)
-            account = sp.Account.by_guid(s_d['account_guid'])
-            yield sp.Project(
+            account = zz.Account.by_guid(s_d['account_guid'])
+            yield zz.Project(
                 guid=s_d['guid'], name=s_d['name'], account=account
             )
 
@@ -310,8 +310,8 @@ class SignalStore(Store):
             d = dict(q)
             logger.info(f'SignalStore query result: {d}')
             s_d = self.schema.load(d)
-            project = sp.Project.by_guid(s_d['project_guid'])
-            yield sp.Signal(
+            project = zz.Project.by_guid(s_d['project_guid'])
+            yield zz.Signal(
                 guid=s_d['guid'], name=s_d['name'], project=project
             )
 
@@ -372,7 +372,7 @@ class DeviceStore(Store):
             d = dict(q)
             logger.info(f'DeviceStore query result: {d}')
             s_d = self.schema.load(d)
-            project = sp.Project.by_guid(s_d['project_guid'])
-            yield sp.Signal(
+            project = zz.Project.by_guid(s_d['project_guid'])
+            yield zz.Signal(
                 guid=s_d['guid'], name=s_d['name'], project=project
             )

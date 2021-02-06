@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-from signalpy import Account, Device, Project, Signal, SignalEvent
+from zignalz import Account, Device, Project, Signal, SignalEvent
 
 
 def test_init_store(init_stores):

@@ -10,7 +10,7 @@ import logging
 
 import marshmallow as mm
 
-import signalpy as sp
+import zignalz as zz
 
 logger = logging.getLogger(__name__)
 
@@ -34,7 +34,7 @@ class Collector:
         """Insert an event into the Event Store.
 
         Convert from device-generated dict into
-        :class:`~signalpy.core.event.Event`. Device input is not
+        :class:`~zignalz.core.event.Event`. Device input is not
         trusted so it is validated and ignored when there is an error.
 
         """
@@ -50,7 +50,7 @@ class Collector:
 
         token = d['token']
         try:
-            device = sp.Device.by_token(token)
+            device = zz.Device.by_token(token)
         except KeyError:
             self._error(f'Unknown device token')
         logger.info(f'device: {device}')
@@ -61,7 +61,7 @@ class Collector:
 
         # a single sensor reading may generate multiple signal events
         for (signal, val) in sensor.signals(d):
-            se = sp.SignalEvent(d['time'], device, signal, val)
+            se = zz.SignalEvent(d['time'], device, signal, val)
             self.stores.signal_events.put(se)
 
     class Schema(mm.Schema):

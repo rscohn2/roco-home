@@ -38,10 +38,10 @@ Python setup
 
 Create a virtual environment::
 
-  python -m venv signalpy-venv
-  source signalpy-venv/bin/activate
+  python -m venv zignalz-venv
+  source zignalz-venv/bin/activate
 
-Install editable signalpy into the environment with all tools needed
+Install editable zignalz into the environment with all tools needed
 for development::
 
   pip install -e ./packages/.[dev,docs]

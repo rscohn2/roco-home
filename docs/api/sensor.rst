@@ -6,5 +6,5 @@
 Sensor
 ======
 
-.. automodule:: signalpy.core.sensor
+.. automodule:: zignalz.core.sensor
    :members:

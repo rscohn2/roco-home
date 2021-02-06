@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MIT
 
 
-from signalpy.core import sensor
+from zignalz.core import sensor
 
 
 def test_bits_sensor(test_device, test_signal):

@@ -38,14 +38,14 @@ Azure Setup
 ===========
 
 Create an account in Azure. Pay as you go subscription. A subscription
-determines how it is billed. Create a resource group called signalpy
+determines how it is billed. Create a resource group called zignalz
 to hold everything. A resource group is merely a grouping of Azure
 resources (services).
 
 GitHub Setup
 ============
 
-We created a ``signalpy`` organization that hosts a ``signalpy``
+We created a ``zignalz`` organization that hosts a ``zignalz``
 repository. You currently only need a single repository.
 
 Initial Creation of the App Services on Azure
@@ -57,12 +57,12 @@ services, implemented as a Flask application. The are deployed using
 GitHub Actions on Azure App Service.
 
 In the Azure portal, create 2 App services, ``signalypy-collector``
-and ``signalpy-analyzer``, with the following characteristics:
+and ``zignalz-analyzer``, with the following characteristics:
 
 ================  ==========
 Option            Value
 ================  ==========
-Resource Group    signalpy
+Resource Group    zignalz
 Publish as        code
 Runtime           python 3.8
 Operating System  Linux
@@ -92,9 +92,9 @@ them.  Commits to the publish-collector branch trigger a deploy of the
 collector, commits to the publish-analytics branch triggers a deploy
 of the analytics service. See ``.github/workflows/ci.yml`` for
 details. Azure credentials are stored as GitHub secrets in the
-signalpy GitHub organization settings.
+zignalz GitHub organization settings.
 
-Visit *Settings* for the signalpy organization on GitHub. Select
+Visit *Settings* for the zignalz organization on GitHub. Select
 *Secrets*, then *New organization secret*. Create 2 secrets with the
 following names: ``AZURE_WEBAPP_PUBLISH_PROFILE_ANALYZER`` and
 ``AZURE_WEBAPP_PUBLISH_PROFILE_COLLECTOR``. These names must match the
@@ -118,5 +118,5 @@ the the name ``app`` in ``app.py``.
 
 .. _`webapps-deploy`: https://github.com/Azure/webapps-deploy
 
-We need the signalpy python packages included in the deployment, so
+We need the zignalz python packages included in the deployment, so
 ``ci.yml`` copies them to the root of the deployment directories.

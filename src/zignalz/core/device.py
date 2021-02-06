@@ -4,12 +4,12 @@
 
 import logging
 
-import signalpy as sp
+import zignalz as zz
 
 logger = logging.getLogger(__name__)
 
 
-class Device(sp.Object):
+class Device(zz.Object):
 
     _by_guid = {}
     """Lookup device by GUID."""
@@ -18,8 +18,8 @@ class Device(sp.Object):
     """Lookup device by GUID."""
 
     def __init__(self, name, project, guid=None, token=None):
-        self.guid = guid if guid else sp.make_guid()
-        self.token = token if token else sp.make_token()
+        self.guid = guid if guid else zz.make_guid()
+        self.token = token if token else zz.make_token()
         self.name = name
         self.project = project
         self._sensor_by_name = {}
@@ -34,7 +34,7 @@ class Device(sp.Object):
 
     def sensor_by_name(self, name, type=None):
         if name not in self._sensor_by_name:
-            self._sensor_by_name[name] = sp.sensor_factory(type, name, self)
+            self._sensor_by_name[name] = zz.sensor_factory(type, name, self)
         return self._sensor_by_name[name]
 
     def configure(self, info):

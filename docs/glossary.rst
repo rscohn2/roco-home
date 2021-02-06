@@ -35,7 +35,7 @@
      measure them.
 
    resources
-     Persistent objects managed by ``signalpy``. Examples include:
+     Persistent objects managed by ``zignalz``. Examples include:
      :term:`project` and :term:`device`.
 
    sensor

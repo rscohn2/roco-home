@@ -6,13 +6,13 @@ import argparse
 import logging
 import sys
 
-from signalpy.cli import admin, config, db, identity
+from zignalz.cli import admin, config, db, identity
 
 args = None
 
 
 def parse_args(cmd_args):
-    parser = argparse.ArgumentParser(description='CLI for signalpy')
+    parser = argparse.ArgumentParser(description='CLI for zignalz')
     parser.add_argument(
         '--verbose', action='store_true', help='display log information'
     )

@@ -2,7 +2,7 @@
 ..
 .. SPDX-License-Identifier: MIT
 
-Welcome to ``signalpy``'s documentation!
+Welcome to ``zignalz``'s documentation!
 ========================================
 
 .. toctree::

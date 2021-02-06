@@ -10,5 +10,5 @@ Analytics
 Activations
 ===========
 
-.. automodule:: signalpy.analytics.activations
+.. automodule:: zignalz.analytics.activations
    :members:

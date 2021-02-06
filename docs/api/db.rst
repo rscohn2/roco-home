@@ -9,10 +9,10 @@ DB
 Base Class
 ==========
 
-.. autoclass:: signalpy.storage.db::DB
+.. autoclass:: zignalz.storage.db::DB
    :members:
 
-.. autoclass:: signalpy.storage.db::DB.Table
+.. autoclass:: zignalz.storage.db::DB.Table
    :members:
 
 Derived Classes
@@ -21,26 +21,26 @@ Derived Classes
 SQLite3
 -------
 
-.. autoclass:: signalpy.storage.db::SQLite3
+.. autoclass:: zignalz.storage.db::SQLite3
    :members:
 
-.. autoclass:: signalpy.storage.db::SQLite3.Table
+.. autoclass:: zignalz.storage.db::SQLite3.Table
    :members:
 
 MongoDB
 -------
 
-.. autoclass:: signalpy.storage.db::MongoDB
+.. autoclass:: zignalz.storage.db::MongoDB
    :members:
 
-.. autoclass:: signalpy.storage.db::MongoDB.Table
+.. autoclass:: zignalz.storage.db::MongoDB.Table
    :members:
 
 DynamoDB
 --------
 
-.. autoclass:: signalpy.storage.db::DynamoDB
+.. autoclass:: zignalz.storage.db::DynamoDB
    :members:
 
-.. autoclass:: signalpy.storage.db::DynamoDB.Table
+.. autoclass:: zignalz.storage.db::DynamoDB.Table
    :members:

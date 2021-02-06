@@ -16,7 +16,7 @@ Application code:
 packages
   Python packages.
 
-  signalpy
+  zignalz
     Python code that runs on the server and workstation client
 
 app

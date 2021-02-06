@@ -6,5 +6,5 @@
 Device
 =========
 
-.. automodule:: signalpy.core.device
+.. automodule:: zignalz.core.device
    :members:

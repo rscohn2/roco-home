@@ -6,5 +6,5 @@
  Object
 ========
 
-.. autoclass:: signalpy.Object
+.. autoclass:: zignalz.Object
    :members:

@@ -6,13 +6,13 @@
 # import subprocess
 # import sys
 
-import signalpy as sp
+import zignalz as zz
 
 
 def create_app(test_config=None):
     uri = ''
-    db = sp.MongoDB(uri)
-    collector_app = sp.CollectorApp(db, test_config)
+    db = zz.MongoDB(uri)
+    collector_app = zz.CollectorApp(db, test_config)
     return collector_app.app
 
 

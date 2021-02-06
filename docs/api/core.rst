@@ -6,7 +6,7 @@
 Core
 ====
 
-.. automodule:: signalpy.core
+.. automodule:: zignalz.core
    :members:
 
 .. toctree::

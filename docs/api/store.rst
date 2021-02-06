@@ -9,9 +9,9 @@ Store
 Base Class
 ==========
 
-.. automodule:: signalpy.storage.store
+.. automodule:: zignalz.storage.store
 
-.. autoclass:: signalpy.storage.store::Store
+.. autoclass:: zignalz.storage.store::Store
    :members:
 
 Derived Classes
@@ -20,11 +20,11 @@ Derived Classes
 SignalEvents
 ------------
 
-.. autoclass:: signalpy.storage.store::SignalEventsStore
+.. autoclass:: zignalz.storage.store::SignalEventsStore
    :members:
 
 Accounts
 --------
 
-.. autoclass:: signalpy.storage.store::AccountStore
+.. autoclass:: zignalz.storage.store::AccountStore
    :members:

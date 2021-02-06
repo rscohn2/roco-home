@@ -2,10 +2,10 @@
 #
 # SPDX-License-Identifier: MIT
 
-import signalpy as sp
+import zignalz as zz
 
 
-class Signal(sp.Object):
+class Signal(zz.Object):
 
     _by_guid = {}
 
@@ -16,13 +16,13 @@ class Signal(sp.Object):
         ----------
         signal_guid : str
         signal_name : str
-        project : :class:`~signalpy.core.project.Project`
+        project : :class:`~zignalz.core.project.Project`
 
         """
 
         self.project = project
         self.name = name
-        self.guid = guid if guid else sp.make_guid()
+        self.guid = guid if guid else zz.make_guid()
         Signal._by_guid[self.guid] = self
 
     def by_guid(guid):

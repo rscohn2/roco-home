@@ -8,7 +8,7 @@ from os import path
 import pytest
 import yaml
 
-import signalpy as sp
+import zignalz as zz
 
 
 @pytest.fixture(scope='session')
@@ -18,7 +18,7 @@ def session_tmp_dir(tmp_path_factory):
 
 @pytest.fixture(scope='session')
 def sqlite_db(session_tmp_dir):
-    db = sp.SQLite3(path.join(session_tmp_dir, 'sqllite.db'))
+    db = zz.SQLite3(path.join(session_tmp_dir, 'sqllite.db'))
     db.reset()
     return db
 
@@ -26,12 +26,12 @@ def sqlite_db(session_tmp_dir):
 @pytest.fixture
 def init_stores(sqlite_db):
     sqlite_db.reset()
-    return sp.Stores(sqlite_db)
+    return zz.Stores(sqlite_db)
 
 
 @pytest.fixture
 def local_dynamodb(local_dynamodb_instance):
-    db = sp.DynamoDB()
+    db = zz.DynamoDB()
     db.reset()
     return db
 
@@ -67,9 +67,9 @@ def stores_with_home_project(init_stores, data_dir):
         )
     ) as fin:
         project_info = yaml.safe_load(fin)
-    account = sp.Account('rscohn2')
+    account = zz.Account('rscohn2')
     account.configure(init_stores)
-    project = sp.Project(name='home', account=account)
+    project = zz.Project(name='home', account=account)
     project.configure(project_info, home_overrides)
     return init_stores
 
@@ -83,16 +83,16 @@ def home_project(init_stores, data_dir):
     ) as fin:
         project_info = yaml.safe_load(fin)
     print('project_info:', project_info)
-    account = sp.Account('rscohn2')
+    account = zz.Account('rscohn2')
     account.configure(init_stores)
-    project = sp.Project(name='home', account=account)
+    project = zz.Project(name='home', account=account)
     project.configure(project_info, home_overrides)
     return project
 
 
 @pytest.fixture
 def stores_with_home_events(stores_with_home_project, home_events):
-    collector = sp.Collector(stores_with_home_project)
+    collector = zz.Collector(stores_with_home_project)
     for event in home_events:
         collector.record_event(event)
     return stores_with_home_project

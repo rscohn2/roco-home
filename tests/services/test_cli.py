@@ -2,9 +2,12 @@
 #
 # SPDX-License-Identifier: MIT
 
-# from signalpy import cli
+import pytest
 
-# def test_db_start():
-#    cli.args = mock_args
-#    cli.db.up()
-#    cli.db.down()
+from zignalz import cli
+
+
+@pytest.mark.skip
+def test_db_start():
+    cli.db.up()
+    cli.db.down()

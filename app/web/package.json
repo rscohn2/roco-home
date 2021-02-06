@@ -1,8 +1,8 @@
 {
-  "name": "signalpy",
+  "name": "zignalz",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/signalpy/app",
+  "homepage": "/zignalz/app",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",

@@ -6,5 +6,5 @@
 ``Auth``
 ========
 
-.. automodule:: signalpy.core.auth
+.. automodule:: zignalz.core.auth
    :members:

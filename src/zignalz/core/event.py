@@ -8,12 +8,12 @@
 
 import logging
 
-import signalpy as sp
+import zignalz as zz
 
 logger = logging.getLogger(__name__)
 
 
-class Event(sp.Object):
+class Event(zz.Object):
     """Representation of an event.
 
     Attributes:
@@ -32,7 +32,7 @@ class SignalEvent(Event):
     Attributes:
        time
          UTC timestamp
-       signal (:class:`~signalpy.core.signal.Signal`)
+       signal (:class:`~zignalz.core.signal.Signal`)
        val
          recorded value
        raw

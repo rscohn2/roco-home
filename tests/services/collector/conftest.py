@@ -4,7 +4,7 @@
 
 import pytest
 
-import signalpy as sp
+import zignalz as zz
 
 
 def end_point(path):
@@ -24,7 +24,7 @@ class FlaskClient:
 
 @pytest.fixture()
 def flask_client(stores_with_home_project):
-    collector = sp.CollectorApp(stores_with_home_project, test_config=None)
+    collector = zz.CollectorApp(stores_with_home_project, test_config=None)
     collector.app.config['TESTING'] = True
 
     with collector.app.test_client() as client:

@@ -6,5 +6,5 @@
 ``Util``
 ========
 
-.. automodule:: signalpy.core.util
+.. automodule:: zignalz.core.util
    :members:

@@ -6,7 +6,7 @@ import os
 
 from flask import Flask, request
 
-import signalpy as sp
+import zignalz as zz
 
 collector = None
 
@@ -14,7 +14,7 @@ collector = None
 class CollectorApp:
     def __init__(self, stores, test_config):
         global collector
-        collector = sp.Collector(stores)
+        collector = zz.Collector(stores)
 
         # create and configure the app
         self.app = Flask(__name__, instance_relative_config=True)
@@ -47,5 +47,5 @@ class CollectorApp:
             try:
                 collector.record_event(request.form.to_dict())
                 return {'message': 'Recorded event'}
-            except sp.Collector.EventError as err:
+            except zz.Collector.EventError as err:
                 return {'message': err.message}, 400

@@ -4,7 +4,7 @@
 
 import pytest
 
-from signalpy.analytics import activations
+from zignalz.analytics import activations
 
 
 @pytest.mark.skip

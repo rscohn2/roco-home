@@ -4,18 +4,18 @@
 
 import pytest
 
-import signalpy as sp
+import zignalz as zz
 
 
 @pytest.fixture(scope='session')
 def local_dynamodb():
-    instance = sp.LocalDynamoDB('dynamodb')
-    yield sp.DynamoDB()
+    instance = zz.LocalDynamoDB('dynamodb')
+    yield zz.DynamoDB()
     instance.down()
 
 
 @pytest.fixture
 def local_mongodb(tmp_path):
-    instance = sp.LocalMongoDB(tmp_path)
-    yield sp.MongoDB()
+    instance = zz.LocalMongoDB(tmp_path)
+    yield zz.MongoDB()
     instance.down()

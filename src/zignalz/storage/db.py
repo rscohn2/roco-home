@@ -13,7 +13,7 @@ import pymongo
 
 The DB is used to abstract the database implementation.  A DB contains
 1 or more Tables. A Table stores objects as dictionaries. The
-:class:`~signalpy.storage.store.Store` is a higher-level abstraction
+:class:`~zignalz.storage.store.Store` is a higher-level abstraction
 for a Table that stores objects as python objects.
 
 
@@ -64,7 +64,7 @@ class DB(ABC):
 
             Parameters
             ----------
-            db : :class:`~signalpy.db.DB`
+            db : :class:`~zignalz.db.DB`
               Handle to DB
             name : str
               Table name
@@ -200,7 +200,7 @@ class SQLite3(DB):
 class MongoDB(DB):
     def __init__(self, uri=None):
         self.client = pymongo.MongoClient(uri)
-        self.db = self.client['signalpy']
+        self.db = self.client['zignalz']
 
     def reset(self):
         for col in self.db.list_collections():

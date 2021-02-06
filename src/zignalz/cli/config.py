@@ -7,7 +7,7 @@ import sys
 
 import yaml
 
-from signalpy import cli
+from zignalz import cli
 
 logger = logging.getLogger(__name__)
 
@@ -46,7 +46,7 @@ def add_parser(subparsers):
     load_parser.set_defaults(func=load)
     load_parser.add_argument(
         'config_file',
-        default='signalpy.yaml',
+        default='zignalz.yaml',
         help='Yaml file with configuration',
     )
 

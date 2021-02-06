@@ -18,17 +18,17 @@ extra_requirements = {
 }
 
 setup(
-    name='signalpy',
+    name='zignalz',
     version='0.1',
-    description='CLI for home',
-    url='http://github.com/signalpy/signalpy',
+    description='Manage IOT data collection of signals',
+    url='http://github.com/zignalz/zignalz',
     author='Robert Cohn',
     author_email='rscohn2@gmail.com',
     license='MIT',
     package_dir={'': 'src'},
     packages=find_packages(where='src'),
     entry_points={
-        'console_scripts': ['signalcli=signalpy.cli:main'],
+        'console_scripts': ['zz=zignalz.cli:main'],
     },
     install_requires=requirements,
     extras_require=extra_requirements,

@@ -6,5 +6,5 @@
 Signal
 ======
 
-.. automodule:: signalpy.core.signal
+.. automodule:: zignalz.core.signal
    :members:

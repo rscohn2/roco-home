@@ -6,5 +6,5 @@
 Project
 =======
 
-.. automodule:: signalpy.core.project
+.. automodule:: zignalz.core.project
    :members:

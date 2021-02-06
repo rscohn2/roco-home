@@ -6,5 +6,5 @@
 Event
 =====
 
-.. automodule:: signalpy.core.event
+.. automodule:: zignalz.core.event
    :members:
