@@ -24,7 +24,10 @@ class Project(zz.Object):
         zz.Project._by_guid[guid] = self
 
     def by_guid(guid):
-        return Project._by_guid[guid]
+        try:
+            return Project._by_guid[guid]
+        except KeyError:
+            return None
 
     def _get_overrides(self, name, overrides):
         """Allow overrides for debugging."""

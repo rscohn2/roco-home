@@ -11,4 +11,4 @@ def make_token():
 
 
 def make_guid():
-    return str(uuid.uuid1())
+    return uuid.uuid1()

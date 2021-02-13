@@ -93,8 +93,8 @@ class SignalEventsStore(Store):
         """Schema for signal events."""
 
         time = mm.fields.Int()
-        signal_guid = mm.fields.Str()
-        device_guid = mm.fields.Str()
+        signal_guid = mm.fields.UUID()
+        device_guid = mm.fields.UUID()
         val = mm.fields.Float()
 
     def __init__(self, db):
@@ -157,7 +157,7 @@ class AccountStore(Store):
     class Schema(mm.Schema):
         """Schema for account store."""
 
-        guid = mm.fields.Str()
+        guid = mm.fields.UUID()
         name = mm.fields.Str()
         token = mm.fields.Str()
 
@@ -218,9 +218,10 @@ class ProjectStore(Store):
     class Schema(mm.Schema):
         """Schema for project store."""
 
-        guid = mm.fields.Str()
+        guid = mm.fields.UUID()
         name = mm.fields.Str()
-        account_guid = mm.fields.Str()
+        account_guid = mm.fields.UUID()
+        devices = mm.fields.List(mm.fields.UUID())
 
         class Meta:
             unknown = mm.EXCLUDE
@@ -248,10 +249,13 @@ class ProjectStore(Store):
             d = dict(q)
             logger.info(f'ProjectStore query result: {d}')
             s_d = self.schema.load(d)
-            account = zz.Account.by_guid(s_d['account_guid'])
-            yield zz.Project(
-                guid=s_d['guid'], name=s_d['name'], account=account
-            )
+            p = zz.Project.by_guid(s_d['guid'])
+            if p is None:
+                account = zz.Account.by_guid(s_d['account_guid'])
+                p = zz.Project(
+                    guid=s_d['guid'], name=s_d['name'], account=account
+                )
+            yield p
 
 
 class SignalStore(Store):
@@ -280,9 +284,9 @@ class SignalStore(Store):
     class Schema(mm.Schema):
         """Schema for project store."""
 
-        guid = mm.fields.Str()
+        guid = mm.fields.UUID()
         name = mm.fields.Str()
-        project_guid = mm.fields.Str()
+        project_guid = mm.fields.UUID()
 
         class Meta:
             unknown = mm.EXCLUDE
@@ -342,9 +346,9 @@ class DeviceStore(Store):
     class Schema(mm.Schema):
         """Schema for project store."""
 
-        guid = mm.fields.Str()
+        guid = mm.fields.UUID()
         name = mm.fields.Str()
-        project_guid = mm.fields.Str()
+        project_guid = mm.fields.UUID()
 
         class Meta:
             unknown = mm.EXCLUDE

@@ -15,7 +15,7 @@ class Device(zz.Object):
     """Lookup device by GUID."""
 
     _by_token = {}
-    """Lookup device by GUID."""
+    """Lookup device by token."""
 
     def __init__(self, name, project, guid=None, token=None):
         self.guid = guid if guid else zz.make_guid()
