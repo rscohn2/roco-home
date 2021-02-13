@@ -240,7 +240,6 @@ class ProjectStore(Store):
                 'guid': o.guid,
                 'name': o.name,
                 'account_guid': o.account.guid,
-                'devices': [device.guid for name, device in project._device_by_name]
             }
         )
         self.table.put(d)
@@ -250,12 +249,13 @@ class ProjectStore(Store):
             d = dict(q)
             logger.info(f'ProjectStore query result: {d}')
             s_d = self.schema.load(d)
-            account = zz.Account.by_guid(s_d['account_guid'])
-            yield zz.Project(
-                guid=s_d['guid'], name=s_d['name'], account=account,
-                # map device guids to devices
-                devices=[s_d['devices']
-            )
+            p = zz.Project.by_guid(s_d['guid'])
+            if p is None:
+                account = zz.Account.by_guid(s_d['account_guid'])
+                p = zz.Project(
+                    guid=s_d['guid'], name=s_d['name'], account=account
+                )
+            yield p
 
 
 class SignalStore(Store):
