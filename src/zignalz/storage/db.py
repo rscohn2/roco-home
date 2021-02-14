@@ -169,7 +169,7 @@ class SQLite3(DB):
     def create_table(self, name, info):
         self._execute(f'DROP TABLE IF EXISTS {name}')
         schema = info['sqlite']['schema']
-        sstring = ','.join(s[0] + ' ' + s[1] for s in schema)
+        sstring = ','.join(key + ' ' + value for key, value in schema.items())
         self._execute(f'CREATE TABLE {name} ({sstring});')
         return SQLite3.Table(self, name)
 

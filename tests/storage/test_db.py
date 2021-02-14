@@ -2,6 +2,8 @@
 #
 # SPDX-License-Identifier: MIT
 
+from collections import OrderedDict
+
 events = [
     {'signal_guid': 'abc', 'time': 1, 'val': 0},
     {'signal_guid': 'abc', 'time': 2, 'val': 1},
@@ -14,11 +16,13 @@ def exercise_db(db):
     db.reset()
     table_info = {
         'sqlite': {
-            'schema': [
-                ('signal_guid', 'text'),
-                ('time', 'integer'),
-                ('val', 'real'),
-            ]
+            'schema': OrderedDict(
+                [
+                    ('signal_guid', 'text'),
+                    ('time', 'integer'),
+                    ('val', 'real'),
+                ]
+            )
         },
         # DynamoDB
         'dynamodb': {

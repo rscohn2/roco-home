@@ -8,6 +8,7 @@
 
 import logging
 from abc import ABC, abstractmethod
+from collections import OrderedDict
 
 import marshmallow as mm
 
@@ -70,12 +71,14 @@ class SignalEventsStore(Store):
 
     table_info = {
         'sqlite': {
-            'schema': [
-                ('signal_guid', 'text'),
-                ('time', 'integer'),
-                ('device_guid', 'text'),
-                ('val', 'real'),
-            ]
+            'schema': OrderedDict(
+                [
+                    ('signal_guid', 'text'),
+                    ('time', 'integer'),
+                    ('device_guid', 'text'),
+                    ('val', 'real'),
+                ]
+            )
         },
         'dynamodb': {
             'KeySchema': [
@@ -138,11 +141,13 @@ class AccountStore(Store):
 
     table_info = {
         'sqlite': {
-            'schema': [
-                ('guid', 'text'),
-                ('name', 'text'),
-                ('token', 'text'),
-            ]
+            'schema': OrderedDict(
+                [
+                    ('guid', 'text'),
+                    ('name', 'text'),
+                    ('token', 'text'),
+                ]
+            )
         },
         'dynamodb': {
             'KeySchema': [
@@ -199,11 +204,13 @@ class ProjectStore(Store):
 
     table_info = {
         'sqlite': {
-            'schema': [
-                ('guid', 'text'),
-                ('name', 'text'),
-                ('account_guid', 'text'),
-            ]
+            'schema': OrderedDict(
+                [
+                    ('guid', 'text'),
+                    ('name', 'text'),
+                    ('account_guid', 'text'),
+                ]
+            )
         },
         'dynamodb': {
             'KeySchema': [
@@ -265,11 +272,13 @@ class SignalStore(Store):
 
     table_info = {
         'sqlite': {
-            'schema': [
-                ('guid', 'text'),
-                ('name', 'text'),
-                ('project_guid', 'text'),
-            ]
+            'schema': OrderedDict(
+                [
+                    ('guid', 'text'),
+                    ('name', 'text'),
+                    ('project_guid', 'text'),
+                ]
+            )
         },
         'dynamodb': {
             'KeySchema': [
@@ -327,11 +336,13 @@ class DeviceStore(Store):
 
     table_info = {
         'sqlite': {
-            'schema': [
-                ('guid', 'text'),
-                ('name', 'text'),
-                ('project_guid', 'text'),
-            ]
+            'schema': OrderedDict(
+                [
+                    ('guid', 'text'),
+                    ('name', 'text'),
+                    ('project_guid', 'text'),
+                ]
+            )
         },
         'dynamodb': {
             'KeySchema': [
