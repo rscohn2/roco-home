@@ -21,6 +21,7 @@ class Project(zz.Object):
         self.account = account
         self._signal_by_name = {}
         self._device_by_name = {}
+        self.conf = {}
         zz.Project._by_guid[guid] = self
 
     def by_guid(guid):

@@ -38,8 +38,8 @@ class Store(ABC):
 
     """
 
-    def table(self, db, name):
-        self.table = db.Table(db, name)
+    def table(self, db, name, info):
+        self.table = db.Table(db, name, info)
 
     @abstractmethod
     def create(db):
@@ -101,7 +101,9 @@ class SignalEventsStore(Store):
         val = mm.fields.Float()
 
     def __init__(self, db):
-        self.table(db, SignalEventsStore.table_name)
+        self.table(
+            db, SignalEventsStore.table_name, SignalEventsStore.table_info
+        )
         self.schema = SignalEventsStore.Schema()
 
     def create(db):
@@ -170,7 +172,7 @@ class AccountStore(Store):
             unknown = mm.EXCLUDE
 
     def __init__(self, db):
-        self.table(db, AccountStore.table_name)
+        self.table(db, AccountStore.table_name, AccountStore.table_info)
         self.schema = AccountStore.Schema()
 
     def create(db):
@@ -209,6 +211,7 @@ class ProjectStore(Store):
                     ('guid', 'text'),
                     ('name', 'text'),
                     ('account_guid', 'text'),
+                    ('conf', 'json'),
                 ]
             )
         },
@@ -229,12 +232,14 @@ class ProjectStore(Store):
         name = mm.fields.Str()
         account_guid = mm.fields.UUID()
         devices = mm.fields.List(mm.fields.UUID())
+        conf = mm.fields.Dict()
 
         class Meta:
             unknown = mm.EXCLUDE
 
     def __init__(self, db):
-        self.table(db, ProjectStore.table_name)
+        self.conf = {}
+        self.table(db, ProjectStore.table_name, ProjectStore.table_info)
         self.schema = ProjectStore.Schema()
 
     def create(db):
@@ -247,6 +252,7 @@ class ProjectStore(Store):
                 'guid': o.guid,
                 'name': o.name,
                 'account_guid': o.account.guid,
+                'conf': o.conf,
             }
         )
         self.table.put(d)
@@ -301,7 +307,7 @@ class SignalStore(Store):
             unknown = mm.EXCLUDE
 
     def __init__(self, db):
-        self.table(db, SignalStore.table_name)
+        self.table(db, SignalStore.table_name, SignalStore.table_info)
         self.schema = SignalStore.Schema()
 
     def create(db):
@@ -365,7 +371,7 @@ class DeviceStore(Store):
             unknown = mm.EXCLUDE
 
     def __init__(self, db):
-        self.table(db, DeviceStore.table_name)
+        self.table(db, DeviceStore.table_name, DeviceStore.table_info)
         self.schema = DeviceStore.Schema()
 
     def create(db):

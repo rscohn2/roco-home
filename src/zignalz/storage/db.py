@@ -2,6 +2,7 @@
 #
 # SPDX-License-Identifier: MIT
 
+import json
 import logging
 import sqlite3
 from abc import ABC, abstractmethod
@@ -168,17 +169,21 @@ class SQLite3(DB):
 
     def create_table(self, name, info):
         self._execute(f'DROP TABLE IF EXISTS {name}')
-        schema = info['sqlite']['schema']
-        sstring = ','.join(key + ' ' + value for key, value in schema.items())
+        i = info['sqlite']
+        sstring = ','.join(
+            key + ' ' + value for key, value in i['schema'].items()
+        )
         self._execute(f'CREATE TABLE {name} ({sstring});')
-        return SQLite3.Table(self, name)
+        return SQLite3.Table(self, name, info)
 
     def _execute(self, command, parameters=()):
         logger.info(f'sqlite execute. "{command}" with {parameters}')
         self.cursor.execute(command, parameters)
 
     class Table(DB.Table):
-        def __init__(self, db, name):
+        def __init__(self, db, name, info):
+            logger.info(f'table info {info}')
+            self.info = info['sqlite']
             self.db = db
             self.name = name
 
@@ -186,7 +191,13 @@ class SQLite3(DB):
             fields = object.keys()
             fstring = ','.join(fields)
             qstring = ','.join(['?'] * len(fields))
-            values = [object[k] for k in fields]
+            values = []
+            for k in fields:
+                if self.info['schema'][k] == 'json':
+                    v = json.dumps(object[k])
+                else:
+                    v = object[k]
+                values.append(v)
             self.db._execute(
                 f'INSERT INTO {self.name} ({fstring}) VALUES ({qstring});',
                 values,
@@ -194,7 +205,15 @@ class SQLite3(DB):
 
         def query(self):
             self.db._execute(f'SELECT * from {self.name}')
-            return self.db.cursor
+            for c in self.db.cursor:
+                o = {}
+                for k in self.info['schema']:
+                    if self.info['schema'][k] == 'json':
+                        v = json.loads(c[k])
+                    else:
+                        v = c[k]
+                    o[k] = v
+                yield o
 
 
 class MongoDB(DB):
