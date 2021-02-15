@@ -88,6 +88,30 @@ class DB(ABC):
             pass
 
         @abstractmethod
+        def delete(self, object):
+            """Delete an object in the table.
+
+            Parameters
+            ----------
+
+            object : dict
+
+            """
+            pass
+
+        @abstractmethod
+        def update(self, object):
+            """Update an object in the table.
+
+            Parameters
+            ----------
+
+            object : dict
+
+            """
+            pass
+
+        @abstractmethod
         def query(self):
             """Returns iterator for objects matching filter conditions.
 
@@ -150,6 +174,15 @@ class SQLite3(DB):
                 values,
             )
 
+        def delete(self, object):
+            self.db._execute(
+                f'DELETE from {self.name} WHERE guid = "{object["guid"]}";'
+            )
+
+        def update(self, object):
+            self.delete(object)
+            self.put(object)
+
         def query(self):
             self.db._execute(f'SELECT * from {self.name}')
             for c in self.db.cursor:
@@ -183,6 +216,13 @@ class MongoDB(DB):
 
         def put(self, object):
             self.collection.insert_one(object)
+
+        def delete(self, object):
+            self.collection.delete_one({'guid': object['guid']})
+
+        def update(self, object):
+            self.delete(object)
+            self.put(object)
 
         def query(self):
             return self.collection.find()
