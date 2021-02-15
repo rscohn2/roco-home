@@ -80,16 +80,6 @@ class SignalEventsStore(Store):
                 ]
             )
         },
-        'dynamodb': {
-            'KeySchema': [
-                {'AttributeName': 'signal_guid', 'KeyType': 'HASH'},
-                {'AttributeName': 'time', 'KeyType': 'RANGE'},
-            ],
-            'AttributeDefinitions': [
-                {'AttributeName': 'signal_guid', 'AttributeType': 'S'},
-                {'AttributeName': 'time', 'AttributeType': 'N'},
-            ],
-        },
     }
 
     class Schema(mm.Schema):
@@ -151,14 +141,6 @@ class AccountStore(Store):
                 ]
             )
         },
-        'dynamodb': {
-            'KeySchema': [
-                {'AttributeName': 'guid', 'KeyType': 'HASH'},
-            ],
-            'AttributeDefinitions': [
-                {'AttributeName': 'guid', 'AttributeType': 'S'},
-            ],
-        },
     }
 
     class Schema(mm.Schema):
@@ -214,14 +196,6 @@ class ProjectStore(Store):
                     ('conf', 'json'),
                 ]
             )
-        },
-        'dynamodb': {
-            'KeySchema': [
-                {'AttributeName': 'guid', 'KeyType': 'HASH'},
-            ],
-            'AttributeDefinitions': [
-                {'AttributeName': 'guid', 'AttributeType': 'S'},
-            ],
         },
     }
 
@@ -286,14 +260,6 @@ class SignalStore(Store):
                 ]
             )
         },
-        'dynamodb': {
-            'KeySchema': [
-                {'AttributeName': 'guid', 'KeyType': 'HASH'},
-            ],
-            'AttributeDefinitions': [
-                {'AttributeName': 'guid', 'AttributeType': 'S'},
-            ],
-        },
     }
 
     class Schema(mm.Schema):
@@ -349,14 +315,6 @@ class DeviceStore(Store):
                     ('project_guid', 'text'),
                 ]
             )
-        },
-        'dynamodb': {
-            'KeySchema': [
-                {'AttributeName': 'guid', 'KeyType': 'HASH'},
-            ],
-            'AttributeDefinitions': [
-                {'AttributeName': 'guid', 'AttributeType': 'S'},
-            ],
         },
     }
 
