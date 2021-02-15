@@ -29,13 +29,6 @@ def init_stores(sqlite_db):
     return zz.Stores(sqlite_db)
 
 
-@pytest.fixture
-def local_dynamodb(local_dynamodb_instance):
-    db = zz.DynamoDB()
-    db.reset()
-    return db
-
-
 @pytest.fixture(scope='session')
 def data_dir():
     return path.join(path.dirname(path.realpath(__file__)), 'data')

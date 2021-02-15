@@ -24,27 +24,12 @@ def exercise_db(db):
                 ]
             )
         },
-        # DynamoDB
-        'dynamodb': {
-            'KeySchema': [
-                {'AttributeName': 'signal_guid', 'KeyType': 'HASH'},
-                {'AttributeName': 'time', 'KeyType': 'RANGE'},
-            ],
-            'AttributeDefinitions': [
-                {'AttributeName': 'signal_guid', 'AttributeType': 'S'},
-                {'AttributeName': 'time', 'AttributeType': 'N'},
-            ],
-        },
     }
     table = db.create_table('test', table_info)
     for event in events:
         table.put(event)
     q = table.query()
     assert len(list(q)) == len(events)
-
-
-def test_dynamodb(local_dynamodb):
-    exercise_db(local_dynamodb)
 
 
 def test_sqlite(sqlite_db):

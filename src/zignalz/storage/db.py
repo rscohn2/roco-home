@@ -7,7 +7,6 @@ import logging
 import sqlite3
 from abc import ABC, abstractmethod
 
-import boto3
 import pymongo
 
 """Persistent storage.
@@ -24,7 +23,9 @@ Attributes
 
 DB : class
   Abstract base class for a database
-DynamoDB : class
+MongoDB : class
+  Concrete DB class
+SqliteDB : class
   Concrete DB class
 
 """
@@ -96,60 +97,6 @@ class DB(ABC):
 
             """
             pass
-
-
-class DynamoDB(DB):
-    _provisioned = {"ReadCapacityUnits": 1, "WriteCapacityUnits": 1}
-
-    def __init__(self, port=8000):
-        # cache handles
-        self.client = boto3.client(
-            'dynamodb', endpoint_url='http://localhost:%d' % port
-        )
-        self.resource = boto3.resource(
-            'dynamodb', endpoint_url='http://localhost:%d' % port
-        )
-
-    def reset(self):
-        for name in self.client.list_tables()['TableNames']:
-            self.client.delete_table(TableName=name)
-
-    def create_table(self, name, info):
-        dynamo_info = info['dynamodb']
-        try:
-            logger.info(f'Deleting table: {name}')
-            self.client.delete_table(TableName=name)
-        except self.client.exceptions.ResourceNotFoundException:
-            pass
-        self.client.create_table(
-            TableName=name,
-            KeySchema=dynamo_info['KeySchema'],
-            AttributeDefinitions=dynamo_info['AttributeDefinitions'],
-            ProvisionedThroughput=DynamoDB._provisioned,
-        )
-        return self.Table(self, name)
-
-    class Table(DB.Table):
-        def __init__(self, db, name):
-            self.db = db
-            self.name = name
-            self.table = db.resource.Table(name)
-
-        def query(self, **kwargs):
-            start_key = None
-            while True:
-                if start_key:
-                    kwargs['ExclusiveStartKey'] = start_key
-                response = self.table.scan(**kwargs)
-                for object in response['Items']:
-                    yield object
-                start_key = response.get('LastEvaluatedKey', None)
-                if start_key is None:
-                    return
-
-        def put(self, object):
-            logger.info(f'table: {self.name} put: {object}')
-            self.table.put_item(Item=object)
 
 
 class SQLite3(DB):

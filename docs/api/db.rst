@@ -35,12 +35,3 @@ MongoDB
 
 .. autoclass:: zignalz.storage.db::MongoDB.Table
    :members:
-
-DynamoDB
---------
-
-.. autoclass:: zignalz.storage.db::DynamoDB
-   :members:
-
-.. autoclass:: zignalz.storage.db::DynamoDB.Table
-   :members:

@@ -22,10 +22,8 @@ from zignalz.core.util import shell  # noqa: F401
 from zignalz.services.analyzer.entry_points import Analyzer  # noqa: F401
 from zignalz.services.collector.app import CollectorApp  # noqa: F401
 from zignalz.services.collector.entry_points import Collector  # noqa: F401
-from zignalz.storage.db import DynamoDB  # noqa: F401
 from zignalz.storage.db import MongoDB  # noqa: F401
 from zignalz.storage.db import SQLite3  # noqa: F401
-from zignalz.storage.local_db import LocalDynamoDB  # noqa: F401
 from zignalz.storage.local_db import LocalMongoDB  # noqa: F401
 from zignalz.storage.store import Stores  # noqa: F401
 
