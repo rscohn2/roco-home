@@ -39,7 +39,8 @@ class SignalEvent(Event):
          Incoming representation
     """
 
-    def __init__(self, time, device, signal, val):
+    def __init__(self, time, device, signal, val, guid=None):
+        self.guid = guid if guid else zz.make_guid()
         self.time = time
         self.device = device
         self.signal = signal
