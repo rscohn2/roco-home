@@ -2,9 +2,11 @@
 ..
 .. SPDX-License-Identifier: MIT
 
-=========
+.. _device-api:
+
+======
 Device
-=========
+======
 
 .. automodule:: zignalz.core.device
    :members:

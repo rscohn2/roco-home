@@ -2,6 +2,8 @@
 ..
 .. SPDX-License-Identifier: MIT
 
+.. _signal-api:
+
 ======
 Signal
 ======

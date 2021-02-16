@@ -9,31 +9,18 @@ Architecture
 Application Architecture
 ========================
 
-.. figure:: images/application-architecture.png
+.. figure:: /images/application-architecture.png
 
    Application Architecture
 
 Common architecture
 ===================
 
-authentication
-  Tokens are used for authentication.
+.. toctree::
+   :maxdepth: 1
 
-authorization
-  Devices have write access
-object handles
-  In-memory handles are references to python objects. When a handle is
-  saved in storage, it is converted to a :term:`GUID`.
-
-
-
-Project Definition
-==================
-
-Projects are defined by a configuration. A project contains devices
-and signals. A device contains a token for authentication and the
-mapping of sensor events to signals.
-
+   auth
+   metadata
 
 Collector
 =========

@@ -10,7 +10,7 @@ Welcome to ``zignalz``'s documentation!
    :caption: Contents:
 
    introduction
-   architecture
+   architecture/architecture
    api-reference
    software-organization
    deployment
