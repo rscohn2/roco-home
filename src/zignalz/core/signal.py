@@ -9,7 +9,7 @@ class Signal(zz.Object):
 
     _by_guid = {}
 
-    def __init__(self, name, project, guid=None):
+    def __init__(self, name, project, guid):
         """Representation of a signal.
 
         Parameters
@@ -22,9 +22,4 @@ class Signal(zz.Object):
 
         self.project = project
         self.name = name
-        self.guid = guid if guid else zz.make_guid()
-        Signal._by_guid[self.guid] = self
-
-    def by_guid(guid):
-        """Returns signal associated with GUID."""
-        return Signal._by_guid[guid]
+        self.guid = guid

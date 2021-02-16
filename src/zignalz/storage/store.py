@@ -82,6 +82,8 @@ class SignalEventsStore(Store):
         },
     }
 
+    _by_guid = {}
+
     class Schema(mm.Schema):
         """Schema for signal events."""
 
@@ -120,9 +122,10 @@ class SignalEventsStore(Store):
             s_d = self.schema.load(d)
             yield zz.SignalEvent(
                 time=s_d['time'],
-                device=zz.Device.by_guid(s_d['device_guid']),
-                signal=zz.Signal.by_guid(s_d['signal_guid']),
+                device=DeviceStore._by_guid[s_d['device_guid']],
+                signal=SignalStore._by_guid[s_d['signal_guid']],
                 val=s_d['val'],
+                guid=s_d['guid'],
             )
 
 
@@ -142,6 +145,8 @@ class AccountStore(Store):
             )
         },
     }
+
+    _by_guid = {}
 
     class Schema(mm.Schema):
         """Schema for account store."""
@@ -199,6 +204,8 @@ class ProjectStore(Store):
         },
     }
 
+    _by_guid = {}
+
     class Schema(mm.Schema):
         """Schema for project store."""
 
@@ -236,13 +243,11 @@ class ProjectStore(Store):
             d = dict(q)
             logger.info(f'ProjectStore query result: {d}')
             s_d = self.schema.load(d)
-            p = zz.Project.by_guid(s_d['guid'])
-            if p is None:
-                account = zz.Account.by_guid(s_d['account_guid'])
-                p = zz.Project(
-                    guid=s_d['guid'], name=s_d['name'], account=account
-                )
-            yield p
+            yield zz.Project(
+                guid=s_d['guid'],
+                name=s_d['name'],
+                account=AccountStore._by_guid[s_d['account_guid']],
+            )
 
 
 class SignalStore(Store):
@@ -261,6 +266,8 @@ class SignalStore(Store):
             )
         },
     }
+
+    _by_guid = {}
 
     class Schema(mm.Schema):
         """Schema for project store."""
@@ -295,9 +302,10 @@ class SignalStore(Store):
             d = dict(q)
             logger.info(f'SignalStore query result: {d}')
             s_d = self.schema.load(d)
-            project = zz.Project.by_guid(s_d['project_guid'])
             yield zz.Signal(
-                guid=s_d['guid'], name=s_d['name'], project=project
+                guid=s_d['guid'],
+                name=s_d['name'],
+                project=ProjectStore._by_guid[s_d['project_guid']],
             )
 
 
@@ -351,7 +359,8 @@ class DeviceStore(Store):
             d = dict(q)
             logger.info(f'DeviceStore query result: {d}')
             s_d = self.schema.load(d)
-            project = zz.Project.by_guid(s_d['project_guid'])
             yield zz.Signal(
-                guid=s_d['guid'], name=s_d['name'], project=project
+                guid=s_d['guid'],
+                name=s_d['name'],
+                project=ProjectStore._by_guid[s_d['project_guid']],
             )

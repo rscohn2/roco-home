@@ -11,14 +11,11 @@ logger = logging.getLogger(__name__)
 
 class Device(zz.Object):
 
-    _by_guid = {}
-    """Lookup device by GUID."""
-
     _by_token = {}
     """Lookup device by token."""
 
-    def __init__(self, name, project, guid=None, token=None):
-        self.guid = guid if guid else zz.make_guid()
+    def __init__(self, name, project, guid, token=None):
+        self.guid = guid
         self.token = token if token else zz.make_token()
         self.name = name
         self.project = project

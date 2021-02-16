@@ -24,7 +24,7 @@ Create
 
 Delete
   Account is removed, including all projects.
-  
+
 
 Project
 =======
@@ -55,7 +55,7 @@ Activate
 
 Deactivate
   Remove sensor/signal mappings in collector.
-  
+
 Move
   Assign a project to another account. All configuration and signal
   data is moved.
@@ -73,7 +73,7 @@ Life Cycle
 
 Create
   Assigned an access token. Name must be unique in Project_.
-  
+
 Move
   Metadata and signal data is deleted.
 
