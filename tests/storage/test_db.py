@@ -13,9 +13,9 @@ events = [
 
 
 def get(table, guid):
-    for i in list(table.query()):
-        if i['guid'] == guid:
-            return i
+    for i in list(table.query({'guid': guid})):
+        assert i['guid'] == guid
+        return i
 
 
 def exercise_db(db):

@@ -183,8 +183,12 @@ class SQLite3(DB):
             self.delete(object)
             self.put(object)
 
-        def query(self):
-            self.db._execute(f'SELECT * from {self.name}')
+        def query(self, conditions={}):
+            cond = ' and '.join(
+                [f'{key} = "{value}"' for key, value in conditions.items()]
+            )
+            where = '' if cond == '' else f' WHERE {cond}'
+            self.db._execute(f'SELECT * FROM {self.name} {where} ;')
             for c in self.db.cursor:
                 o = {}
                 for k in self.info['schema']:
@@ -224,5 +228,5 @@ class MongoDB(DB):
             self.delete(object)
             self.put(object)
 
-        def query(self):
-            return self.collection.find()
+        def query(self, conditions={}):
+            return self.collection.find(conditions)
