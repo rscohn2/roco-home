@@ -16,9 +16,13 @@ import zignalz as zz
 
 logger = logging.getLogger(__name__)
 
+stores = None
+
 
 class Stores:
     def __init__(self, db):
+        global stores
+        stores = self
         self.signal_events = SignalEventsStore.create(db)
         self.account = AccountStore.create(db)
         self.project = ProjectStore.create(db)
@@ -40,6 +44,11 @@ class Store(ABC):
 
     def table(self, db, name, info):
         self.table = db.Table(db, name, info)
+
+    def __init__(self, db, derived):
+        self.table(db, derived.table_name, derived.table_info)
+        self.schema = derived.Schema()
+        self.by_guid = {}
 
     @abstractmethod
     def create(db):
@@ -91,10 +100,7 @@ class SignalEventsStore(Store):
         val = mm.fields.Float()
 
     def __init__(self, db):
-        self.table(
-            db, SignalEventsStore.table_name, SignalEventsStore.table_info
-        )
-        self.schema = SignalEventsStore.Schema()
+        super().__init__(db, SignalEventsStore)
 
     def create(db):
         db.create_table(
@@ -120,8 +126,8 @@ class SignalEventsStore(Store):
             s_d = self.schema.load(d)
             yield zz.SignalEvent(
                 time=s_d['time'],
-                device=zz.Device.by_guid(s_d['device_guid']),
-                signal=zz.Signal.by_guid(s_d['signal_guid']),
+                device=stores.device.by_guid[s_d['device_guid']],
+                signal=stores.signal.by_guid[s_d['signal_guid']],
                 val=s_d['val'],
             )
 
@@ -154,8 +160,7 @@ class AccountStore(Store):
             unknown = mm.EXCLUDE
 
     def __init__(self, db):
-        self.table(db, AccountStore.table_name, AccountStore.table_info)
-        self.schema = AccountStore.Schema()
+        super().__init__(db, AccountStore)
 
     def create(db):
         db.create_table(AccountStore.table_name, AccountStore.table_info)
@@ -176,9 +181,11 @@ class AccountStore(Store):
             d = dict(q)
             logger.info(f'AccountStore query result: {d}')
             s_d = self.schema.load(d)
-            yield zz.Account(
+            a = zz.Account(
                 guid=s_d['guid'], name=s_d['name'], token=s_d['token']
             )
+            self.by_guid[s_d['guid']] = a
+            yield a
 
 
 class ProjectStore(Store):
@@ -212,9 +219,8 @@ class ProjectStore(Store):
             unknown = mm.EXCLUDE
 
     def __init__(self, db):
+        super().__init__(db, ProjectStore)
         self.conf = {}
-        self.table(db, ProjectStore.table_name, ProjectStore.table_info)
-        self.schema = ProjectStore.Schema()
 
     def create(db):
         db.create_table(ProjectStore.table_name, ProjectStore.table_info)
@@ -236,12 +242,9 @@ class ProjectStore(Store):
             d = dict(q)
             logger.info(f'ProjectStore query result: {d}')
             s_d = self.schema.load(d)
-            p = zz.Project.by_guid(s_d['guid'])
-            if p is None:
-                account = zz.Account.by_guid(s_d['account_guid'])
-                p = zz.Project(
-                    guid=s_d['guid'], name=s_d['name'], account=account
-                )
+            account = stores.account.by_guid[s_d['account_guid']]
+            p = zz.Project(guid=s_d['guid'], name=s_d['name'], account=account)
+            self.by_guid[p.guid] = p
             yield p
 
 
@@ -273,8 +276,7 @@ class SignalStore(Store):
             unknown = mm.EXCLUDE
 
     def __init__(self, db):
-        self.table(db, SignalStore.table_name, SignalStore.table_info)
-        self.schema = SignalStore.Schema()
+        super().__init__(db, SignalStore)
 
     def create(db):
         db.create_table(SignalStore.table_name, SignalStore.table_info)
@@ -295,10 +297,10 @@ class SignalStore(Store):
             d = dict(q)
             logger.info(f'SignalStore query result: {d}')
             s_d = self.schema.load(d)
-            project = zz.Project.by_guid(s_d['project_guid'])
-            yield zz.Signal(
-                guid=s_d['guid'], name=s_d['name'], project=project
-            )
+            project = stores.project.by_guid[s_d['project_guid']]
+            s = zz.Signal(guid=s_d['guid'], name=s_d['name'], project=project)
+            self.by_guid[s_d['guid']] = s
+            yield s
 
 
 class DeviceStore(Store):
@@ -329,8 +331,7 @@ class DeviceStore(Store):
             unknown = mm.EXCLUDE
 
     def __init__(self, db):
-        self.table(db, DeviceStore.table_name, DeviceStore.table_info)
-        self.schema = DeviceStore.Schema()
+        super().__init__(db, DeviceStore)
 
     def create(db):
         db.create_table(DeviceStore.table_name, DeviceStore.table_info)
@@ -351,7 +352,7 @@ class DeviceStore(Store):
             d = dict(q)
             logger.info(f'DeviceStore query result: {d}')
             s_d = self.schema.load(d)
-            project = zz.Project.by_guid(s_d['project_guid'])
-            yield zz.Signal(
-                guid=s_d['guid'], name=s_d['name'], project=project
-            )
+            project = stores.project.by_guid[s_d['project_guid']]
+            d = zz.Device(guid=s_d['guid'], name=s_d['name'], project=project)
+            self.by_guid[s_d['guid']] = d
+            yield d

@@ -10,9 +10,6 @@ logger = logging.getLogger(__name__)
 
 
 class Project(zz.Object):
-
-    _by_guid = {}
-
     def __init__(self, name, account, guid=None):
         """Container for project info."""
 
@@ -22,13 +19,6 @@ class Project(zz.Object):
         self._signal_by_name = {}
         self._device_by_name = {}
         self.conf = {}
-        zz.Project._by_guid[guid] = self
-
-    def by_guid(guid):
-        try:
-            return Project._by_guid[guid]
-        except KeyError:
-            return None
 
     def _get_overrides(self, name, overrides):
         """Allow overrides for debugging."""
