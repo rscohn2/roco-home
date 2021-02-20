@@ -52,6 +52,7 @@ def account_match(ref, account):
         and account.token == ref.token
     )
 
+
 projects = [
     Project('project1', accounts[0]),
     Project('project2', accounts[1]),
@@ -65,6 +66,7 @@ def project_match(ref, project):
         and project.name == ref.name
         and account_match(project.account, ref.account)
     )
+
 
 signals = [
     Signal('signal1', projects[0]),
