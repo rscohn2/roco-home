@@ -62,10 +62,30 @@ class Store(ABC):
         Parameters
         ----------
         object : object
-          object with to_store method that returns a dict
 
         """
         pass
+
+    @abstractmethod
+    def update(self, object):
+        """Update an object.
+
+        Parameters
+        ----------
+        object : object
+
+        """
+        pass
+
+    def delete(self, object):
+        """Delete an object.
+
+        Parameters
+        ----------
+        object : object
+
+        """
+        self.table.delete({'guid': object.guid})
 
     @abstractmethod
     def query(self):
@@ -82,6 +102,7 @@ class SignalEventsStore(Store):
         'sqlite': {
             'schema': OrderedDict(
                 [
+                    ('guid', 'text'),
                     ('signal_guid', 'text'),
                     ('time', 'integer'),
                     ('device_guid', 'text'),
@@ -94,6 +115,7 @@ class SignalEventsStore(Store):
     class Schema(mm.Schema):
         """Schema for signal events."""
 
+        guid = mm.fields.UUID()
         time = mm.fields.Int()
         signal_guid = mm.fields.UUID()
         device_guid = mm.fields.UUID()
@@ -108,16 +130,22 @@ class SignalEventsStore(Store):
         )
         return SignalEventsStore(db)
 
-    def put(self, se):
-        so = self.schema.dump(
+    def _dump(self, se):
+        return self.schema.dump(
             {
+                'guid': se.guid,
                 'time': se.time,
                 'signal_guid': se.signal.guid,
                 'device_guid': se.device.guid,
                 'val': se.val,
             }
         )
-        self.table.put(so)
+
+    def put(self, o):
+        self.table.put(self._dump(o))
+
+    def update(self, o):
+        self.table.update(self._dump(o))
 
     def query(self):
         for q in self.table.query():
@@ -166,15 +194,20 @@ class AccountStore(Store):
         db.create_table(AccountStore.table_name, AccountStore.table_info)
         return AccountStore(db)
 
-    def put(self, o):
-        d = self.schema.dump(
+    def _dump(self, o):
+        return self.schema.dump(
             {
                 'guid': o.guid,
                 'name': o.name,
                 'token': o.token,
             }
         )
-        self.table.put(d)
+
+    def put(self, o):
+        self.table.put(self._dump(o))
+
+    def update(self, o):
+        self.table.update(self._dump(o))
 
     def query(self):
         for q in self.table.query():
@@ -226,8 +259,8 @@ class ProjectStore(Store):
         db.create_table(ProjectStore.table_name, ProjectStore.table_info)
         return ProjectStore(db)
 
-    def put(self, o):
-        d = self.schema.dump(
+    def _dump(self, o):
+        return self.schema.dump(
             {
                 'guid': o.guid,
                 'name': o.name,
@@ -235,7 +268,12 @@ class ProjectStore(Store):
                 'conf': o.conf,
             }
         )
-        self.table.put(d)
+
+    def put(self, o):
+        self.table.put(self._dump(o))
+
+    def update(self, o):
+        self.table.update(self._dump(o))
 
     def query(self):
         for q in self.table.query():
@@ -282,15 +320,20 @@ class SignalStore(Store):
         db.create_table(SignalStore.table_name, SignalStore.table_info)
         return SignalStore(db)
 
-    def put(self, o):
-        d = self.schema.dump(
+    def _dump(self, o):
+        return self.schema.dump(
             {
                 'guid': o.guid,
                 'name': o.name,
                 'project_guid': o.project.guid,
             }
         )
-        self.table.put(d)
+
+    def put(self, o):
+        self.table.put(self._dump(o))
+
+    def update(self, o):
+        self.table.update(self._dump(o))
 
     def query(self):
         for q in self.table.query():
@@ -337,15 +380,20 @@ class DeviceStore(Store):
         db.create_table(DeviceStore.table_name, DeviceStore.table_info)
         return DeviceStore(db)
 
-    def put(self, o):
-        d = self.schema.dump(
+    def _dump(self, o):
+        return self.schema.dump(
             {
                 'guid': o.guid,
                 'name': o.name,
                 'project_guid': o.project.guid,
             }
         )
-        self.table.put(d)
+
+    def put(self, o):
+        self.table.put(self._dump(o))
+
+    def update(self, o):
+        self.table.update(self._dump(o))
 
     def query(self):
         for q in self.table.query():

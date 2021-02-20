@@ -2,11 +2,40 @@
 #
 # SPDX-License-Identifier: MIT
 
+import logging
+
 from zignalz import Account, Device, Project, Signal, SignalEvent
+
+logger = logging.getLogger(__name__)
 
 
 def test_init_store(init_stores):
     pass
+
+
+def found(ref, objects, match):
+    logger.info(f'looking for {ref}')
+    for o in objects:
+        logger.info(f'  checking {o}')
+        if match(o, ref):
+            return True
+    return False
+
+
+def exercise_store(objects, store, match):
+    for o in objects:
+        store.put(o)
+    q = list(store.query())
+    assert len(objects) == len(q)
+    for o in objects:
+        assert found(o, q, match)
+    store.delete(objects[0])
+    q = list(store.query())
+    assert not found(objects[0], q, match)
+    objects[1].name = 'foo'
+    store.update(objects[1])
+    q = list(store.query())
+    assert found(objects[1], q, match)
 
 
 accounts = [
@@ -24,24 +53,6 @@ def account_match(ref, account):
     )
 
 
-def account_found(ref, accounts):
-    for account in accounts:
-        print('  checking:', account)
-        if account_match(account, ref):
-            return True
-    return False
-
-
-def account_store(init_stores):
-    store = init_stores.account
-    for account in accounts:
-        store.put(account)
-    q = list(store.query())
-    assert len(accounts) == len(q)
-    for account in accounts:
-        assert account_found(account, q)
-
-
 projects = [
     Project('project1', accounts[0]),
     Project('project2', accounts[1]),
@@ -55,23 +66,6 @@ def project_match(ref, project):
         and project.name == ref.name
         and account_match(project.account, ref.account)
     )
-
-
-def project_found(ref, projects):
-    for project in projects:
-        if project_match(ref, project):
-            return True
-    return False
-
-
-def project_store(init_stores):
-    store = init_stores.project
-    for project in projects:
-        store.put(project)
-    q = list(store.query())
-    assert len(projects) == len(q)
-    for project in projects:
-        assert project_found(project, q)
 
 
 signals = [
@@ -89,23 +83,6 @@ def signal_match(ref, signal):
     )
 
 
-def signal_found(ref, signals):
-    for signal in signals:
-        if signal_match(ref, signal):
-            return True
-    return False
-
-
-def signal_store(init_stores):
-    store = init_stores.signal
-    for signal in signals:
-        store.put(signal)
-    q = list(store.query())
-    assert len(signals) == len(q)
-    for signal in signals:
-        assert signal_found(signal, q)
-
-
 devices = [
     Device('device1', projects[0]),
     Device('device2', projects[0]),
@@ -121,23 +98,6 @@ def device_match(ref, device):
     )
 
 
-def device_found(ref, devices):
-    for device in devices:
-        if device_match(ref, device):
-            return True
-    return False
-
-
-def device_store(init_stores):
-    store = init_stores.device
-    for device in devices:
-        store.put(device)
-    q = list(store.query())
-    assert len(devices) == len(q)
-    for device in devices:
-        assert device_found(device, q)
-
-
 signal_events = [
     SignalEvent(0, devices[0], signals[0], 0),
     SignalEvent(1, devices[0], signals[0], 1),
@@ -147,8 +107,6 @@ signal_events = [
 
 
 def signal_event_match(ref, test):
-    print('  checking', test)
-    print('    with', test.signal)
     return (
         test.time == ref.time
         and device_match(test.device, ref.device)
@@ -157,28 +115,11 @@ def signal_event_match(ref, test):
     )
 
 
-def signal_event_found(ref, signal_events):
-    for signal_event in signal_events:
-        if signal_event_match(ref, signal_event):
-            return True
-    return False
-
-
-def signal_event_store(init_stores):
-    store = init_stores.signal_events
-    for signal_event in signal_events:
-        store.put(signal_event)
-    q = list(store.query())
-    assert len(signal_events) == len(q)
-    for signal_event in signal_events:
-        print('look for', signal_event)
-        print(' with', signal_event.signal)
-        assert signal_event_found(signal_event, q)
-
-
 def test_stores(init_stores):
-    account_store(init_stores)
-    project_store(init_stores)
-    signal_store(init_stores)
-    device_store(init_stores)
-    signal_event_store(init_stores)
+    exercise_store(accounts, init_stores.account, account_match)
+    exercise_store(projects, init_stores.project, project_match)
+    exercise_store(signals, init_stores.signal, signal_match)
+    exercise_store(devices, init_stores.device, device_match)
+    exercise_store(
+        signal_events, init_stores.signal_events, signal_event_match
+    )
