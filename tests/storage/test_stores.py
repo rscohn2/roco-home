@@ -97,6 +97,7 @@ def signal_found(ref, signals):
 
 
 def test_signal_store(init_stores):
+    test_project_store(init_stores)
     store = init_stores.signal
     for signal in signals:
         store.put(signal)
@@ -129,6 +130,7 @@ def device_found(ref, devices):
 
 
 def test_device_store(init_stores):
+    test_project_store(init_stores)
     store = init_stores.device
     for device in devices:
         store.put(device)
