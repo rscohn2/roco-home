@@ -32,7 +32,7 @@ def account_found(ref, accounts):
     return False
 
 
-def test_account_store(init_stores):
+def account_store(init_stores):
     store = init_stores.account
     for account in accounts:
         store.put(account)
@@ -64,8 +64,7 @@ def project_found(ref, projects):
     return False
 
 
-def test_project_store(init_stores):
-    test_account_store(init_stores)
+def project_store(init_stores):
     store = init_stores.project
     for project in projects:
         store.put(project)
@@ -97,8 +96,7 @@ def signal_found(ref, signals):
     return False
 
 
-def test_signal_store(init_stores):
-    test_project_store(init_stores)
+def signal_store(init_stores):
     store = init_stores.signal
     for signal in signals:
         store.put(signal)
@@ -130,8 +128,7 @@ def device_found(ref, devices):
     return False
 
 
-def test_device_store(init_stores):
-    test_project_store(init_stores)
+def device_store(init_stores):
     store = init_stores.device
     for device in devices:
         store.put(device)
@@ -167,7 +164,7 @@ def signal_event_found(ref, signal_events):
     return False
 
 
-def test_signal_event_store(init_stores):
+def signal_event_store(init_stores):
     store = init_stores.signal_events
     for signal_event in signal_events:
         store.put(signal_event)
@@ -177,3 +174,11 @@ def test_signal_event_store(init_stores):
         print('look for', signal_event)
         print(' with', signal_event.signal)
         assert signal_event_found(signal_event, q)
+
+
+def test_stores(init_stores):
+    account_store(init_stores)
+    project_store(init_stores)
+    signal_store(init_stores)
+    device_store(init_stores)
+    signal_event_store(init_stores)

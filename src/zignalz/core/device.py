@@ -11,9 +11,6 @@ logger = logging.getLogger(__name__)
 
 class Device(zz.Object):
 
-    _by_guid = {}
-    """Lookup device by GUID."""
-
     _by_token = {}
     """Lookup device by token."""
 
@@ -23,11 +20,7 @@ class Device(zz.Object):
         self.name = name
         self.project = project
         self._sensor_by_name = {}
-        Device._by_guid[self.guid] = self
         Device._by_token[self.token] = self
-
-    def by_guid(guid):
-        return Device._by_guid[guid]
 
     def by_token(token):
         return Device._by_token[token]

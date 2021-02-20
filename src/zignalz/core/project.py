@@ -10,7 +10,6 @@ logger = logging.getLogger(__name__)
 
 
 class Project(zz.Object):
-
     def __init__(self, name, account, guid=None):
         """Container for project info."""
 

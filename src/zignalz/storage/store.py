@@ -18,6 +18,7 @@ logger = logging.getLogger(__name__)
 
 stores = None
 
+
 class Stores:
     def __init__(self, db):
         global stores
@@ -48,7 +49,7 @@ class Store(ABC):
         self.table(db, derived.table_name, derived.table_info)
         self.schema = derived.Schema()
         self.by_guid = {}
-        
+
     @abstractmethod
     def create(db):
         """Create the persistent object in the db."""
@@ -125,8 +126,8 @@ class SignalEventsStore(Store):
             s_d = self.schema.load(d)
             yield zz.SignalEvent(
                 time=s_d['time'],
-                device=zz.Device.by_guid(s_d['device_guid']),
-                signal=zz.Signal.by_guid(s_d['signal_guid']),
+                device=stores.device.by_guid[s_d['device_guid']],
+                signal=stores.signal.by_guid[s_d['signal_guid']],
                 val=s_d['val'],
             )
 
@@ -242,9 +243,7 @@ class ProjectStore(Store):
             logger.info(f'ProjectStore query result: {d}')
             s_d = self.schema.load(d)
             account = stores.account.by_guid[s_d['account_guid']]
-            p = zz.Project(
-                    guid=s_d['guid'], name=s_d['name'], account=account
-                )
+            p = zz.Project(guid=s_d['guid'], name=s_d['name'], account=account)
             self.by_guid[p.guid] = p
             yield p
 
@@ -299,9 +298,9 @@ class SignalStore(Store):
             logger.info(f'SignalStore query result: {d}')
             s_d = self.schema.load(d)
             project = stores.project.by_guid[s_d['project_guid']]
-            yield zz.Signal(
-                guid=s_d['guid'], name=s_d['name'], project=project
-            )
+            s = zz.Signal(guid=s_d['guid'], name=s_d['name'], project=project)
+            self.by_guid[s_d['guid']] = s
+            yield s
 
 
 class DeviceStore(Store):
@@ -354,6 +353,6 @@ class DeviceStore(Store):
             logger.info(f'DeviceStore query result: {d}')
             s_d = self.schema.load(d)
             project = stores.project.by_guid[s_d['project_guid']]
-            yield zz.Signal(
-                guid=s_d['guid'], name=s_d['name'], project=project
-            )
+            d = zz.Device(guid=s_d['guid'], name=s_d['name'], project=project)
+            self.by_guid[s_d['guid']] = d
+            yield d
