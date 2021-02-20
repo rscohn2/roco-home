@@ -17,7 +17,6 @@ class Account(zz.Object):
 
     """
 
-    _by_guid = {}
     _by_name = {}
 
     def __init__(self, name, guid=None, token=None):
@@ -25,11 +24,7 @@ class Account(zz.Object):
         self.guid = guid if guid else zz.make_guid()
         self.name = name
         self.token = token if token else zz.make_token()
-        Account._by_guid[self.guid] = self
         Account._by_name[self.name] = self
-
-    def by_guid(guid):
-        return Account._by_guid[guid]
 
     def by_name(name):
         return Account._by_name[name]

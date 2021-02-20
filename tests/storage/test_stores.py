@@ -65,6 +65,7 @@ def project_found(ref, projects):
 
 
 def test_project_store(init_stores):
+    test_account_store(init_stores)
     store = init_stores.project
     for project in projects:
         store.put(project)

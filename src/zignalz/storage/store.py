@@ -180,9 +180,11 @@ class AccountStore(Store):
             d = dict(q)
             logger.info(f'AccountStore query result: {d}')
             s_d = self.schema.load(d)
-            yield zz.Account(
+            a = zz.Account(
                 guid=s_d['guid'], name=s_d['name'], token=s_d['token']
             )
+            self.by_guid[s_d['guid']] = a
+            yield a
 
 
 class ProjectStore(Store):
@@ -239,7 +241,7 @@ class ProjectStore(Store):
             d = dict(q)
             logger.info(f'ProjectStore query result: {d}')
             s_d = self.schema.load(d)
-            account = zz.Account.by_guid(s_d['account_guid'])
+            account = stores.account.by_guid[s_d['account_guid']]
             p = zz.Project(
                     guid=s_d['guid'], name=s_d['name'], account=account
                 )
